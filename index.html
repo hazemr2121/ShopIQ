@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const supabaseUrl = "https://dsiiycibiiuevqjdjfmx.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzaWl5Y2liaWl1ZXZxamRqZm14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ1NTI4NTYsImV4cCI6MjA1MDEyODg1Nn0.nBnczzMrj8AsqGV-7XM-sIJe2q4yDBQMqbi_H_mRIFY";
+      const app = supabase.createClient(supabaseUrl, supabaseKey);
+      //get products
+      //   fetch("https://dummyjson.com/products")
+      //     .then((res) => res.json())
+      //     .then(console.log);
+      //   //insert product
+      //   async function insertProduct() {
+      //     const { data, error } = await app.from("Products").insert();
+      //     console.log(data);
+      //   }
+      //   async function getProducts() {
+      //     Response = await app.from("Products").select("id");
+      //     console.log(Response);
+      //   }
+      //   //   insertProduct();
+      //   getProducts();
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
