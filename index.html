@@ -28,6 +28,41 @@
       //   //   insertProduct();
       //   getProducts();
     </script>
-    <script src="script.js"></script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
+      const firebaseConfig = {
+        databaseURL:
+          "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
+      };
+      const firebaseApp = initializeApp(firebaseConfig);
+      console.log(firebaseApp);
+      const db = getDatabase(firebaseApp);
+      // function writeUserData(userId, name, email, imageUrl) {
+      //   set(ref(db, "users/" + userId), {
+      //     username: name,
+      //     email: email,
+      //     profile_picture: imageUrl,
+      //   });
+      // }
+      writeUserData("1", "name", "email", "imageUrl");
+      // Read data
+      const user = ref(db, "users/" + 1);
+      onValue(user, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+      });
+      // Add Firebase products that you want to use
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+    </script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
