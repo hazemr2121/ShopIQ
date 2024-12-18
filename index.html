@@ -6,60 +6,7 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-      const supabaseUrl = "https://dsiiycibiiuevqjdjfmx.supabase.co";
-      const supabaseKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzaWl5Y2liaWl1ZXZxamRqZm14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ1NTI4NTYsImV4cCI6MjA1MDEyODg1Nn0.nBnczzMrj8AsqGV-7XM-sIJe2q4yDBQMqbi_H_mRIFY";
-      const app = supabase.createClient(supabaseUrl, supabaseKey);
-      //get products
-      //   fetch("https://dummyjson.com/products")
-      //     .then((res) => res.json())
-      //     .then(console.log);
-      //   //insert product
-      //   async function insertProduct() {
-      //     const { data, error } = await app.from("Products").insert();
-      //     console.log(data);
-      //   }
-      //   async function getProducts() {
-      //     Response = await app.from("Products").select("id");
-      //     console.log(Response);
-      //   }
-      //   //   insertProduct();
-      //   getProducts();
-    </script>
-
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-      import {
-        getDatabase,
-        ref,
-        set,
-        onValue,
-      } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
-
-      const firebaseConfig = {
-        databaseURL:
-          "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
-      };
-      const firebaseApp = initializeApp(firebaseConfig);
-      console.log(firebaseApp);
-      const db = getDatabase(firebaseApp);
-      // function writeUserData(userId, name, email, imageUrl) {
-      //   set(ref(db, "users/" + userId), {
-      //     username: name,
-      //     email: email,
-      //     profile_picture: imageUrl,
-      //   });
-      // }
-      writeUserData("1", "name", "email", "imageUrl");
-      // Read data
-      const user = ref(db, "users/" + 1);
-      onValue(user, (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-      });
-      // Add Firebase products that you want to use
       import { getAuth } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
       import { getFirestore } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
     </script>
