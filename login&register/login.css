@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+:root {
+  --main-color: #2b2b3f;
+  --hover-color: #41414c;
+  --second-color: #febd69;
+  --border-color: #f4e6e6;
+  --blak-90: #1a1a1a;
+  --blak-70: #1a1a1a9d;
+  --white-color: #fff;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #2b2b3f;
+  color: #ffffff;
+}
+
+.container {
+  background: var(--hover-color);
+  padding: 1.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: 2px 5px 20px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+}
+
+.container h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: var(--white-color);
+}
+.form-group {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--white-color);
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.3);
+}
+input::placeholder {
+  color: #cccccc;
+  font-style: italic;
+  opacity: 1;
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #1c2431;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #191d24;
+}
+
+.container p {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.container a {
+  color: #ffffff;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.container a:hover {
+  color: #ffcc00;
+}
+.container .form-group .hidden {
+  margin: 0 0 0 0.5rem;
+  color: #171816;
+  display: none;
+}
+.container .form-group .user-massge {
+  display: block;
+}
+.container .form-group .error {
+  color: #ff4d4d;
+}
+
+.container .form-group .success {
+  color: #4caf50;
+}

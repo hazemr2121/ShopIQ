@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>register page</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Register</h1>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" required />
+          <p class="hidden" id="usernameMassage">Enter at least 3 characters</p>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" required />
+          <p class="hidden" id="emailMassage">
+            Enter validat e-mail "user@domain.io"
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" required />
+          <p class="hidden" id="passwordMassage">
+            password must include uppercase letter, lowercase letter, digit,
+            special character and at least 8 characters.
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" required />
+          <p class="hidden" id="confirmPasswordMassage">
+            re-enter your password to confirm.
+          </p>
+        </div>
+        <button type="submit">Register</button>
+        <!-- <p id="error" class="error"></p>
+        <p id="success" class="success"></p> -->
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </form>
+    </div>
+  </body>
+  <script src="register.js"></script>
+</html>
