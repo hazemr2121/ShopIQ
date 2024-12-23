@@ -13,6 +13,7 @@ const app = initializeApp(firebaseConfig);
 console.log(app);
 
 // async function fetchAndInsertProducts(
+//   id,
 //   name,
 //   category,
 //   price,
@@ -32,7 +33,7 @@ console.log(app);
 
 //     //     // Map the products to the desired structure
 //     const processedData = products.map((product) => ({
-//       //       id: product.id,
+//       id: product.id,
 //       name: product.title,
 //       category: product.category,
 //       price: product.price,
@@ -52,6 +53,8 @@ console.log(app);
 //         const productRef = ref(db, "products/" + index); // Create a reference for each product
 
 //         set(productRef, {
+//           id: product.id,
+
 //           name: product.name,
 //           category: product.category,
 //           price: product.price,
