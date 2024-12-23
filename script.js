@@ -12,6 +12,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 console.log(app);
 
+var productsData = [];
+const db = getDatabase();
+const productsRef = ref(db, "products");
+onValue(productsRef, (snapshot) => {
+  productsData = snapshot.val();
+  productsData.length === 0 ? null : document.getElementById("loading").style.display = "none";
+  console.log(productsData);
+});
+
 // async function fetchAndInsertProducts(
 //   id,
 //   name,
@@ -94,3 +103,31 @@ console.log(app);
 // fetchAndInsertProducts();
 
 // firebase init
+
+// async function insertCategories() {
+
+//   const response = await fetch('https://dummyjson.com/products/category-list');
+//   const data = await response.json();
+
+//   console.log(data)
+
+
+//   // const db = getDatabase();
+//   const categoriesRef = ref(db, "categories");
+//   set(categoriesRef, data).then(() => {
+//     console.log("Categories inserted successfully!");
+//   }).catch((error) => {
+//     console.error("Error inserting categories:", error);
+//   });
+  
+//   // set(ref(db, 'categories'), {
+//   //   username: name,
+//   //   email: email,
+//   //   profile_picture: imageUrl
+//   // });
+// }
+
+// insertCategories()
+
+
+
