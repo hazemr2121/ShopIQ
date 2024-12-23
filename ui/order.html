@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Font Awesome CDN for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">
+          <h1>Store</h1>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search Product Here" />
+          <button type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
+        <div class="header-actions">
+          <div class="wishlist">
+            <a href="#" class="icon-link">
+              <i class="fa fa-heart"></i>
+              <span class="badge">0</span>
+              <span>Wishlist</span>
+            </a>
+          </div>
+          <div class="account">
+            <a href="#" class="icon-link">
+              <i class="fa fa-user"></i>
+              <span>Account</span>
+            </a>
+          </div>
+          <div class="cart">
+            <a href="#" class="icon-link">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <nav class="header-bottom">
+        <div class="categories-dropdown">
+          <button class="dropdown-btn">
+            Shop Categories
+            <i class="fa fa-chevron-down"></i>
+          </button>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#" class="active">HOME</a></li>
+          <li><a href="#">OUR STORE</a></li>
+          <li><a href="#">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section
+      class="ezy__epcart4 py-14 md:py-24 bg-white text-zinc-900 relative overflow-hidden z-10"
+    >
+      <div class="container px-4 mx-auto">
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- products -->
+          <div class="bg-blue-50 rounded-xl overflow-hidden w-full lg:w-2/3">
+            <!-- item -->
+            <div class="flex flex-col md:flex-row items-start p-2 md:p-6 mb-4">
+              <!-- image -->
+              <div
+                class="w-full lg:max-w-[150px] rounded-xl mr-4 md:mr-6 mb-4 lg:mb-0"
+              >
+                <a href="#!">
+                  <img
+                    src="https://cdn.easyfrontend.com/pictures/portfolio/portfolio8.jpg"
+                    alt=""
+                    class="max-w-full h-auto rounded-xl mx-auto"
+                  />
+                </a>
+              </div>
+
+              <div class="flex">
+                <!-- product details -->
+                <div>
+                  <div class="text-base md:text-lg hover:text-blue-600 mb-4">
+                    <a href="#!">
+                      Luxury Black Matte Paint Custom Laser Logo Square Wooden
+                      Gift Box Watch Men for your Luxury Brand Heren Horloge
+                    </a>
+                  </div>
+                  <div>
+                    <div class="flex h-11 w-24 mb-4">
+                      <input
+                        type="number"
+                        class="w-2/3 pl-2 text-center border border-black bg-transparent focus:outline-none rounded-lg overflow-hidden"
+                        placeholder=""
+                        value="2"
+                      />
+                      <div
+                        class="w-1/3 border border-black rounded-lg overflow-hidden flex flex-col bg-transparent p-0"
+                      >
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-600">Rs. 11,328</h3>
+                  </div>
+                </div>
+                <!-- delete button -->
+                <div>
+                  <button
+                    class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- item -->
+            <div class="flex flex-col md:flex-row items-start p-2 md:p-6 mb-4">
+              <!-- image -->
+              <div
+                class="w-full lg:max-w-[150px] rounded-xl mr-4 md:mr-6 mb-4 lg:mb-0"
+              >
+                <a href="#!">
+                  <img
+                    src="https://cdn.easyfrontend.com/pictures/portfolio/portfolio2.jpg"
+                    alt=""
+                    class="max-w-full h-auto rounded-xl mx-auto"
+                  />
+                </a>
+              </div>
+
+              <div class="flex">
+                <!-- product details -->
+                <div>
+                  <div class="text-base md:text-lg hover:text-blue-600 mb-4">
+                    <a href="#!">
+                      Iron Handle 60 90 Sheets Clothes Pet Dog Cat Hair Adhesive
+                      Sticky Lint. Storage Welded Nesting Metal Foldable
+                      Logistics Steel Wire Mesh
+                    </a>
+                  </div>
+                  <div>
+                    <div class="flex h-11 w-24 mb-4">
+                      <input
+                        type="number"
+                        class="w-2/3 pl-2 text-center border border-black bg-transparent focus:outline-none rounded-lg overflow-hidden"
+                        placeholder=""
+                        value="2"
+                      />
+                      <div
+                        class="w-1/3 border border-black rounded-lg overflow-hidden flex flex-col bg-transparent p-0"
+                      >
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-600">Rs. 11,328</h3>
+                  </div>
+                </div>
+                <!-- delete button -->
+                <div>
+                  <button
+                    class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- item -->
+            <div class="flex flex-col md:flex-row items-start p-2 md:p-6 mb-4">
+              <!-- image -->
+              <div
+                class="w-full lg:max-w-[150px] rounded-xl mr-4 md:mr-6 mb-4 lg:mb-0"
+              >
+                <a href="#!">
+                  <img
+                    src="https://cdn.easyfrontend.com/pictures/portfolio/portfolio10.jpg"
+                    alt=""
+                    class="max-w-full h-auto rounded-xl mx-auto"
+                  />
+                </a>
+              </div>
+
+              <div class="flex">
+                <!-- product details -->
+                <div>
+                  <div class="text-base md:text-lg hover:text-blue-600 mb-4">
+                    <a href="#!">
+                      2022 Europe And America Hot Sell Stainless Steel Hot Sell
+                      Spoon Gift Coffee Stir Spoon Gold-plated Dessert Spoon
+                    </a>
+                  </div>
+                  <div>
+                    <div class="flex h-11 w-24 mb-4">
+                      <input
+                        type="number"
+                        class="w-2/3 pl-2 text-center border border-black bg-transparent focus:outline-none rounded-lg overflow-hidden"
+                        placeholder=""
+                        value="2"
+                      />
+                      <div
+                        class="w-1/3 border border-black rounded-lg overflow-hidden flex flex-col bg-transparent p-0"
+                      >
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-600">Rs. 11,328</h3>
+                  </div>
+                </div>
+                <!-- delete button -->
+                <div>
+                  <button
+                    class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- item -->
+            <div class="flex flex-col md:flex-row items-start p-2 md:p-6 mb-4">
+              <!-- image -->
+              <div
+                class="w-full lg:max-w-[150px] rounded-xl mr-4 md:mr-6 mb-4 lg:mb-0"
+              >
+                <a href="#!">
+                  <img
+                    src="https://cdn.easyfrontend.com/pictures/portfolio/portfolio12.jpg"
+                    alt=""
+                    class="max-w-full h-auto rounded-xl mx-auto"
+                  />
+                </a>
+              </div>
+
+              <div class="flex">
+                <!-- product details -->
+                <div>
+                  <div class="text-base md:text-lg hover:text-blue-600 mb-4">
+                    <a href="#!">
+                      3150A Withdrawable Type Indoor AC High Voltage Vacuum
+                      Circuit Breaker High Quality With Professional
+                      Manufacturer
+                    </a>
+                  </div>
+                  <div>
+                    <div class="flex h-11 w-24 mb-4">
+                      <input
+                        type="number"
+                        class="w-2/3 pl-2 text-center border border-black bg-transparent focus:outline-none rounded-lg overflow-hidden"
+                        placeholder=""
+                        value="2"
+                      />
+                      <div
+                        class="w-1/3 border border-black rounded-lg overflow-hidden flex flex-col bg-transparent p-0"
+                      >
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button
+                          class="text-[12px] hover:bg-blue-600 hover:text-white h-1/2"
+                          type="button"
+                        >
+                          <i class="fas fa-chevron-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-600">Rs. 11,328</h3>
+                  </div>
+                </div>
+                <!-- delete button -->
+                <div>
+                  <button
+                    class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- sidebar -->
+          <div class="w-full lg:w-1/3">
+            <div class="bg-blue-50 rounded-xl flex flex-col gap-6 p-4 md:p-6">
+              <div class="">
+                <h6 class="font-medium mb-6 opacity-75">Order Summary</h6>
+
+                <div class="flex justify-between items-center">
+                  <span>Sub total</span>
+                  <span class="font-bold">$2099</span>
+                </div>
+                <hr class="my-4" />
+                <div class="flex justify-between items-center">
+                  <span>Shipping Fee</span>
+                  <span class="font-bold">$99</span>
+                </div>
+                <hr class="my-4" />
+                <div class="flex justify-between items-center">
+                  <span>Tax</span>
+                  <span class="font-bold">$168</span>
+                </div>
+                <hr class="my-4" />
+                <div class="flex justify-between items-center">
+                  <span class="fs-5 font-bold">Total</span>
+                  <span class="font-bold">$2238</span>
+                </div>
+              </div>
+              <div class="">
+                <button
+                  class="w-full bg-blue-600 rounded-md text-white hover:bg-opacity-90 py-2.5"
+                >
+                  BUY (13)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Demo Store</p>
+          <p>NO. 12459 Freedom, New York, 1111</p>
+          <p>United States</p>
+          <p>tel: +201554138144</p>
+          <p>Email: kameladel339@gmail.com</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Terms of Services</a></li>
+            <li><a href="#">Blogs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Size Chart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Laptops</a></li>
+            <li><a href="#">Headphones</a></li>
+            <li><a href="#">Smart Watches</a></li>
+            <li><a href="#">Tablets</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024, Digitic Designed by adel-el3raky</p>
+      </div>
+    </footer>
+  </body>
+</html>
