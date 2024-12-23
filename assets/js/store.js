@@ -1,14 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import {
-  getDatabase,
-  ref,
-  set,
-  onValue,
+    getDatabase,
+    ref,
+    set,
+    onValue,
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
 
 const firebaseConfig = {
-  databaseURL:
-    "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
+    databaseURL:
+        "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
@@ -21,7 +21,7 @@ var productsData = [];
 
 const productsRef = ref(db, "products");
 onValue(productsRef, (snapshot) => {
-  productsData = snapshot.val();
+    productsData = snapshot.val();
 
     var productsContainer = document.querySelector(".store_page .products-list");
     console.log(productsContainer);
@@ -41,22 +41,22 @@ onValue(productsRef, (snapshot) => {
                                     <span class="wish-icon">
                                         <i class="fa-regular fa-heart"></i>
                                     </span>
-                                    <img src=${product.thumbnail} alt="product img" />
+                                    <img src=${thumbnail} alt="product img" />
                                     <div class="product-content">
                                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #db5807;">
-                                            <div class="product-category">${product.category}</div>
-                                            <div class="product-brand">${product.brand}</div>
+                                            <div class="product-category">${category}</div>
+                                            <div class="product-brand">${brand}</div>
                                         </div>
                                         <a href="" class="product_link">
-                                            <div class="product-name ">${product.name}</div>
+                                            <div class="product-name ">${name}</div>
                                         </a>
-                                        <div class="description">${product.description.substring(0, 60) + "...."}</div>
+                                        <div class="description">${description.substring(0, 60) + "...."}</div>
                                         <div class="rating">
-                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>${product.rating}
+                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>${rating}
                                         </div>
                                         <hr />
                                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                                            <div class="price">$ ${product.price}</div>
+                                            <div class="price">$ ${price}</div>
                                             <button class="btn add-to-cart ">
                                                 <i class="fa-solid fa-cart-plus" style="margin-right: 5px;"></i>Add to Cart
                                             </button>
@@ -68,7 +68,7 @@ onValue(productsRef, (snapshot) => {
 
     }
 
-    console.log(productsData.slice(10, 19)[0]);
+    console.log(productsData.slice(0, 9));
 });
 
 // get categories from firebase
@@ -89,3 +89,9 @@ function getCategories() {
 }
 
 getCategories();
+
+
+let category_accordion = document.querySelector(".filters #category-accordion");
+category_accordion.onclick = () => {
+    category_accordion.classList.toggle("active");
+}
