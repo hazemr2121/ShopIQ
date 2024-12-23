@@ -1,0 +1,49 @@
+.product_card {
+    position: relative;
+}
+.product_card .badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #febd69;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.product_card .wish-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.product_card .product_link {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: block;
+}
+.product_card .description {
+    height: 83px;
+}
+.product_card .rating {
+    margin-bottom: 10px;
+}
+.product_card hr {
+    opacity: .5;
+}
+.product_card .add-to-cart {
+    padding: 5px 10px;
+    background-color: #febd69;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.product_card .price {
+    font-size: 18px;
+    font-weight: bold;
+}
