@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script type="module">
-      import { getAuth } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
-    </script>
-    <script src="script.js" type="module"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/css/index.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="loading">
+    <i class="fa-solid fa-spinner fa-spin loading_icon"></i>
+  </div>
+  <script type="module">
+    import { getAuth } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+  </script>
+  <script src="https://kit.fontawesome.com/85c5dfec3f.js" crossorigin="anonymous"></script>
+  <script src="./script.js" type="module"></script>
+</body>
+
 </html>

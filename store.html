@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/store.css">
+    <link rel="stylesheet" href="./assets/css/product.css">
+    <title>Store</title>
+</head>
+
+<body>
+    <div class="store_page">
+        <div id="loading">
+            <i class="fa-solid fa-spinner fa-spin loading_icon"></i>
+        </div>
+        <div class="container_content">
+            <div class="sidebar-column">
+                <h2>Filter By</h2>
+                <div class="filters">
+                    <div class="category" id="category-accordion">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Categories</h3>
+                            <svg width="15" height="10" viewBox="0 0 42 25">
+                                <path d="M3 3L21 21L39 3" stroke="black" stroke-width="4" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="categories">
+                        </div>
+                    </div>
+                    <div class="price">
+                        <h3>Price</h3>
+                        <div class="inputs">
+                            <input type="number" name="priceFrom" placeholder="From" />
+                            <input type="number" name="priceTo" placeholder="To" />
+                        </div>
+                    </div>
+                    <div class="rating">
+                        <h3>Rating</h3>
+                        <div class="ratings">
+                            <div class="one_star">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                            </div>
+                            <div class="two_star">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                            </div>
+                            <div class="three_star">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                            </div>
+                            <div class="four_star">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #646e82;"></i>
+                            </div>
+                            <div class="five_star">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="products-list-column ">
+                <div class="main-content">
+                    <div class="heading">
+                        <h3 style="margin-right: 5px;">Sort By: </h3>
+                        <select class="form-select">
+                            <option>Open this select menu</option>
+                            <option value="1">Alphabetically, A-Z</option>
+                            <option value="1">Alphabetically, Z-A</option>
+                            <option value="2">Price, high to low</option>
+                            <option value="2">Price, low to high</option>
+                            <option value="3">Created, old to new</option>
+                            <option value="3">Created, new to old</option>
+                        </select>
+                        <p class="product-count">20 product</p>
+                    </div>
+                    <div class="products-list">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/85c5dfec3f.js" crossorigin="anonymous"></script>
+    <script type="module" src="./assets/js/store.js"></script>
+</body>
+
+</html>
