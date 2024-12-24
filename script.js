@@ -9,7 +9,7 @@ const firebaseConfig = {
   databaseURL:
     "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
 };
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 console.log(app);
 
 var productsData = [];
@@ -17,10 +17,11 @@ const db = getDatabase();
 const productsRef = ref(db, "products");
 onValue(productsRef, (snapshot) => {
   productsData = snapshot.val();
-  productsData.length === 0 ? null : document.getElementById("loading").style.display = "none";
+  productsData.length === 0
+    ? null
+    : (document.getElementById("loading").style.display = "none");
   console.log(productsData);
 });
-
 // async function fetchAndInsertProducts(
 //   id,
 //   name,
@@ -111,7 +112,6 @@ onValue(productsRef, (snapshot) => {
 
 //   console.log(data)
 
-
 //   // const db = getDatabase();
 //   const categoriesRef = ref(db, "categories");
 //   set(categoriesRef, data).then(() => {
@@ -119,7 +119,7 @@ onValue(productsRef, (snapshot) => {
 //   }).catch((error) => {
 //     console.error("Error inserting categories:", error);
 //   });
-  
+
 //   // set(ref(db, 'categories'), {
 //   //   username: name,
 //   //   email: email,
@@ -128,6 +128,3 @@ onValue(productsRef, (snapshot) => {
 // }
 
 // insertCategories()
-
-
-
