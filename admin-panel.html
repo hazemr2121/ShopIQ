@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="main.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="admin-info">
+          <div class="admin-avatar"></div>
+          <span>Hello, Admin</span>
+        </div>
+        <nav>
+          <div class="nav-item" data-page="dashboard">Dashboard</div>
+          <div class="nav-item" data-page="products">Products</div>
+          <div class="nav-item" data-page="categories">Categories</div>
+          <div class="nav-item" data-page="orders">Orders</div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Dashboard Page -->
+        <section id="dashboard" class="page">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Dashboard</h2>
+            </div>
+            <div class="card-content">
+              <p>Welcome to the dashboard</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products" class="page">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Products</h2>
+              <button class="btn btn-primary" id="addProductBtn">
+                Add Product
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Brand</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="product-list"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Categories Page -->
+        <section id="categories" class="page">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Categories</h2>
+              <button class="btn btn-primary" id="addCategoryBtn">
+                Add Category
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th>Number of Products</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="category-list"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Orders Page -->
+        <section id="orders" class="page">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Orders Management</h2>
+              <div class="header-actions">
+                <select
+                  class="form-control order-filter"
+                  id="orderStatusFilter"
+                >
+                  <option value="all">All Orders</option>
+                  <option value="pending">Pending</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Ordered By</th>
+                    <th>Order Date</th>
+                    <th>Amount</th>
+                    <th>Items</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-list">
+                  <!-- Sample Order Row -->
+                  <tr>
+                    <td>#ORD-2024-001</td>
+                    <td>
+                      <div class="user-info">
+                        <span class="user-name">John Doe</span>
+                        <span class="user-email">john@example.com</span>
+                      </div>
+                    </td>
+                    <td>2024-12-24 14:30</td>
+                    <td>$249.99</td>
+                    <td>
+                      <button
+                        class="btn btn-small btn-outline"
+                        onclick="viewOrderDetails('ORD-2024-001')"
+                      >
+                        View Items (3)
+                      </button>
+                    </td>
+                    <td>
+                      <span class="status-badge status-pending">Pending</span>
+                    </td>
+                    <td>
+                      <div class="action-buttons">
+                        <button
+                          class="btn btn-small btn-success"
+                          onclick="acceptOrder('ORD-2024-001')"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          class="btn btn-small btn-danger"
+                          onclick="rejectOrder('ORD-2024-001')"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Product Form Section -->
+        <div class="form-container" id="productForm" style="display: none">
+          <div class="form-content">
+            <div class="form-header">
+              <h3>Add New Product</h3>
+              <button class="close-btn" onclick="toggleProductForm()">
+                &times;
+              </button>
+            </div>
+            <form id="addProductForm">
+              <div class="form-group">
+                <label for="productName">Product Name *</label>
+                <input
+                  type="text"
+                  id="productName"
+                  name="productName"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="category">Category *</label>
+                <input
+                  type="text"
+                  id="category"
+                  name="category"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="price">Price *</label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  class="form-control"
+                  step="0.01"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  class="form-control"
+                  rows="4"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="discountPercentage">Discount Percentage</label>
+                <input
+                  type="number"
+                  id="discountPercentage"
+                  name="discountPercentage"
+                  class="form-control"
+                  step="0.1"
+                  min="0"
+                  max="100"
+                />
+              </div>
+              <div class="form-group">
+                <label for="stock">Stock Quantity *</label>
+                <input
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  class="form-control"
+                  min="0"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="brand">Brand *</label>
+                <input
+                  type="text"
+                  id="brand"
+                  name="brand"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="thumbnail">Thumbnail URL</label>
+                <input
+                  type="url"
+                  id="thumbnail"
+                  name="thumbnail"
+                  class="form-control"
+                  placeholder="https://"
+                />
+              </div>
+              <div class="form-group">
+                <label for="images">Image URLs (comma-separated)</label>
+                <input
+                  type="text"
+                  id="images"
+                  name="images"
+                  class="form-control"
+                  placeholder="Enter URLs separated by commas"
+                />
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  Add Product
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="toggleProductForm()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Category Form Section -->
+        <div class="form-container" id="categoryForm" style="display: none">
+          <div class="form-content">
+            <div class="form-header">
+              <h3>Add New Category</h3>
+              <button class="close-btn" onclick="toggleCategoryForm()">
+                &times;
+              </button>
+            </div>
+            <form id="addCategoryForm">
+              <div class="form-group">
+                <label for="categoryName">Category Name *</label>
+                <input
+                  type="text"
+                  id="categoryName"
+                  name="categoryName"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="categoryDescription">Description</label>
+                <textarea
+                  id="categoryDescription"
+                  name="description"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  Add Category
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="toggleCategoryForm()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Order Details Modal -->
+        <div
+          class="form-container"
+          id="orderDetailsModal"
+          style="display: none"
+        >
+          <div class="form-content">
+            <div class="form-header">
+              <h3>Order Details - #ORD-2024-001</h3>
+              <button class="close-btn" onclick="closeOrderDetails()">
+                &times;
+              </button>
+            </div>
+            <div class="order-details">
+              <div class="order-info">
+                <div class="info-group">
+                  <label>Customer Information</label>
+                  <p class="customer-name">John Doe</p>
+                  <p class="customer-email">john@example.com</p>
+                  <p class="customer-phone">+1 234-567-8900</p>
+                </div>
+                <div class="info-group">
+                  <label>Shipping Address</label>
+                  <p>123 Main Street</p>
+                  <p>Apt 4B</p>
+                  <p>New York, NY 10001</p>
+                </div>
+              </div>
+
+              <div class="order-items">
+                <label>Order Items</label>
+                <table class="items-table">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Product Name 1</td>
+                      <td>2</td>
+                      <td>$49.99</td>
+                      <td>$99.98</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3">Subtotal</td>
+                      <td>$99.98</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">Shipping</td>
+                      <td>$10.00</td>
+                    </tr>
+                    <tr class="total">
+                      <td colspan="3">Total</td>
+                      <td>$109.98</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module" src="admin-js/database.js"></script>
+    <script type="module" src="admin-js/productManager.js"></script>
+    <script type="module" src="admin-js/categoryManager.js"></script>
+    <script type="module" src="admin-js/navigation.js"></script>
+
+    <script type="module">
+      import ProductManager from "./admin-js/productManager.js";
+      import CategoryManager from "./admin-js/categoryManager.js";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        ProductManager.init();
+        CategoryManager.init();
+      });
+    </script>
+
+    <script>
+      // Global functions for forms and modals
+      window.toggleProductForm = function () {
+        const form = document.getElementById("productForm");
+        form.style.display = form.style.display === "flex" ? "none" : "flex";
+      };
+
+      window.toggleCategoryForm = function () {
+        const form = document.getElementById("categoryForm");
+        form.style.display = form.style.display === "flex" ? "none" : "flex";
+      };
+
+      window.viewOrderDetails = function (orderId) {
+        const modal = document.getElementById("orderDetailsModal");
+        modal.style.display = "flex";
+      };
+
+      window.closeOrderDetails = function () {
+        const modal = document.getElementById("orderDetailsModal");
+        modal.style.display = "none";
+      };
+
+      window.acceptOrder = function (orderId) {
+        // Add your order acceptance logic here
+        console.log(`Accepting order: ${orderId}`);
+      };
+
+      window.rejectOrder = function (orderId) {
+        // Add your order rejection logic here
+        console.log(`Rejecting order: ${orderId}`);
+      };
+    </script>
+  </body>
+</html>

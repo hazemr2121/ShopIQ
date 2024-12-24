@@ -9,8 +9,10 @@ const firebaseConfig = {
   databaseURL:
     "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
 };
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 console.log(app);
+
+export const db = getDatabase(app);
 
 // async function fetchAndInsertProducts(
 //   name,
