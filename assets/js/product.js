@@ -45,7 +45,7 @@ onValue(productsRef, (snapshot) => {
 
       var productCard = document.createElement("div");
       productCard.className = "product_card";
-      productCard.innerHTML = `<span class="badge">20%</span>
+      productCard.innerHTML = `<span class="product_badge">20%</span>
                                     <span class="wish-icon">
                                         <i class="fa-regular fa-heart"></i>
                                     </span>
