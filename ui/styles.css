@@ -78,7 +78,7 @@
   font-size: 20px;
 }
 
-.badge {
+.header_badge {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -164,10 +164,6 @@
 /* Previous CSS styles remain unchanged */
 
 /* Main Content Styles */
-.main-content {
-  padding: 40px 50px;
-  min-height: 60vh;
-}
 
 .featured-products h2 {
   margin-bottom: 30px;
