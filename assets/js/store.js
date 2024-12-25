@@ -28,13 +28,13 @@ getProducts()
 
             var productCard = document.createElement("div");
             productCard.className = "product_card";
-            productCard.innerHTML = `<span class="badge">${discountPercentage}%</span>
+            productCard.innerHTML = `<span class="product_badge">${discountPercentage}%</span>
                                                     <span class="wish-icon">
                                                         <i class="fa-regular fa-heart"></i>
                                                     </span>
                                                     <img src=${thumbnail} alt="product img" />
                                                     <div class="product-content">
-                                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #db5807;">
+                                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #db5807 !important;">
                                                             <div class="product-category">${category}</div>
                                                             <div class="product-brand">${brand}</div>
                                                         </div>

@@ -15,6 +15,9 @@
   font-size: 15px;
   font-weight: bold;
 }
+.product_card .product-category {
+  color: #db5807;
+}
 .product_card .wish-icon {
   position: absolute;
   top: 15px;
