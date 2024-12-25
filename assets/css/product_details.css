@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #f4f4f4;
+    font-family: "Roboto", serif;
+}
+.product_page .container {
+    background-color: white;
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px -1px gray;;
+}
+.product_page .container .content {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 50px;
+    border-bottom: 2px solid #8c7e7e;
+}
+.product_page .container .content > div {
+    width: 45%;
+}
+.product_page .content .img_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.product_page .content .thumbnail img{
+    width: 100%;
+}
+.product_page .content .img_column .images {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.product_page .content .img_column .images img {
+    width: 30%;
+    cursor: pointer;
+}
+.product_page .content .details_column {
+    padding: 20px;
+}
+.product_page .content .details_column > div {
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.product_page .content .details_column .title {
+    padding-bottom: 10px;
+}
+.product_page .content .details_column button {
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #febd69;
+    border-radius: 5px;
+    width: fit-content;
+    font-size: 17px;
+    font-weight: bold;
+}
+.product_page .content .details_column .category {
+    margin-bottom: 80px;
+}
+.product_page .content .details_column button i {
+    margin-right: 10px;
+}
+.product_page .container .details_column input[type="number"] {
+    width: 40px;
+    height: 30px;
+    outline: 1px solid orange;
+    border: none;
+    text-align: center;
+}
+.product_page .content .details_column hr {
+    opacity: .5;
+}
+.product_page .description {
+    padding: 20px;
+}
+.product_page .description h2 {
+    margin-bottom: 10px;
+}
+.product_page .description p {
+    padding: 10px;
+}
