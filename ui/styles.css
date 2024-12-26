@@ -4,6 +4,15 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+:root {
+  --main-color: #2b2b3f;
+  --hover-color: #41414c;
+  --second-color: #febd69;
+  --border-color: #f4e6e6;
+  --blak-90: #1a1a1a;
+  --blak-70: #1a1a1a9d;
+  --white-color: #fff;
+}
 
 .header {
   font-weight: 16px;
