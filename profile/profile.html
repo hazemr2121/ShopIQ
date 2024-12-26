@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Font Awesome CDN for icons -->
+    <title>profile page</title>
+    <link rel="stylesheet" href="../ui/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <title>Header</title>
+    <link rel="stylesheet" href="profile.css" />
   </head>
   <body>
     <header class="header">
@@ -36,7 +36,7 @@
           <div class="account">
             <a href="../login&register/login.html" class="icon-link">
               <i class="fa fa-user"></i>
-              <span>Account</span>
+              <span></span>
             </a>
           </div>
           <div class="cart">
@@ -63,28 +63,21 @@
       </nav>
     </header>
     <!-- Main Content Section -->
-    <main class="main-content">
-      <section class="featured-products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-          <div class="product-card">
-            <h3>Premium Laptop</h3>
-            <p>High-performance laptop for professionals</p>
-            <span class="price">$999.00</span>
-          </div>
-          <div class="product-card">
-            <h3>Wireless Earbuds</h3>
-            <p>Crystal clear sound quality</p>
-            <span class="price">$149.99</span>
-          </div>
-          <div class="product-card">
-            <h3>Smartwatch Pro</h3>
-            <p>Track your fitness goals</p>
-            <span class="price">$299.00</span>
-          </div>
+    <div class="main-section">
+      <div class="sidebar">
+        <button class="sidebar-btn" id="info-btn">Info</button>
+        <button class="sidebar-btn" id="orders-btn">Orders</button>
+        <button class="sidebar-btn signout" id="signout-btn">sign out</button>
+      </div>
+      <div class="content">
+        <h2>User Info</h2>
+        <div id="info-section" class="section active"></div>
+        <h2>Your Orders</h2>
+        <div id="orders-section" class="section">
+          <p>No orders found yet.</p>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -136,5 +129,5 @@
       </div>
     </footer>
   </body>
-  <script src="temp.js"></script>
+  <script src="profile.js"></script>
 </html>
