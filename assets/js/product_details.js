@@ -1,3 +1,5 @@
+import { addToCart, addToWishlist } from "./../../utils/product.js";
+
 var product_id = new URLSearchParams(window.location.search).get('id');
 
 async function getProductData() {
@@ -7,7 +9,7 @@ async function getProductData() {
         const product = await response.json();
 
         return product;
-    } catch(error) {
+    } catch (error) {
         return error;
     }
 }
@@ -27,7 +29,7 @@ getProductData()
     .then((data) => {
         console.log(data);
 
-        let { _id, title, category, price, description, stock ,discountPercentage, rating, brand, thumbnail , images } = data;
+        let { _id, title, category, price, description, stock, discountPercentage, rating, brand, thumbnail, images } = data;
 
         thumbnailEle.src = thumbnail;
         images.forEach((img) => {
@@ -43,7 +45,39 @@ getProductData()
         brandEle.textContent = brand;
         categoryEle.textContent = category
         stockEle.textContent = stock;
+
+        const cartBtn = document.querySelector(".product_page .details_column .add-to-cart");
+        cartBtn.addEventListener("click", () => {
+
+            const quantity = +document.getElementById("quantity").value;
+            const product_data = {
+                product: _id,
+                quantity
+            }
+            const response = addToCart(product_data, "676eba31317758c9864b3eee").then((data) => {
+                Toastify({
+                    text: "Product added to Cart Successfully",
+                    className: "info",
+                }).showToast();
+            });
+        })
+
+        const wishBtn = document.querySelector(".product_page .details_column .add-to-wishlist");
+        wishBtn.addEventListener("click", () => {
+        
+            const product_data = {
+                id: _id,
+            }
+            const response = addToWishlist(product_data, "676eba31317758c9864b3eee").then((data) => {
+                Toastify({
+                    text: "Product added to Wishlist Successfully",
+                    className: "info",
+                }).showToast();
+            })
+        })
     })
     .catch((error) => {
         console.log(error);
     })
+
+
