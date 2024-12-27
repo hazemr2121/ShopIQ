@@ -12,7 +12,7 @@ export async function addToCart(product_data, user_id) {
 }
 
 
-export async function addToWishlist( product_data, user_id) {
+export async function updateWishlist( product_data, user_id) {
     const response = await fetch(`http://localhost:3000/api/users/${user_id}/wishlist`, {
         method: "PUT",
         headers: {

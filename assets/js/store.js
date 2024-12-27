@@ -1,4 +1,4 @@
-import { addToCart, addToWishlist } from "./../../utils/product.js";
+import { addToCart, updateWishlist } from "./../../utils/product.js";
 
 
 async function getProducts() {
@@ -30,7 +30,7 @@ getProducts()
             var productCard = document.createElement("div");
             productCard.className = "product_card";
             productCard.innerHTML = `<span class="product_badge">${discountPercentage}%</span>
-                                                    <span class="wish-icon" data-product_id=${_id}>
+                                                    <span class="wish-icon" data-product_id=${_id} data-wished="false">
                                                         <i class="fa-solid fa-heart" style="color: #b80f0f;"></i>
                                                         <i class="fa-regular fa-heart active"></i>
                                                     </span>
@@ -81,16 +81,40 @@ getProducts()
         wishBtns.forEach(btn => {
             btn.addEventListener("click", () => {
 
-                addToWishlist({ id: btn.dataset.product_id }, "676eba31317758c9864b3eee")
-                    .then(res => {
+                var product_data;
+                var msg;
+                console.log(btn.dataset.wished)
+                if(btn.dataset.wished == "false") {
 
-                        btn.children[1].classList.toggle("active")
-                        btn.children[0].classList.toggle("active")
-                        Toastify({
-                            text: "Product added to Wishlist Successfully",
-                            className: "info",
-                        }).showToast();
-                    })
+                    btn.dataset.wished = "true";
+                    btn.children[1].classList.toggle("active")
+                    btn.children[0].classList.toggle("active")
+
+                    product_data = {
+                        action: "add",
+                        id: btn.dataset.product_id
+                    }
+                    msg = "Product added to Wishlist Successfully";
+
+                } else if(btn.dataset.wished == "true") {
+
+                    btn.dataset.wished = "false";
+                    btn.children[1].classList.toggle("active")
+                    btn.children[0].classList.toggle("active")
+
+                    product_data = {
+                        action: "remove",
+                        id: btn.dataset.product_id
+                    }
+                    msg = "Product removed from Wishlist Successfully";
+                }
+
+                updateWishlist(product_data , "676eba31317758c9864b3eee").then(data => {
+                    Toastify({
+                        text: msg,
+                        className: "info",
+                    }).showToast();
+                })
             })
         })
 

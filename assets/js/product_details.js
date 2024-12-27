@@ -1,4 +1,4 @@
-import { addToCart, addToWishlist } from "./../../utils/product.js";
+import { addToCart, updateWishlist } from "./../../utils/product.js";
 
 var product_id = new URLSearchParams(window.location.search).get('id');
 
@@ -64,16 +64,36 @@ getProductData()
 
         const wishBtn = document.querySelector(".product_page .details_column .add-to-wishlist");
         wishBtn.addEventListener("click", () => {
-        
-            const product_data = {
-                id: _id,
+
+            var product_data;
+            var msg;
+            if (wishBtn.dataset.wished === "false") {
+                wishBtn.dataset.wished = "true";
+                wishBtn.innerHTML = `<i class="fa-solid fa-heart-crack"></i> Remove from Wishlist`;
+
+                product_data = {
+                    action: "add",
+                    id: _id,
+                }
+                msg = "Product added to Wishlist Successfully";
+            } else if (wishBtn.dataset.wished === "true"){
+                wishBtn.dataset.wished = "false";
+                wishBtn.innerHTML = `<i class="fa-regular fa-heart"></i> Add to Wishlist`;
+
+                product_data = {
+                    action: "remove",
+                    id: _id,
+                }
+                msg = "Product removed from Wishlist Successfully";
             }
-            const response = addToWishlist(product_data, "676eba31317758c9864b3eee").then((data) => {
+
+            updateWishlist(product_data, "676eba31317758c9864b3eee").then((data) => {
                 Toastify({
-                    text: "Product added to Wishlist Successfully",
+                    text: msg,
                     className: "info",
                 }).showToast();
             })
+
         })
     })
     .catch((error) => {
