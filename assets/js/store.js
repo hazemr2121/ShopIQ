@@ -13,6 +13,7 @@ async function getProducts() {
 }
 
 
+
 document.getElementById("loading").style.display = "block";
 
 getProducts()
@@ -64,18 +65,32 @@ getProducts()
 
                 addToCart({ product: btn.dataset.product_id }, "676eba31317758c9864b3eee")
                     .then(res => {
-                        console.log(res)
+
+                        Toastify({
+                            text: "Product added to Cart Successfully",
+                            className: "info",
+                        }).showToast();
                     })
+
+
+
             })
         })
 
         var wishBtns = document.querySelectorAll(".wish-icon");
         wishBtns.forEach(btn => {
-            btn.addEventListener("click" , () => {
+            btn.addEventListener("click", () => {
 
                 addToWishlist({ id: btn.dataset.product_id }, "676eba31317758c9864b3eee")
-                btn.children[0].classList.toggle("active")
-                btn.children[1].classList.toggle("active")
+                    .then(res => {
+
+                        btn.children[1].classList.toggle("active")
+                        btn.children[0].classList.toggle("active")
+                        Toastify({
+                            text: "Product added to Wishlist Successfully",
+                            className: "info",
+                        }).showToast();
+                    })
             })
         })
 
@@ -83,6 +98,21 @@ getProducts()
         console.log(error)
     })
 
+async function getCategories() {
+    const response = await fetch("http://localhost:3000/api/categories")
+    const data = await response.json();
+    return data;
+}
+
+getCategories().then(data => {
+    var categoryList = document.querySelector(".filters #category-accordion .categories");
+    data.forEach(category => {
+        var categoryItem = document.createElement("p");
+        categoryItem.className = "category-item";
+        categoryItem.innerHTML = `${category}`;
+        categoryList.appendChild(categoryItem);
+    })
+})
 
 
 let category_accordion = document.querySelector(".filters #category-accordion");
