@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="./featured-products.css" />
     <title>Header</title>
   </head>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -166,26 +167,20 @@
         </div>
       </div>
     </div>
+    <!-- Featured products -->
 
     <!-- Main Content Section -->
     <main class="main-content">
       <section class="featured-products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-          <div class="product-card">
-            <h3>Premium Laptop</h3>
-            <p>High-performance laptop for professionals</p>
-            <span class="price">$999.00</span>
+        <div class="featured-products-container">
+          <div class="featured-header">
+            <h2>Featured Products</h2>
+            <button>See More</button>
           </div>
-          <div class="product-card">
-            <h3>Wireless Earbuds</h3>
-            <p>Crystal clear sound quality</p>
-            <span class="price">$149.99</span>
-          </div>
-          <div class="product-card">
-            <h3>Smartwatch Pro</h3>
-            <p>Track your fitness goals</p>
-            <span class="price">$299.00</span>
+          <div class="slider-container">
+            <button class="slider-button prev-button">←</button>
+            <div class="products-slider"></div>
+            <button class="slider-button next-button">→</button>
           </div>
         </div>
       </section>
@@ -241,5 +236,6 @@
       </div>
     </footer>
     <script src="../assets/js/store.js"></script>
+    <script src="../assets/js/featured_products.js"></script>
   </body>
 </html>

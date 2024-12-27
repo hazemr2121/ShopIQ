@@ -6,7 +6,7 @@ async function fetchProducts() {
   try {
     const response = await fetch("http://localhost:3000/api/products");
     const allProducts = await response.json();
-    products = allProducts.slice(0, 8); // Display only 8 products
+    products = allProducts.slice(10, 18); // Display only 8 products
     renderProducts();
     setupSlider();
   } catch (error) {
@@ -14,51 +14,54 @@ async function fetchProducts() {
   }
 }
 
-renderProducts = () => {
-  var productCard = document.createElement("div");
-  productCard.className = "product_card";
-  productCard.innerHTML = `<span class="product_badge">20%</span>
-                                  <span class="wish-icon">
-                                      <i class="fa-regular fa-heart"></i>
-                                  </span>
-                                  <img src=${
-                                    product.thumbnail
-                                  } alt="product img" />
-                                  <div class="product-content">
-                                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #db5807;">
-                                          <div class="product-category">${
-                                            product.category
-                                          }</div>
-                                          <div class="product-brand">${
-                                            product.brand
-                                          }</div>
-                                      </div>
-                                      <a href="" class="product_link">
-                                          <div class="product-name ">${
-                                            product.name
-                                          }</div>
-                                      </a>
-                                      <div class="description">${
-                                        product.description.substring(0, 60) +
-                                        "...."
-                                      }</div>
-                                      <div class="rating">
-                                          <i class="fa-solid fa-star" style="color: #FFD43B;"></i>${
-                                            product.rating
-                                          }
-                                      </div>
-                                      <hr />
-                                      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                                          <div class="price">$ ${
-                                            product.price
-                                          }</div>
-                                          <button class="btn add-to-cart ">
-                                              <i class="fa-solid fa-cart-plus" style="margin-right: 5px;"></i>Add to Cart
-                                          </button>
-                                      </div>
-                                  </div>`;
-  productsContainer.appendChild(productCard);
-};
+function renderProducts() {
+  const container = document.querySelector(".products-slider");
+  container.innerHTML = "";
+
+  products.forEach((product) => {
+    const productCard = document.createElement("div");
+    productCard.className = "product-card";
+
+    productCard.innerHTML = `
+              ${
+                product.discountPercentage
+                  ? `<span class="product-badge">${Math.round(
+                      product.discountPercentage
+                    )}% OFF</span>`
+                  : ""
+              }
+              <span class="wish-icon">
+                  <i class="fa-regular fa-heart"></i>
+              </span>
+              <img src="${product.thumbnail}" alt="${
+      product.name
+    }" class="product-image">
+              <div class="product-content">
+                  <div style="display: flex; justify-content: space-between;">
+                      <div class="product-category">${product.category}</div>
+                      <div class="product-brand">${product.brand}</div>
+                  </div>
+                  <h3 class="product-name">${product.title}</h3>
+                  <div class="description">${product.description.substring(
+                    0,
+                    60
+                  )}...</div>
+                  <div class="rating">
+                      <i class="fa-solid fa-star"></i> ${product.rating}
+                  </div>
+                  <hr>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                      <div class="price">$${product.price}</div>
+                      <button class="add-to-cart">
+                          <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                      </button>
+                  </div>
+              </div>
+          `;
+
+    container.appendChild(productCard);
+  });
+}
 
 function setupSlider() {
   const slider = document.querySelector(".products-slider");
@@ -85,3 +88,6 @@ function setupSlider() {
     }
   });
 }
+
+// Initialize
+fetchProducts();
