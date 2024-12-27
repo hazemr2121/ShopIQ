@@ -25,6 +25,12 @@
   font-size: 20px;
   cursor: pointer;
 }
+.product_card .wish-icon i {
+  display: none;
+}
+.product_card .wish-icon i.active {
+  display: inline;
+}
 .product_card .product_link {
   text-decoration: none;
   color: black;
