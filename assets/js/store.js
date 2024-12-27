@@ -1,4 +1,4 @@
-
+import { addToCart, addToWishlist } from "./../../utils/product.js";
 
 
 async function getProducts() {
@@ -29,8 +29,9 @@ getProducts()
             var productCard = document.createElement("div");
             productCard.className = "product_card";
             productCard.innerHTML = `<span class="product_badge">${discountPercentage}%</span>
-                                                    <span class="wish-icon">
-                                                        <i class="fa-regular fa-heart"></i>
+                                                    <span class="wish-icon" data-product_id=${_id}>
+                                                        <i class="fa-solid fa-heart" style="color: #b80f0f;"></i>
+                                                        <i class="fa-regular fa-heart active"></i>
                                                     </span>
                                                     <img src=${thumbnail} alt="product img" />
                                                     <div class="product-content">
@@ -48,7 +49,7 @@ getProducts()
                                                         <hr />
                                                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                                                             <div class="price">$ ${price}</div>
-                                                            <button class="btn add-to-cart ">
+                                                            <button class="btn add-to-cart " data-product_id=${_id}>
                                                                 <i class="fa-solid fa-cart-plus" style="margin-right: 5px;"></i>Add to Cart
                                                             </button>
                                                         </div>
@@ -57,9 +58,32 @@ getProducts()
             productsContainer.appendChild(productCard);
         });
 
+        var cartBtns = document.querySelectorAll(".add-to-cart");
+        cartBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+
+                addToCart({ product: btn.dataset.product_id }, "676eba31317758c9864b3eee")
+                    .then(res => {
+                        console.log(res)
+                    })
+            })
+        })
+
+        var wishBtns = document.querySelectorAll(".wish-icon");
+        wishBtns.forEach(btn => {
+            btn.addEventListener("click" , () => {
+
+                addToWishlist({ id: btn.dataset.product_id }, "676eba31317758c9864b3eee")
+                btn.children[0].classList.toggle("active")
+                btn.children[1].classList.toggle("active")
+            })
+        })
+
     }).catch((error) => {
         console.log(error)
     })
+
+
 
 let category_accordion = document.querySelector(".filters #category-accordion");
 category_accordion.onclick = () => {
