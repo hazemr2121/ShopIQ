@@ -13,7 +13,7 @@ form.addEventListener("submit", (e) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      console.log(data.message);
+
       if (!data.message) {
         const userData = {
           userId: data._id,
@@ -41,5 +41,6 @@ form.addEventListener("submit", (e) => {
     })
     .catch((error) => {
       console.error("Error:", error);
+      emailMassage.classList.add("active");
     });
 });
