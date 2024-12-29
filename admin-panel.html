@@ -403,6 +403,14 @@
     </div>
 
     <!-- JavaScript -->
+    <script>
+      if (
+        !localStorage.getItem("user") ||
+        !JSON.parse(localStorage.getItem("user")).role == "admin"
+      ) {
+        window.location.href = "/login&register/login.html";
+      }
+    </script>
     <script type="module" src="admin-js/database.js"></script>
     <script type="module" src="admin-js/productManager.js"></script>
     <script type="module" src="admin-js/categoryManager.js"></script>

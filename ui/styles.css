@@ -177,7 +177,12 @@
   border-radius: 8px;
   transition: all 0.3s ease;
 }
-
+.product-card .wish-icon i {
+  display: none;
+}
+.product-card .wish-icon i.active {
+  display: inline;
+}
 .product-card:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }

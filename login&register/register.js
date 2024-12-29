@@ -196,12 +196,23 @@ form.addEventListener("submit", (e) => {
       })
       .then((data) => {
         console.log(data);
-        localStorage.setItem("userId", data._id);
-        localStorage.setItem("userName", data.username);
-        localStorage.setItem("email", data.email);
-        localStorage.setItem("cart", JSON.stringify(data.cart));
-        localStorage.setItem("orders", JSON.stringify(data.orders));
-        localStorage.setItem("wishList", JSON.stringify(data.wishlist));
+        const user = {
+          userId: data._id,
+          userName: data.username,
+          address: data.address,
+          phone: data.phone,
+          role: data.role,
+          orders: data.orders,
+          wishList: data.wishlist,
+          email: data.email,
+          cart: data.cart,
+          createdAt: new Date(data.createdAt).toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+        };
+        localStorage.setItem("user", JSON.stringify(user));
 
         alert("User registered successfully!");
         location.href = "/ui/home.html";
