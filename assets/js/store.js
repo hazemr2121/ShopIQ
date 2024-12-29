@@ -1,7 +1,7 @@
 import { addToCart, updateWishlist } from "./../../utils/product.js";
+import Filters from "../../utils/filter.js";
 
-
-async function getProducts() {
+async function getProducts(params) {
     try {
         const response = await fetch("http://localhost:3000/api/products");
         const products = await response.json();
@@ -17,14 +17,25 @@ async function getProducts() {
 document.getElementById("loading").style.display = "block";
 
 getProducts()
-    .then((data) => {
-        console.log(data);
+    .then((products) => {
 
         document.querySelector(".store_page .container_content").style.display = "flex";
         document.getElementById("loading").style.display = "none";
 
+        let category = new URLSearchParams(window.location.search).get("category");
+        let rating = new URLSearchParams(window.location.search).get("rating");
+        let priceFrom = new URLSearchParams(window.location.search).get("priceFrom");
+        let priceTo = new URLSearchParams(window.location.search).get("priceTo");
+
+        
+        let filteredProducts;
+        var filter = new Filters(products.data);
+
+        filteredProducts = filter.filterByCategory(category).filterByRating(rating).filterByPrice(priceFrom, priceTo).getProductsData();
+
+
         var productsContainer = document.querySelector(".store_page .products-list");
-        data.slice(0, 9).forEach((product) => {
+        filteredProducts.forEach((product) => {
             let { _id, title, category, price, description, discountPercentage, rating, brand, thumbnail } = product;
 
             var productCard = document.createElement("div");
@@ -134,12 +145,38 @@ getCategories().then(data => {
         var categoryItem = document.createElement("p");
         categoryItem.className = "category-item";
         categoryItem.innerHTML = `${category}`;
+        categoryItem.dataset.category = `${category}`;
         categoryList.appendChild(categoryItem);
+    })
+
+    var category_items = document.querySelectorAll(".category-item");
+    category_items.forEach(item => {
+        item.onclick = (e) => {
+            e.stopPropagation();
+
+            window.location.href = `store.html?category=${item.dataset.category}`;
+        }
     })
 })
 
 
 let category_accordion = document.querySelector(".filters #category-accordion");
-category_accordion.onclick = () => {
+category_accordion.onclick = (e) => {
     category_accordion.classList.toggle("active");
 };
+
+
+let ratingElements = document.querySelectorAll(".filters .ratings div");
+ratingElements.forEach(ele => {
+    ele.onclick = () => {
+        window.location.href = `store.html?rating=${ele.dataset.rating}`;
+    }
+})
+
+let priceFrom = document.querySelector(".filters .price .price-from");
+let priceTo = document.querySelector(".filters .price .price-to");
+let priceBtn = document.querySelector(".filters .price button");
+
+priceBtn.onclick = () => {
+    window.location.href = `store.html?priceFrom=${priceFrom.value}&priceTo=${priceTo.value}`;
+}

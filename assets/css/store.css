@@ -53,6 +53,16 @@ body {
     width: 100%;
     margin-bottom: 10px;
 }
+.store_page .filters .price button {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #febd69;
+    font-size: 15px;
+    font-weight: bold;
+}
 .store_page .filters .rating div {
     margin: 15px 0;
 }
