@@ -1,71 +1,37 @@
-import { addToCart, updateWishlist } from "./../../utils/product.js";
+import { addToCart, updateWishlist, createProductEle , getProducts } from "./../../utils/product.js";
 import Filters from "../../utils/filter.js";
 
-async function getProducts(params) {
-    try {
-        const response = await fetch("http://localhost:3000/api/products");
-        const products = await response.json();
-
-        return products;
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 
 
 document.getElementById("loading").style.display = "block";
+var productsContainer = document.querySelector(".store_page .products-list");
+var productsLength = document.querySelector(".store_page .product-count span");
+
 
 getProducts()
-    .then((products) => {
+    .then((res) => {
 
         document.querySelector(".store_page .container_content").style.display = "flex";
         document.getElementById("loading").style.display = "none";
 
         let category = new URLSearchParams(window.location.search).get("category");
-        let rating = new URLSearchParams(window.location.search).get("rating");
-        let priceFrom = new URLSearchParams(window.location.search).get("priceFrom");
-        let priceTo = new URLSearchParams(window.location.search).get("priceTo");
-
-        
-        let filteredProducts;
-        var filter = new Filters(products.data);
-
-        filteredProducts = filter.filterByCategory(category).filterByRating(rating).filterByPrice(priceFrom, priceTo).getProductsData();
+        // let rating = new URLSearchParams(window.location.search).get("rating");
+        // let priceFrom = new URLSearchParams(window.location.search).get("priceFrom");
+        // let priceTo = new URLSearchParams(window.location.search).get("priceTo");
 
 
-        var productsContainer = document.querySelector(".store_page .products-list");
+        // let filteredProducts;
+        // var filter = new Filters(products.data);
+
+        // filteredProducts = filter.filterByCategory(category).filterByRating(rating).filterByPrice(priceFrom, priceTo).getProductsData();
+        let filteredProducts = category ? res.data.filter(product => product.category == category) : res.data
+
+        console.log(filteredProducts)
+        productsLength.innerHTML = filteredProducts.length
         filteredProducts.forEach((product) => {
-            let { _id, title, category, price, description, discountPercentage, rating, brand, thumbnail } = product;
 
-            var productCard = document.createElement("div");
-            productCard.className = "product_card";
-            productCard.innerHTML = `<span class="product_badge">${discountPercentage}%</span>
-                                                    <span class="wish-icon" data-product_id=${_id} data-wished="false">
-                                                        <i class="fa-solid fa-heart" style="color: #b80f0f;"></i>
-                                                        <i class="fa-regular fa-heart active"></i>
-                                                    </span>
-                                                    <img src=${thumbnail} alt="product img" />
-                                                    <div class="product-content">
-                                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #db5807 !important;">
-                                                            <div class="product-category">${category}</div>
-                                                            <div class="product-brand">${brand}</div>
-                                                        </div>
-                                                        <a href="product_details.html?id=${_id}" class="product_link">
-                                                            <div class="product-name ">${title}</div>
-                                                        </a>
-                                                        <div class="description">${description.substring(0, 60) + "...."}</div>
-                                                        <div class="rating">
-                                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>${rating}
-                                                        </div>
-                                                        <hr />
-                                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                                                            <div class="price">$ ${price}</div>
-                                                            <button class="btn add-to-cart " data-product_id=${_id}>
-                                                                <i class="fa-solid fa-cart-plus" style="margin-right: 5px;"></i>Add to Cart
-                                                            </button>
-                                                        </div>
-                                                    </div>`;
+            const productCard = createProductEle(product)
 
             productsContainer.appendChild(productCard);
         });
@@ -95,7 +61,7 @@ getProducts()
                 var product_data;
                 var msg;
                 console.log(btn.dataset.wished)
-                if(btn.dataset.wished == "false") {
+                if (btn.dataset.wished == "false") {
 
                     btn.dataset.wished = "true";
                     btn.children[1].classList.toggle("active")
@@ -107,7 +73,7 @@ getProducts()
                     }
                     msg = "Product added to Wishlist Successfully";
 
-                } else if(btn.dataset.wished == "true") {
+                } else if (btn.dataset.wished == "true") {
 
                     btn.dataset.wished = "false";
                     btn.children[1].classList.toggle("active")
@@ -120,7 +86,7 @@ getProducts()
                     msg = "Product removed from Wishlist Successfully";
                 }
 
-                updateWishlist(product_data , "676eba31317758c9864b3eee").then(data => {
+                updateWishlist(product_data, "676eba31317758c9864b3eee").then(data => {
                     Toastify({
                         text: msg,
                         className: "info",
@@ -139,10 +105,12 @@ async function getCategories() {
     return data;
 }
 
+var filters = {category: "3dola" , test: "new test"}
+console.log(...filters)
 getCategories().then(data => {
     var categoryList = document.querySelector(".filters #category-accordion .categories");
     data.forEach(category => {
-        var categoryItem = document.createElement("p");
+        var categoryItem = document.createElement("p");tg
         categoryItem.className = "category-item";
         categoryItem.innerHTML = `${category}`;
         categoryItem.dataset.category = `${category}`;
@@ -153,8 +121,17 @@ getCategories().then(data => {
     category_items.forEach(item => {
         item.onclick = (e) => {
             e.stopPropagation();
+            filters.push(`category=${item.dataset.category}`)
+            console.log(filters)
+            getProducts(`http://localhost:3000/api/products?category=${item.dataset.category}`).then(res => {
 
-            window.location.href = `store.html?category=${item.dataset.category}`;
+                productsContainer.innerHTML = "";
+                productsLength.innerHTML = res.length;
+                res.data.forEach((product) => {
+                    let productCard = createProductEle(product);
+                    productsContainer.appendChild(productCard)
+                })
+            })
         }
     })
 })
@@ -169,7 +146,14 @@ category_accordion.onclick = (e) => {
 let ratingElements = document.querySelectorAll(".filters .ratings div");
 ratingElements.forEach(ele => {
     ele.onclick = () => {
-        window.location.href = `store.html?rating=${ele.dataset.rating}`;
+        getProducts(`http://localhost:3000/api/products?rating=${ele.dataset.rating}`).then(res => {
+            productsContainer.innerHTML = "";
+            productsLength.innerHTML = res.length;
+            res.data.forEach(product => {
+                let productCard = createProductEle(product);
+                productsContainer.appendChild(productCard)
+            })
+        })
     }
 })
 
@@ -178,5 +162,14 @@ let priceTo = document.querySelector(".filters .price .price-to");
 let priceBtn = document.querySelector(".filters .price button");
 
 priceBtn.onclick = () => {
-    window.location.href = `store.html?priceFrom=${priceFrom.value}&priceTo=${priceTo.value}`;
+
+    getProducts(`http://localhost:3000/api/products?priceFrom=${priceFrom.value}&priceTo=${priceTo.value}`).then(res => {
+        console.log(res)
+        productsContainer.innerHTML = "";
+        productsLength.innerHTML = res.length;
+        res.data.forEach(product => {
+            let productCard = createProductEle(product);
+            productsContainer.appendChild(productCard)
+        })
+    })
 }
