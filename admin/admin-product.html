@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product Management Dashboard</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #e7e9ec;
+        transition: filter 0.3s ease; /* Smooth transition for blur effect */
+      }
+
+      .container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 250px;
+        background: #e3e2e5;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+      }
+
+      .logo {
+        padding: 0 20px 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .logo h1 {
+        color: #6200ee;
+        font-size: 24px;
+      }
+
+      .nav-links {
+        list-style: none;
+        margin-top: 20px;
+      }
+
+      .nav-links li a {
+        display: block;
+        padding: 15px 20px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .nav-links li a:hover {
+        background-color: #f5f5f5;
+      }
+
+      .nav-links li.active a {
+        background-color: #f0f0f0;
+        color: #6200ee;
+      }
+
+      /* Main Content Styles */
+      .main-content {
+        flex: 1;
+        padding: 30px;
+      }
+
+      .header {
+        background: white;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .header h2 {
+        font-size: 24px;
+        color: #333;
+      }
+      
+      .category-filter {
+        position: relative;
+        margin-left: 20px;
+      }
+
+      .category-filter select {
+        appearance: none;
+        background: white;
+        border: 1px solid #e0e0e0;
+        padding: 10px 35px 10px 15px;
+        border-radius: 6px;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        min-width: 150px;
+        transition: all 0.3s ease;
+      }
+
+      .category-filter select:hover {
+        border-color: #6200ee;
+      }
+
+      .category-filter select:focus {
+        outline: none;
+        border-color: #6200ee;
+        box-shadow: 0 0 0 2px rgba(98, 0, 238, 0.1);
+      }
+
+      /* Create custom arrow */
+      .category-filter::after {
+        content: "";
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #666;
+        pointer-events: none;
+      }
+
+      /* Update header styles */
+      .header {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .add-btn {
+        background: #6200ee;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-left: 20px;
+      }
+
+      .add-btn:hover {
+        background: #5000d6;
+      }
+
+      /* Table Styles */
+      .table-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: #f8f9fa;
+        padding: 12px 15px;
+        text-align: left;
+        font-weight: 600;
+        color: #666;
+        font-size: 14px;
+        border-bottom: 2px solid #eee;
+      }
+
+      td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        color: #333;
+      }
+
+      .product-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .product-thumbnail {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+
+      .action-buttons button {
+        border: none;
+        background: none;
+        color: #6200ee;
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 14px;
+      }
+
+      .action-buttons button.delete {
+        color: #dc3545;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background: white;
+        width: 95%; /* Increased from 90% */
+        max-width: 800px; /* Increased from 500px */
+        margin: 30px auto; /* Reduced top margin from 50px */
+        padding: 30px; /* Increased padding from 20px */
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1001;
+      }
+      .modal-active .content {
+        filter: blur(5px); /* Apply blur effect */
+      }
+
+      /* Optional: You can also make the form groups display in two columns */
+      form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      /* Make description and image uploads full width */
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .modal-header {
+        margin-bottom: 20px;
+      }
+
+      .modal-header h3 {
+        font-size: 20px;
+        color: #333;
+      }
+
+      /* .form-group {
+        margin-bottom: 15px;
+      } */
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .form-group textarea {
+        height: 100px;
+        resize: vertical;
+      }
+
+      .modal-footer {
+        grid-column: 1 / -1; /* Make footer span full width */
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+
+      .btn-cancel {
+        background: #f0f0f0;
+        color: #333;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+      }
+
+      .btn-cancel:hover {
+        background: #e0e0e0;
+      }
+
+      .btn-save {
+        background: #6200ee;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+      }
+
+      .btn-save:hover {
+        background: #5000d6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <h1>Admin Panel</h1>
+        </div>
+        <ul class="nav-links">
+          <li class="active"><a href="#">Products</a></li>
+          <li><a href="admin-customers.html">Customers</a></li>
+          <li><a href="#">Orders</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="header">
+          <h2>Products</h2>
+          <div class="header-actions">
+            <div class="category-filter">
+              <select class="select--category">
+                <option value="">Select a Category</option>
+              </select>
+            </div>
+            <button class="add-btn">+ Add Product</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Rating</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody class="table--body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Product</h3>
+        </div>
+        <form class="add-product-form">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" required />
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" required />
+          </div>
+          <div class="form-group full-width">
+            <label>Description</label>
+            <textarea name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Discount Percentage</label>
+            <input type="number" name="discount" min="0" max="100" />
+          </div>
+          <div class="form-group">
+            <label>Brand</label>
+            <input type="text" name="brand" required />
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category" class="select--category" required>
+              <option value="">-- Select a category --</option>
+              <!-- <option>Clothing</option>
+              <option>Electronics</option>
+              <option>Accessories</option>
+              <option>Footwear</option> -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Stock</label>
+            <input type="number" name="stock" min="0" required />
+          </div>
+          <div class="form-group full-width">
+            <label>Images</label>
+            <input type="file" name="images" multiple accept="image/*" />
+          </div>
+          <div class="form-group full-width">
+            <label>Thumbnail</label>
+            <input type="file" name="thumbnail" accept="image/*" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="submit" id="save-btn" class="btn-save">
+              Save Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./admin-js/productHandler.js"></script>
+  </body>
+</html>
