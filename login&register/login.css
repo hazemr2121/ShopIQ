@@ -122,3 +122,10 @@ button:hover {
 .container .form-group .success {
   color: #4caf50;
 }
+
+.container .form-group .active {
+  display: block;
+}
+.active {
+  display: block;
+}

@@ -1,0 +1,516 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-section {
+  display: flex;
+  width: 100%;
+  /* height: 100vh; */
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .sidebar-btn {
+  width: 80%;
+  margin: 10px 0;
+  padding: 10px 15px;
+  background-color: #2b2b3f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.sidebar .signout {
+  background-color: rgb(152, 37, 37);
+}
+.sidebar .signout i {
+  margin-right: 4px;
+}
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.photo-upload img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  overflow: hidden;
+}
+
+.photo-upload input {
+  display: none;
+}
+
+#updatePhotoBtn {
+  padding: 3px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2b2b3f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 80%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+#updatePhotoBtn:hover {
+  background-color: #febd69;
+}
+.status {
+  margin: 10px 0;
+}
+
+.sidebar h5 {
+  margin-bottom: 5px;
+}
+
+.sidebar-btn:hover {
+  background-color: #febd69;
+}
+.sidebar .signout:hover {
+  background-color: rgb(190, 15, 15);
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #eee;
+  margin: 10px;
+  padding: 1.2rem;
+  border-radius: 6px;
+}
+
+.content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.section p {
+  margin: 10px 0;
+}
+
+.section input {
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.section button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #2b2b3f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.section button:hover {
+  background-color: #febd69;
+}
+
+.flex-between {
+  display: grid;
+  /* justify-content: center; */
+  align-items: center;
+  grid-template-columns: 12rem 20rem 1fr;
+  gap: 10px;
+}
+.flex-between input {
+  display: flex;
+  margin: 0;
+  /* justify-content: space-between; */
+  align-items: center;
+  font-size: 15px;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.flex-end .reset-btn {
+  color: #2b2b3f;
+  background-color: #ccc;
+  cursor: pointer;
+  font-size: bold;
+}
+.flex-end .reset-btn:hover {
+  color: #ccc;
+  background-color: #2b2b3f;
+}
+
+.section .hidden {
+  display: none;
+}
+.section .active {
+  display: block;
+  color: red;
+  margin: 0;
+  font-size: 13px;
+}
+/* change password----------------------------- */
+.section .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.panel {
+  margin: 1rem 0;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+/* responsive */
+/* Media query for devices with a max width of 768px (tablets and smaller) */
+@media (max-width: 920px) {
+  .flex-between {
+    grid-template-columns: 9rem 18rem 1fr;
+
+    gap: 10px;
+  }
+  .section p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 811px) {
+  .main-section {
+    height: auto;
+  }
+  .sidebar {
+    width: 25%;
+  }
+  .sidebar .sidebar-btn {
+    padding: 10px 0;
+    box-shadow: none;
+  }
+  .content {
+    padding: 15px;
+  }
+  .section p {
+    font-size: 13px;
+  }
+
+  /* .flex-between {
+    grid-template-columns: 5rem 18rem 1fr;
+    gap: 15px;
+  } */
+  .flex-between span {
+    width: 100%;
+    align-items: center;
+    margin: auto;
+  }
+
+  .flex-between input {
+    width: 100%;
+  }
+  .flex-between {
+    grid-template-columns: 7rem 1fr;
+    gap: 5px;
+  }
+
+  .section .active {
+    display: block;
+    width: 10rem;
+
+    margin: 0 0 8px 7.5rem;
+  }
+
+  .panel {
+    margin: 0.5rem;
+    background-color: white;
+    overflow: hidden;
+  }
+  .section .panel .flex-between {
+    grid-template-columns: 9rem 1fr;
+    gap: 5px;
+  }
+  .section .panel .flex-between .active {
+    margin: 0 0 8px 9.5rem;
+  }
+}
+@media (max-width: 750px) {
+  .main-section {
+    height: auto;
+  }
+
+  .sidebar {
+    width: 25%;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .flex-between {
+    grid-template-columns: 6rem 1fr;
+    gap: 0px;
+  }
+
+  .flex-between input {
+    width: 100%;
+  }
+  .section .active {
+    display: block;
+    width: 10rem;
+
+    margin: 0 0 10px 6.5rem;
+    font-size: 13px;
+  }
+}
+@media (max-width: 650px) {
+  .sidebar .sidebar-btn {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+  }
+
+  .section {
+    padding: 0.5rem;
+  }
+  .section p {
+    font-size: 14px;
+  }
+
+  .section input {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .section button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .flex-between {
+    grid-template-columns: 5rem 1fr;
+    gap: 0px;
+  }
+  .section .active {
+    display: block;
+    width: 10rem;
+
+    margin: 0 0 8px 5.5rem;
+    font-size: 13px;
+  }
+  .photo-upload img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #updatePhotoBtn {
+    padding: 3px 0;
+    top: 80%;
+  }
+}
+/* Media query for devices with a max width of 480px (mobile phones) */
+@media (max-width: 590px) {
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .sidebar {
+    width: 100%;
+    padding: 10px;
+    box-shadow: none;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    gap: 10px;
+  }
+  .sidebar .sidebar-btn {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+  }
+
+  .section {
+    padding: 0.5rem;
+  }
+  .section p {
+    font-size: 12px;
+  }
+
+  .section input {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .section button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .flex-between {
+    grid-template-columns: 5rem 1fr;
+    gap: 0px;
+  }
+
+  .flex-end .reset-btn {
+    font-size: 12px;
+    padding: 6px;
+  }
+  .section .active {
+    display: block;
+    width: 10rem;
+
+    margin: 0 0 3px 5.5rem;
+    font-size: 13px;
+  }
+
+  .panel {
+    margin: 0.5rem;
+    background-color: white;
+    overflow: hidden;
+  }
+  .section .panel .flex-between {
+    grid-template-columns: 7rem 1fr;
+    gap: 0px;
+  }
+  .section .panel .flex-between .active {
+    margin: 0 0 3px 7.5rem;
+    font-size: 13px;
+  }
+  .photo-upload img {
+    width: 100px;
+    height: 100px;
+  }
+
+  #updatePhotoBtn {
+    padding: 3px 0;
+    top: 72%;
+  }
+}
+@media (max-width: 470px) {
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .sidebar {
+    width: 100%;
+    padding: 10px;
+    box-shadow: none;
+    flex-direction: row-reverse;
+    gap: 10px;
+  }
+  .flex-between {
+    display: block;
+  }
+
+  .flex-end .reset-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  .section .active {
+    display: block;
+    width: 10rem;
+
+    margin: 0 0 3px 0;
+    font-size: 13px;
+  }
+
+  .panel {
+    margin: 0.5rem;
+    background-color: white;
+    overflow: hidden;
+  }
+  .section .panel .flex-between {
+    display: block;
+  }
+  .section .panel .flex-between .active {
+    margin: 0 0 3px 0;
+    font-size: 13px;
+  }
+}
+
+/* Minimized Alert */
+.minimized-alert {
+  width: 250px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+/* Confirm Button */
+.btn-confirm {
+  background-color: #d33;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  margin-right: 10px;
+}
+
+.btn-confirm:hover {
+  background-color: #b52b2b;
+  transform: scale(1.05);
+}
+
+/* Cancel Button */
+.btn-cancel {
+  background-color: #3085d6;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-cancel:hover {
+  background-color: #256bad;
+  transform: scale(1.05);
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>profile page</title>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
+"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../ui/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">
+          <h1>Store</h1>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search Product Here" />
+          <button type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
+        <div class="header-actions">
+          <div class="wishlist">
+            <a href="#" class="icon-link">
+              <i class="fa fa-heart"></i>
+              <span class="badge">0</span>
+              <span>Wishlist</span>
+            </a>
+          </div>
+          <div class="account">
+            <a href="../login&register/login.html" class="icon-link">
+              <i class="fa fa-user"></i>
+              <span></span>
+            </a>
+          </div>
+          <div class="cart">
+            <a href="#" class="icon-link">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <nav class="header-bottom">
+        <div class="categories-dropdown">
+          <button class="dropdown-btn">
+            Shop Categories
+            <i class="fa fa-chevron-down"></i>
+          </button>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../ui/home.html" class="active">HOME</a></li>
+          <li><a href="#">OUR STORE</a></li>
+          <li><a href="#">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Main Content Section -->
+    <div class="main-section">
+      <div class="sidebar">
+        <!-- <button class="sidebar-btn" id="info-btn">Info</button> -->
+        <div class="photo-upload">
+          <img
+            id="profileImage"
+            src="https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
+            alt="Profile Photo"
+          />
+          <input type="file" id="photoInput" accept="image/*" />
+          <button id="updatePhotoBtn">Update</button>
+        </div>
+
+        <!-- <button class="sidebar-btn" id="orders-btn">Orders</button> -->
+        <div>
+          <div class="status">
+            <h5 id="createdAt">🟢 active since: <span>not yet</span></h5>
+            <hr />
+
+            <h5 id="your-orders">your orders : <span>0</span></h5>
+            <hr />
+            <h5 id="last-order">the last order : <span>not yet</span></h5>
+          </div>
+
+          <button class="sidebar-btn signout" id="signout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>sign out
+          </button>
+        </div>
+      </div>
+      <div class="content">
+        <h2>User Info</h2>
+        <div id="info-section" class="section active">
+          <form>
+            <div class="flex-between">
+              <p><strong>Name:</strong></p>
+              <input type="text" id="user-name" placeholder="Enter your name" />
+              <p class="hidden" id="username-error">*Username is required</p>
+            </div>
+
+            <div class="flex-between">
+              <p><strong>E-mail:</strong></p>
+              <input type="text" disabled id="email" />
+            </div>
+
+            <div class="flex-between">
+              <p><strong>Address:</strong></p>
+              <input
+                type="text"
+                id="user-adress"
+                placeholder="Enter your address"
+              />
+            </div>
+            <div class="flex-between">
+              <p><strong>Phone:</strong></p>
+              <input
+                type="tel"
+                id="user-phone"
+                placeholder="Enter your phone number"
+              />
+              <p class="hidden" id="phone-error">*only Numbers</p>
+            </div>
+            <button class="accordion" id="accordion">Edit Password</button>
+            <div class="panel">
+              <div class="flex-between">
+                <p><strong>Old Password:</strong></p>
+                <input
+                  type="password"
+                  id="old-password"
+                  placeholder="Enter your old password"
+                />
+                <p class="hidden" id="old-password-error">
+                  *incorrect password
+                </p>
+              </div>
+              <div class="flex-between">
+                <p><strong>New Password:</strong></p>
+                <input
+                  type="password"
+                  id="new-password"
+                  placeholder="Enter your new password"
+                  disabled
+                />
+                <p class="hidden" id="new-password-error">
+                  *same rules like register
+                </p>
+              </div>
+              <div class="flex-between">
+                <p><strong>Confirm Password:</strong></p>
+                <input
+                  type="password"
+                  id="confirm-password"
+                  placeholder="confirm password"
+                  disabled
+                />
+                <p class="hidden" id="confirm-password-error">
+                  *not match with new password
+                </p>
+              </div>
+            </div>
+
+            <div class="flex-end">
+              <button class="reset-btn" type="reset">Reset</button>
+              <button class="update-info" type="submit">Update</button>
+            </div>
+          </form>
+        </div>
+        <h2>Your Orders</h2>
+        <div id="orders-section" class="section">
+          <p>No orders found yet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Demo Store</p>
+          <p>NO. 12459 Freedom, New York, 1111</p>
+          <p>United States</p>
+          <p>tel: +201554138144</p>
+          <p>Email: kameladel339@gmail.com</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Terms of Services</a></li>
+            <li><a href="#">Blogs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Size Chart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Laptops</a></li>
+            <li><a href="#">Headphones</a></li>
+            <li><a href="#">Smart Watches</a></li>
+            <li><a href="#">Tablets</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024, Digitic Designed by adel-el3raky</p>
+      </div>
+    </footer>
+  </body>
+  <script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
+"></script>
+  <script src="profile.js"></script>
+</html>
