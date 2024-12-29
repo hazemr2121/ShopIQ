@@ -4,15 +4,6 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
-:root {
-  --main-color: #2b2b3f;
-  --hover-color: #41414c;
-  --second-color: #febd69;
-  --border-color: #f4e6e6;
-  --blak-90: #1a1a1a;
-  --blak-70: #1a1a1a9d;
-  --white-color: #fff;
-}
 
 .header {
   font-weight: 16px;
@@ -78,7 +69,7 @@
   font-size: 20px;
 }
 
-.header_badge {
+.badge {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -164,6 +155,10 @@
 /* Previous CSS styles remain unchanged */
 
 /* Main Content Styles */
+.main-content {
+  padding: 40px 50px;
+  min-height: 60vh;
+}
 
 .featured-products h2 {
   margin-bottom: 30px;
@@ -459,7 +454,3 @@
   }
 }
 
-.minimized-swal {
-  font-size: 0.5rem;
-  border-radius: 5px; /* Optional: Change border radius */
-}

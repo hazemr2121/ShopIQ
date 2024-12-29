@@ -16,6 +16,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="./featured-products.css" />
     <title>Header</title>
   </head>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -139,10 +140,57 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
         </div>
       </div>
     </section>
+    <!-- features -->
+    <div class="feature-banner">
+      <div class="feature-item">
+        <span class="feature-icon icon-shipping"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Free Shipping</h3>
+          <p class="feature-subtitle">from all orders over $100</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon icon-offer"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Daily Surprise Offers</h3>
+          <p class="feature-subtitle">save up to 25% off</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon icon-support"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Support 24/7</h3>
+          <p class="feature-subtitle">shop with an expert</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon icon-secure"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Secure Payments</h3>
+          <p class="feature-subtitle">100% protect payments</p>
+        </div>
+      </div>
+    </div>
+    <!-- Featured products -->
 
     <!-- Main Content Section -->
     <main class="main-content">
-      <section class="store_page products-list"></section>
+      <section class="featured-products">
+        <div class="featured-products-container">
+          <div class="featured-header">
+            <h2>Featured Products</h2>
+            <button>See More</button>
+          </div>
+          <div class="slider-container">
+            <button class="slider-button prev-button">←</button>
+            <div class="products-slider"></div>
+            <button class="slider-button next-button">→</button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer Section -->
@@ -199,6 +247,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
     "></script>
 
     <script src="../assets/js/store.js"></script>
+    <script src="../assets/js/featured_products.js"></script>
   </body>
   <script src="temp.js"></script>
 </html>
