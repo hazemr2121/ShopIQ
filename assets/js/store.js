@@ -1,4 +1,4 @@
-import { addToCart, updateWishlist, createProductEle , getProducts } from "./../../utils/product.js";
+import { addToCart, updateWishlist, createProductEle, getProducts, paginate, createPaginationBtns } from "./../../utils/product.js";
 import Filters from "../../utils/filter.js";
 
 
@@ -7,15 +7,16 @@ import Filters from "../../utils/filter.js";
 document.getElementById("loading").style.display = "block";
 var productsContainer = document.querySelector(".store_page .products-list");
 var productsLength = document.querySelector(".store_page .product-count span");
+let paginationParent = document.querySelector(".pagination");
 
-
+var productsData = []
 getProducts()
     .then((res) => {
 
         document.querySelector(".store_page .container_content").style.display = "flex";
         document.getElementById("loading").style.display = "none";
 
-        let category = new URLSearchParams(window.location.search).get("category");
+        // let category = new URLSearchParams(window.location.search).get("category");
         // let rating = new URLSearchParams(window.location.search).get("rating");
         // let priceFrom = new URLSearchParams(window.location.search).get("priceFrom");
         // let priceTo = new URLSearchParams(window.location.search).get("priceTo");
@@ -25,11 +26,12 @@ getProducts()
         // var filter = new Filters(products.data);
 
         // filteredProducts = filter.filterByCategory(category).filterByRating(rating).filterByPrice(priceFrom, priceTo).getProductsData();
-        let filteredProducts = category ? res.data.filter(product => product.category == category) : res.data
+        // let filteredProducts = category ? res.data.filter(product => product.category == category) : res.data
 
-        console.log(filteredProducts)
-        productsLength.innerHTML = filteredProducts.length
-        filteredProducts.forEach((product) => {
+        productsData = res.data
+        // console.log(productsData)
+        productsLength.innerHTML = res.length
+        productsData.slice(0, 9).forEach((product) => {
 
             const productCard = createProductEle(product)
 
@@ -95,6 +97,27 @@ getProducts()
             })
         })
 
+
+        // create pagination btns
+        createPaginationBtns(paginationParent, productsData.length)
+
+        var pageBtns = document.querySelectorAll(".pagination button");
+        pageBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                console.log(btn.dataset.page)
+
+                productsData = paginate(res.data, btn.dataset.page)
+                productsContainer.innerHTML = "";
+                productsLength.innerHTML = productsData.length;
+
+                productsData.forEach((product) => {
+                    let productCard = createProductEle(product);
+                    productsContainer.appendChild(productCard)
+                })
+                window.scrollTo(0, 0);
+            })
+        })
+
     }).catch((error) => {
         console.log(error)
     })
@@ -105,12 +128,11 @@ async function getCategories() {
     return data;
 }
 
-var filters = {category: "3dola" , test: "new test"}
-console.log(...filters)
+
 getCategories().then(data => {
     var categoryList = document.querySelector(".filters #category-accordion .categories");
     data.forEach(category => {
-        var categoryItem = document.createElement("p");tg
+        var categoryItem = document.createElement("p");
         categoryItem.className = "category-item";
         categoryItem.innerHTML = `${category}`;
         categoryItem.dataset.category = `${category}`;
@@ -121,15 +143,34 @@ getCategories().then(data => {
     category_items.forEach(item => {
         item.onclick = (e) => {
             e.stopPropagation();
-            filters.push(`category=${item.dataset.category}`)
-            console.log(filters)
+
             getProducts(`http://localhost:3000/api/products?category=${item.dataset.category}`).then(res => {
 
                 productsContainer.innerHTML = "";
                 productsLength.innerHTML = res.length;
-                res.data.forEach((product) => {
+                productsData = res.data
+                createPaginationBtns(paginationParent, productsData.length)
+                productsData.forEach((product) => {
                     let productCard = createProductEle(product);
                     productsContainer.appendChild(productCard)
+                })
+
+                var pageBtns = document.querySelectorAll(".pagination button");
+                pageBtns.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        console.log(btn.dataset.page)
+
+                        productsData = paginate(res.data, btn.dataset.page)
+                        console.log(productsData)
+                        productsContainer.innerHTML = "";
+                        productsLength.innerHTML = productsData.length;
+
+                        productsData.forEach((product) => {
+                            let productCard = createProductEle(product);
+                            productsContainer.appendChild(productCard)
+                        })
+                        window.scrollTo(0, 0);
+                    })
                 })
             })
         }
@@ -149,9 +190,30 @@ ratingElements.forEach(ele => {
         getProducts(`http://localhost:3000/api/products?rating=${ele.dataset.rating}`).then(res => {
             productsContainer.innerHTML = "";
             productsLength.innerHTML = res.length;
-            res.data.forEach(product => {
+            productsData = res.data
+            createPaginationBtns(paginationParent, productsData.length)
+
+            productsData.slice(0, 9).forEach(product => {
                 let productCard = createProductEle(product);
                 productsContainer.appendChild(productCard)
+            })
+
+            var pageBtns = document.querySelectorAll(".pagination button");
+            pageBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    console.log(btn.dataset.page)
+
+                    productsData = paginate(res.data, btn.dataset.page)
+                    console.log(productsData)
+                    productsContainer.innerHTML = "";
+                    productsLength.innerHTML = productsData.length;
+
+                    productsData.forEach((product) => {
+                        let productCard = createProductEle(product);
+                        productsContainer.appendChild(productCard)
+                    })
+                    window.scrollTo(0, 0);
+                })
             })
         })
     }
@@ -167,9 +229,29 @@ priceBtn.onclick = () => {
         console.log(res)
         productsContainer.innerHTML = "";
         productsLength.innerHTML = res.length;
-        res.data.forEach(product => {
+        productsData = res.data
+        createPaginationBtns(paginationParent, productsData.length)
+        productsData.slice(0 , 9).forEach(product => {
             let productCard = createProductEle(product);
             productsContainer.appendChild(productCard)
+        })
+
+        var pageBtns = document.querySelectorAll(".pagination button");
+        pageBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                console.log(btn.dataset.page)
+
+                productsData = paginate(res.data, btn.dataset.page)
+                console.log(productsData)
+                productsContainer.innerHTML = "";
+                productsLength.innerHTML = productsData.length;
+
+                productsData.forEach((product) => {
+                    let productCard = createProductEle(product);
+                    productsContainer.appendChild(productCard)
+                })
+                window.scrollTo(0, 0);
+            })
         })
     })
 }

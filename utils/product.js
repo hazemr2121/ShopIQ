@@ -10,6 +10,23 @@ export async function getProducts(endpoint = "http://localhost:3000/api/products
     }
 }
 
+export  function paginate(products, page) {
+
+        products = products.slice((page - 1) * 9, page * 9)
+
+        return products;
+}
+
+export function createPaginationBtns(paginationEle ,productLength) {
+    paginationEle.innerHTML = "";
+    for (let index = 1; index <= Math.ceil(productLength / 9); index++) {
+        let btn = document.createElement("button");
+        btn.dataset.page = index;
+        btn.innerHTML = index;
+        paginationEle.appendChild(btn)
+    }
+}
+
 export async function addToCart(product_data, user_id) {
     const response = await fetch(`http://localhost:3000/api/users/${user_id}/cart`, {
         method: "PUT",
