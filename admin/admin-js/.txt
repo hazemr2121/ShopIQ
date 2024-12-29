@@ -1,0 +1,30 @@
+
+
+
+orderedby:  user email,
+orderitems:{title,quantity,price}
+shippingaddress:{address,city,country},
+phoneNumbers:[];
+shippingprice:,
+total price;
+paymentMethod: cash,Stripe,Paymob
+orderstatus : pending, accepted  ,
+//=================================
+
+orderStatus: 
+    
+     "Paid", "Delivered", "Placed", "Cancelled"
+   
+   
+    
+
+    isPaid: 
+    paidAt: 
+
+    isDelivered:  type: Boolean
+    deliveredAt:  type: String 
+    deliveredBy:  
+
+    cancelledAt:
+    cancelledBy: 
+  
