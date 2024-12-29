@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Font Awesome CDN for icons -->
+    <title>profile page</title>
+    <link rel="stylesheet" href="../ui/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <title>Header</title>
+    <link rel="stylesheet" href="profile.css" />
   </head>
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <body>
     <header class="header">
       <div class="header-top">
@@ -38,7 +36,7 @@
           <div class="account">
             <a href="../login&register/login.html" class="icon-link">
               <i class="fa fa-user"></i>
-              <span>Account</span>
+              <span></span>
             </a>
           </div>
           <div class="cart">
@@ -52,7 +50,7 @@
 
       <nav class="header-bottom">
         <div class="categories-dropdown">
-          <button class="dropdown-btn" id="dropdown-btn">
+          <button class="dropdown-btn">
             Shop Categories
             <i class="fa fa-chevron-down"></i>
           </button>
@@ -64,79 +62,22 @@
         </ul>
       </nav>
     </header>
-    <!-- HEADER -->
-    <section
-      class="ezy__header5 bg-[#FDF1DD] py-14 md:py-24 text-indigo-700 relative z-10 overflow-hidden"
-    >
-      <svg
-        class="absolute left-0 bottom-0 -z-10"
-        width="474"
-        height="624"
-        viewBox="0 0 474 624"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="307.203"
-          y="-77"
-          width="380"
-          height="1282.77"
-          rx="190"
-          transform="rotate(49.9815 307.203 -77)"
-          fill="rgba(255, 255, 255, .25)"
-        />
-      </svg>
-      <svg
-        class="absolute right-0 top-0 -z-10"
-        width="568"
-        height="579"
-        viewBox="0 0 568 579"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="521.617"
-          y="-138"
-          width="380"
-          height="782.419"
-          rx="190"
-          transform="rotate(49.9815 521.617 -138)"
-          fill="rgba(255, 255, 255, .25)"
-        />
-      </svg>
-      <div class="container px-4 mx-auto relative">
-        <div class="grid grid-cols-2 gap-6 items-center">
-          <div
-            class="col-span-2 lg:col-span-1 xl:pr-12 text-center lg:text-start"
-          >
-            <h2 class="text-3xl font-bold md:text-[70px] leading-none mb-6">
-              Don’t be slow! Our prices are low.
-            </h2>
-            <p class="text-[22px] leading-normal opacity-80">
-              Everything you need—on a budget.
-            </p>
-
-            <a
-              href=""
-              class="bg-white py-3 px-8 rounded-xl shadow text-xl inline-flex mt-6 md:mt-12"
-              >Try Now <span class="fas fa-arrow-right ml-2"></span
-            ></a>
-          </div>
-          <div class="col-span-2 lg:col-span-1 text-center lg:text-start">
-            <img
-              src="https://cdn.easyfrontend.com/pictures/hero/hero-5.png"
-              alt=""
-              class="rounded max-w-full h-auto mx-auto mt-4"
-            />
-          </div>
+    <!-- Main Content Section -->
+    <div class="main-section">
+      <div class="sidebar">
+        <button class="sidebar-btn" id="info-btn">Info</button>
+        <button class="sidebar-btn" id="orders-btn">Orders</button>
+        <button class="sidebar-btn signout" id="signout-btn">sign out</button>
+      </div>
+      <div class="content">
+        <h2>User Info</h2>
+        <div id="info-section" class="section active"></div>
+        <h2>Your Orders</h2>
+        <div id="orders-section" class="section">
+          <p>No orders found yet.</p>
         </div>
       </div>
-    </section>
-
-    <!-- Main Content Section -->
-    <main class="main-content">
-      <section class="store_page products-list"></section>
-    </main>
+    </div>
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -187,7 +128,6 @@
         <p>© 2024, Digitic Designed by adel-el3raky</p>
       </div>
     </footer>
-    <script src="../assets/js/store.js"></script>
   </body>
-  <script src="temp.js"></script>
+  <script src="profile.js"></script>
 </html>

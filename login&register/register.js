@@ -1,3 +1,18 @@
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+// import {
+//   getDatabase,
+//   ref,
+//   set,
+//   push,
+//   onValue,
+// } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+// const firebaseConfig = {
+//   databaseURL:
+//     "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
+// };
+// const app = initializeApp(firebaseConfig);
+// const db = getDatabase();
+
 const form = document.getElementById("registerForm");
 const usernameInput = document.getElementById("username");
 const emailInput = document.getElementById("email");
@@ -9,9 +24,17 @@ const usernameMassage = document.getElementById("usernameMassage");
 
 const usernameRegex = /^[A-Za-z][A-Za-z0-9]{2,11}$/;
 
-usernameInput.addEventListener("focus", () => {
-  usernameMassage.classList.add("user-massge");
+usernameInput.addEventListener("focus", (event) => {
+  const username = event.target.value.trim();
+  if (usernameRegex.test(username)) {
+    usernameMassage.classList.add("user-massge");
+    usernameMassage.classList.add("success");
+    usernameMassage.textContent = "validat username ";
+  } else {
+    usernameMassage.classList.add("user-massge");
+  }
 });
+
 usernameInput.addEventListener("input", (event) => {
   const username = event.target.value.trim();
   if (usernameRegex.test(username)) {
@@ -36,8 +59,15 @@ usernameInput.addEventListener("blur", (event) => {
 const emailMassage = document.getElementById("emailMassage");
 const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-emailInput.addEventListener("focus", () => {
-  emailMassage.classList.add("user-massge");
+emailInput.addEventListener("focus", (event) => {
+  const email = event.target.value.trim();
+  if (emailRegex.test(email)) {
+    emailMassage.classList.add("user-massge");
+    emailMassage.classList.add("success");
+    emailMassage.textContent = "valid email ";
+  } else {
+    emailMassage.classList.add("user-massge");
+  }
 });
 
 emailInput.addEventListener("input", (event) => {
@@ -63,9 +93,17 @@ emailInput.addEventListener("blur", (event) => {
 //***********password*********
 const passwordMassage = document.getElementById("passwordMassage");
 const passwordRegex =
-  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
-passwordInput.addEventListener("focus", () => {
-  passwordMassage.classList.add("user-massge");
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[\S@$!%*?&#]{8,}$/;
+
+passwordInput.addEventListener("focus", (event) => {
+  const password = event.target.value;
+  if (passwordRegex.test(password)) {
+    passwordMassage.classList.add("user-massge");
+    passwordMassage.classList.add("success");
+    passwordMassage.textContent = "valid password ";
+  } else {
+    passwordMassage.classList.add("user-massge");
+  }
 });
 
 passwordInput.addEventListener("input", (event) => {
@@ -76,7 +114,7 @@ passwordInput.addEventListener("input", (event) => {
   } else {
     passwordMassage.classList.remove("success");
     passwordMassage.textContent =
-      "password must include uppercase letter, lowercase letter, digit, special character and at least 8 characters.";
+      "Password must have at least 8 characters, including an uppercase letter, a lowercase letter, a digit, and a special character, and must not contain spaces.";
   }
 });
 passwordInput.addEventListener("blur", (event) => {
@@ -95,8 +133,17 @@ const confirmPasswordMassage = document.getElementById(
   "confirmPasswordMassage"
 );
 
-confirmPassword.addEventListener("focus", () => {
-  confirmPasswordMassage.classList.add("user-massge");
+confirmPassword.addEventListener("focus", (event) => {
+  const confirmPassword = event.target.value;
+  const password = passwordInput.value;
+  if (confirmPassword === password) {
+    confirmPasswordMassage.classList.add("user-massge");
+    confirmPasswordMassage.classList.add("success");
+    confirmPasswordMassage.textContent = "matching password ";
+  } else {
+    confirmPasswordMassage.classList.add("user-massge");
+    confirmPasswordMassage.textContent = "password doesn't match";
+  }
 });
 
 confirmPassword.addEventListener("input", (event) => {
@@ -122,12 +169,59 @@ confirmPassword.addEventListener("blur", (event) => {
   }
 });
 form.addEventListener("submit", (e) => {
+  e.preventDefault();
   if (
     !usernameRegex.test(usernameInput.value.trim()) ||
     !passwordRegex.test(passwordInput.value) ||
     confirmPassword.value !== passwordInput.value ||
     !emailRegex.test(emailInput.value.trim())
   ) {
-    e.preventDefault();
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach((input, index) => {
+      if (!input.value) {
+        index == 0 ? usernameMassage.classList.add("user-massge", "error") : "";
+        index == 1 ? emailMassage.classList.add("user-massge", "error") : "";
+        index == 2 ? passwordMassage.classList.add("user-massge", "error") : "";
+        index == 3
+          ? confirmPasswordMassage.classList.add("user-massge", "error")
+          : "";
+      }
+    });
+  } else {
+    const newUser = {
+      username: usernameInput.value.trim(),
+      email: emailInput.value.trim(),
+      password: passwordInput.value,
+    };
+    console.log(JSON.stringify(newUser));
+
+    fetch("http://localhost:3000/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        localStorage.setItem("userId", data._id);
+        localStorage.setItem("userName", data.username);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("cart", JSON.stringify(data.cart));
+        localStorage.setItem("orders", JSON.stringify(data.orders));
+        localStorage.setItem("wishList", JSON.stringify(data.wishlist));
+
+        alert("User registered successfully!");
+        location.href = "/ui/temp.html";
+      })
+      .catch((error) => {
+        console.error("Error adding user:", error);
+      });
   }
 });
