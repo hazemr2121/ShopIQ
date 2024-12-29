@@ -34,7 +34,7 @@ form.addEventListener("submit", (e) => {
         };
         const createdAt = formatDateToReadable(data.createdAt);
         localStorage.setItem("createdAt", createdAt);
-        // location.href = "/ui/home.html";
+        location.href = "/ui/home.html";
         localStorage.setItem("loginMassage", "login success");
       } else {
         emailMassage.textContent = "User not found! Please check your email.";
@@ -43,6 +43,6 @@ form.addEventListener("submit", (e) => {
     })
     .catch((error) => {
       console.error("Error:", error);
-      // emailMassage.classList.add("active");
+      emailMassage.classList.add("active");
     });
 });
