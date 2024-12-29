@@ -125,7 +125,5 @@ button:hover {
 
 .container .form-group .active {
   display: block;
-}
-.active {
-  display: block;
+  color: #ff4d4d;
 }
