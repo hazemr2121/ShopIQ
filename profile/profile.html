@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>profile page</title>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
+"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../ui/styles.css" />
     <link
       rel="stylesheet"
@@ -56,7 +62,7 @@
           </button>
         </div>
         <ul class="nav-links">
-          <li><a href="#" class="active">HOME</a></li>
+          <li><a href="../ui/home.html" class="active">HOME</a></li>
           <li><a href="#">OUR STORE</a></li>
           <li><a href="#">CONTACT</a></li>
         </ul>
@@ -65,13 +71,110 @@
     <!-- Main Content Section -->
     <div class="main-section">
       <div class="sidebar">
-        <button class="sidebar-btn" id="info-btn">Info</button>
-        <button class="sidebar-btn" id="orders-btn">Orders</button>
-        <button class="sidebar-btn signout" id="signout-btn">sign out</button>
+        <!-- <button class="sidebar-btn" id="info-btn">Info</button> -->
+        <div class="photo-upload">
+          <img
+            id="profileImage"
+            src="https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
+            alt="Profile Photo"
+          />
+          <input type="file" id="photoInput" accept="image/*" />
+          <button id="updatePhotoBtn">Update</button>
+        </div>
+
+        <!-- <button class="sidebar-btn" id="orders-btn">Orders</button> -->
+        <div>
+          <div class="status">
+            <h5 id="createdAt">🟢 active since: <span>not yet</span></h5>
+            <hr />
+
+            <h5 id="your-orders">your orders : <span>0</span></h5>
+            <hr />
+            <h5 id="last-order">the last order : <span>not yet</span></h5>
+          </div>
+
+          <button class="sidebar-btn signout" id="signout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>sign out
+          </button>
+        </div>
       </div>
       <div class="content">
         <h2>User Info</h2>
-        <div id="info-section" class="section active"></div>
+        <div id="info-section" class="section active">
+          <form>
+            <div class="flex-between">
+              <p><strong>Name:</strong></p>
+              <input type="text" id="user-name" placeholder="Enter your name" />
+              <p class="hidden" id="username-error">*Username is required</p>
+            </div>
+
+            <div class="flex-between">
+              <p><strong>E-mail:</strong></p>
+              <input type="text" disabled id="email" />
+            </div>
+
+            <div class="flex-between">
+              <p><strong>Address:</strong></p>
+              <input
+                type="text"
+                id="user-adress"
+                placeholder="Enter your address"
+              />
+            </div>
+            <div class="flex-between">
+              <p><strong>Phone:</strong></p>
+              <input
+                type="tel"
+                id="user-phone"
+                placeholder="Enter your phone number"
+              />
+              <p class="hidden" id="phone-error">*only Numbers</p>
+            </div>
+            <button class="accordion" id="accordion">Edit Password</button>
+            <div class="panel">
+              <div class="flex-between">
+                <p><strong>Old Password:</strong></p>
+                <input
+                  type="password"
+                  id="old-password"
+                  placeholder="Enter your old password"
+                />
+                <p class="hidden" id="old-password-error">
+                  *incorrect password
+                </p>
+              </div>
+              <div class="flex-between">
+                <p><strong>New Password:</strong></p>
+                <input
+                  type="password"
+                  id="new-password"
+                  placeholder="Enter your new password"
+                  disabled
+                />
+                <p class="hidden" id="new-password-error">
+                  *same rules like register
+                </p>
+              </div>
+              <div class="flex-between">
+                <p><strong>Confirm Password:</strong></p>
+                <input
+                  type="password"
+                  id="confirm-password"
+                  placeholder="confirm password"
+                  disabled
+                />
+                <p class="hidden" id="confirm-password-error">
+                  *not match with new password
+                </p>
+              </div>
+            </div>
+
+            <div class="flex-end">
+              <button class="reset-btn" type="reset">Reset</button>
+              <button class="update-info" type="submit">Update</button>
+            </div>
+          </form>
+        </div>
         <h2>Your Orders</h2>
         <div id="orders-section" class="section">
           <p>No orders found yet.</p>
@@ -129,5 +232,8 @@
       </div>
     </footer>
   </body>
+  <script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
+"></script>
   <script src="profile.js"></script>
 </html>

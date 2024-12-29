@@ -1,18 +1,3 @@
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-// import {
-//   getDatabase,
-//   ref,
-//   set,
-//   push,
-//   onValue,
-// } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
-// const firebaseConfig = {
-//   databaseURL:
-//     "https://store-ec3ce-default-rtdb.europe-west1.firebasedatabase.app/",
-// };
-// const app = initializeApp(firebaseConfig);
-// const db = getDatabase();
-
 const form = document.getElementById("registerForm");
 const usernameInput = document.getElementById("username");
 const emailInput = document.getElementById("email");
@@ -192,6 +177,7 @@ form.addEventListener("submit", (e) => {
       username: usernameInput.value.trim(),
       email: emailInput.value.trim(),
       password: passwordInput.value,
+      address: "",
     };
     console.log(JSON.stringify(newUser));
 
@@ -218,7 +204,7 @@ form.addEventListener("submit", (e) => {
         localStorage.setItem("wishList", JSON.stringify(data.wishlist));
 
         alert("User registered successfully!");
-        location.href = "/ui/temp.html";
+        location.href = "/ui/home.html";
       })
       .catch((error) => {
         console.error("Error adding user:", error);
