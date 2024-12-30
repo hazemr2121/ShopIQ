@@ -197,7 +197,7 @@ function updateInfoSection() {
           },
           body: JSON.stringify({
             username: userName.value,
-            email: JSON.parse(localStorage.getItem("user")).email,
+            email: email.value,
             address: userAddress.value,
             phone: userPhone.value,
             password: newPassword.value ? newPassword.value : password,
@@ -313,7 +313,9 @@ photoInput.addEventListener("change", (event) => {
 }
 
 const createdAtElement = document.querySelector("#createdAt span");
-createdAtElement.textContent = `${localStorage.getItem("createdAt")}`;
+createdAtElement.textContent = `${
+  JSON.parse(localStorage.getItem("user")).createdAt
+}`;
 const orders = document.querySelector("#your-orders span");
 orders.textContent = `${
   JSON.parse(localStorage.getItem("user")).orders.length
