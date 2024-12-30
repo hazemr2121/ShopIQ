@@ -1,21 +1,20 @@
-// const changeAccount = document.querySelector(".account");
-// if (localStorage.getItem("user").userName) {
-//   changeAccount.innerHTML = `
-//     <a href="../profile/profile.html" class="icon-link">
-//       <i class="fa fa-user"></i>
-//       <span>${localStorage.getItem("user").userName}</span>
-//     </a>
-//   `;
-// }
+const changeAccount = document.querySelector(".account");
+function changeUserName() {
+  if (localStorage.getItem("user")) {
+    changeAccount.innerHTML = `
+      <a href="#" class="icon-link">
+        <i class="fa fa-user"></i>
+        <span>${JSON.parse(localStorage.getItem("user")).userName}</span>
+      </a>
+    `;
+  }
+}
 
-// document.querySelector(".account").innerHTML = `${
-//   JSON.localStorage.getItem("user").userName
-// }`;
+changeUserName();
+
 const signOut = document.getElementById("signout-btn");
 
 signOut.addEventListener("click", () => {
-  // Attach this to your log-out button's click event
-
   Swal.fire({
     title: "Are you sure?",
     // text: "You will be logged out of your account.",
@@ -227,6 +226,7 @@ function updateInfoSection() {
           };
 
           localStorage.setItem("user", JSON.stringify(userData));
+          changeUserName();
 
           changeOldPassword.value = "";
           newPassword.value = "";
