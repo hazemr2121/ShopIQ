@@ -56,8 +56,6 @@ document.getElementById("place-order").addEventListener("click", function (e) {
   }
 
   if (isValid) {
-    alert("Order placed successfully!");
-
     const cartItems = JSON.parse(localStorage.getItem("user")).cart;
     const orderItems = {
       products: cartItems.map((item) => ({

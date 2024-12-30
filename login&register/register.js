@@ -257,7 +257,6 @@ form.addEventListener("submit", (e) => {
         localStorage.setItem("user", JSON.stringify(user));
         console.log(user);
 
-        alert("User registered successfully!");
         location.href = "/ui/home.html";
       })
       .catch((error) => {

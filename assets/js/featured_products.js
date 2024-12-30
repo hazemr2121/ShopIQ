@@ -94,6 +94,8 @@ function renderProducts() {
           };
 
           localStorage.setItem("user", JSON.stringify(userData));
+          var cartCount = JSON.parse(localStorage.getItem("user")).cart.length;
+          document.querySelector(".cart .badge").innerHTML = cartCount;
           // localStorage.setItem("user", JSON.stringify(data));
         });
         Toastify({
