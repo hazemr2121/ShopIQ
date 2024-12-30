@@ -99,6 +99,7 @@ function renderProducts() {
         Toastify({
           text: "Product added to Cart Successfully",
           className: "info",
+          position: "left",
         }).showToast();
       });
     });
@@ -153,11 +154,15 @@ function renderProducts() {
             cart: data.cart,
           };
           localStorage.setItem("user", JSON.stringify(userData));
+          var wishlistCount = JSON.parse(localStorage.getItem("user")).wishList
+            .length;
+          document.querySelector(".wishlist .badge").innerHTML = wishlistCount;
         });
 
         Toastify({
           text: msg,
           className: "info",
+          position: "left",
         }).showToast();
       });
     });

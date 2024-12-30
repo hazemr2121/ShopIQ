@@ -1,0 +1,23 @@
+.categories-dropdown {
+  position: relative;
+}
+.categories-dropdown .category-content {
+  display: none;
+  position: absolute;
+  /* display: grid; */
+  background-color: #2d2b3a;
+  min-width: 800px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  /* padding: 20px; */
+  color: white;
+  border-radius: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: 100000;
+}
+.categories-dropdown .category-content.active {
+  display: grid;
+}
+.categories-dropdown .category-content a {
+  padding: 10px;
+  border: 0.5px solid black;
+}

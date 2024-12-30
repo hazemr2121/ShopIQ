@@ -40,8 +40,8 @@ function renderWishlist(products) {
               <span class="wish-icon" data-wished="true" data-product_id="${
                 product._id
               }">
-                  <i class="fa-solid fa-heart" style="color: #b80f0f;"></i>
-                  <i class="fa-regular fa-heart active"></i>
+                  <i class="fa-solid fa-heart active" style="color: #b80f0f; "></i>
+                  <i class="fa-regular fa-heart "></i>
               </span>
               <img src="${product.thumbnail}" alt="${
       product.name
@@ -103,6 +103,7 @@ function renderWishlist(products) {
         Toastify({
           text: "Product added to Cart Successfully",
           className: "info",
+          position: "left",
         }).showToast();
       });
     });
@@ -162,6 +163,7 @@ function renderWishlist(products) {
         Toastify({
           text: msg,
           className: "info",
+          position: "left",
         }).showToast();
       });
     });

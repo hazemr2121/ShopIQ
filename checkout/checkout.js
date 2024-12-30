@@ -1,3 +1,5 @@
+import { updateOrders, updateUserOrders } from "../utils/product.js";
+
 const fields = [
   { id: "address", regex: /.{3,}/ },
   { id: "cardholder", regex: /.{3,}/ },
@@ -55,6 +57,82 @@ document.getElementById("place-order").addEventListener("click", function (e) {
 
   if (isValid) {
     alert("Order placed successfully!");
+
+    const cartItems = JSON.parse(localStorage.getItem("user")).cart;
+    const orderItems = {
+      products: cartItems.map((item) => ({
+        product: item.product._id,
+        quantity: item.quantity,
+      })),
+      user: JSON.parse(localStorage.getItem("user")).userId,
+    };
+
+    const userOrder = {
+      products: cartItems.map((item) => ({
+        product: item.product._id,
+        quantity: item.quantity,
+      })),
+    };
+
+    console.log(userOrder);
+
+    // const orderItems = {
+    //   products: [
+    //     {
+    //       product: "676af4b8892744d5e1855e50",
+    //       quantity: 7,
+    //     },
+    //     {
+    //       product: "676af4b8892744d5e1855e52",
+    //     },
+    //   ],
+    // user: JSON.parse(localStorage.getItem("user")).userId,
+    // };
+    updateOrders(orderItems).then((data) => {
+      updateUserOrders(
+        userOrder,
+        JSON.parse(localStorage.getItem("user")).userId
+      ).then((res) => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        // user.cart = [];
+        // localStorage.setItem("user", JSON.stringify(user));
+        //here
+
+        // Fetch updated user data and update localStorage
+        fetch(`http://localhost:3000/api/users/${user.userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cart: [] }),
+        })
+          .then((response) => response.json())
+          .then((updatedUser) => {
+            const userData = {
+              userId: updatedUser._id,
+              userName: updatedUser.username,
+              address: updatedUser.address,
+              phone: updatedUser.phone,
+              orders: updatedUser.orders,
+              role: updatedUser.role,
+              wishList: updatedUser.wishlist,
+              email: updatedUser.email,
+              cart: updatedUser.cart,
+              createdAt: new Date(updatedUser.createdAt).toLocaleDateString(
+                undefined,
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              ),
+            };
+            localStorage.setItem("user", JSON.stringify(userData));
+            location.href = "../profile/profile.html";
+          })
+          .catch((error) => console.error("Error fetching user data:", error));
+      });
+    });
   }
 });
 
@@ -79,3 +157,6 @@ document.getElementById("subtotal").textContent = orderPrice.toFixed(2);
 document.getElementById("total-price").textContent = (orderPrice + 5.0).toFixed(
   2
 );
+
+let place_order_btn = document.getElementById("place-order");
+place_order_btn.addEventListener("click", () => {});
