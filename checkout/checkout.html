@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Page</title>
+    <link rel="stylesheet" href="checkout.css" />
+  </head>
+  <body>
+    <section class="checkout">
+      <div class="billing-details">
+        <h2>Billing Details</h2>
+        <form>
+          <div class="form-row"></div>
+
+          <div class="form-group">
+            <label for="city">Address <span>*</span></label>
+            <input type="text" id="address" placeholder="Address" />
+            <p class="hiden">*Must enter a valid address</p>
+          </div>
+
+          <div class="form-group">
+            <label for="cardholdername">Cardholder's Name <span>*</span></label>
+            <input
+              type="text"
+              id="cardholder"
+              placeholder="cardholder's name"
+            />
+            <p class="hiden">*must put valid cardholder's name</p>
+          </div>
+          <div class="form-group">
+            <label for="card-number">Card Number <span>*</span></label>
+            <input type="number" id="card-number" placeholder="card number" />
+            <p class="hiden">*Must enter a valid 16-digit card number</p>
+          </div>
+          <!-- expaired date and cvv code -->
+
+          <div class="form-group">
+            <label for="exp-date">Expiration Date <span>*</span></label>
+            <input type="month" id="exp-date" placeholder="MM/YY" />
+            <p class="hiden">*mMust enter a valid expiration date</p>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV <span>*</span></label>
+            <input type="number" id="cvv" placeholder="CVV" />
+            <p class="hiden">*Must enter a valid 3 or 4-digit CVV code</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone <span>*</span></label>
+              <input type="tel" id="phone" placeholder="Phone" />
+              <p class="hiden">*Must enter a valid phone number</p>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address <span>*</span></label>
+              <input type="email" id="email" placeholder="Email address" />
+              <p class="hiden">*must put valid email address</p>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="order-summary">
+        <h2>Your Order</h2>
+        <div class="order-details">
+          <p><strong>Product</strong> <span>Subtotal</span></p>
+          <hr />
+          <p>
+            Beats Studio3 Wireless Headphones - Matte Black × 1
+            <span>$289.00</span>
+          </p>
+          <hr />
+          <p><strong>Subtotal:</strong> <span>$289.00</span></p>
+          <hr />
+          <p><strong>Shipping:</strong> <span>Flat rate: $5.00</span></p>
+          <hr />
+          <p><strong>Total:</strong> <span>$294.00</span></p>
+          <hr />
+        </div>
+        <div class="payment-methods">
+          <p>
+            <input type="radio" id="bank-transfer" name="payment-method" />
+            <label for="bank-transfer">Direct bank transfer</label>
+          </p>
+          <p>
+            <input type="radio" id="check-payment" name="payment-method" />
+            <label for="check-payment">Check payments</label>
+          </p>
+          <p>
+            <input
+              type="radio"
+              id="cash-on-delivery"
+              name="payment-method"
+              checked
+            />
+            <label for="cash-on-delivery">Cash on delivery</label>
+          </p>
+        </div>
+        <hr />
+        <br />
+        <p>Your personal data will be used to process your order...</p>
+        <div class="terms">
+          <input type="checkbox" id="terms" required />
+          <label for="terms"
+            >I have read and agree to the website
+            <a href="#">terms and conditions</a></label
+          >
+          <p class="hiden">*check terms and conditions</p>
+        </div>
+        <button class="place-order" id="place-order">Place order</button>
+      </div>
+    </section>
+  </body>
+  <script src="checkout.js"></script>
+</html>

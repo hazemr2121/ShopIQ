@@ -1,12 +1,13 @@
 const changeAccount = document.querySelector(".account");
-if (localStorage.getItem("userName")) {
+if (localStorage.getItem("user").userName) {
   changeAccount.innerHTML = `
   <a href="../profile/profile.html" class="icon-link">
     <i class="fa fa-user"></i>
-    <span>${localStorage.getItem("userName")}</span>
+    <span>${localStorage.getItem("user").userName}</span>
   </a>
 `;
 }
+console.log(localStorage.getItem("user"));
 if (localStorage.getItem("loginMassage")) {
   Swal.fire({
     position: "top-end",

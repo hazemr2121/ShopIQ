@@ -11,6 +11,12 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
     />
 
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
     <!-- Font Awesome CDN for icons -->
     <link
       rel="stylesheet"
@@ -29,22 +35,27 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
         </div>
 
         <div class="search-bar">
-          <input type="text" placeholder="Search Product Here" />
-          <button type="submit">
+          <input
+            type="text"
+            placeholder="Search Product Here"
+            id="search-input"
+          />
+          <button id="search-btn">
             <i class="fa fa-search"></i>
           </button>
+          <div class="search_result"></div>
         </div>
 
         <div class="header-actions">
           <div class="wishlist">
-            <a href="#" class="icon-link">
+            <a href="./wishlish.html" class="icon-link">
               <i class="fa fa-heart"></i>
               <span class="badge">0</span>
               <span>Wishlist</span>
             </a>
           </div>
           <div class="account">
-            <a href="../login&register/login.html" class="icon-link">
+            <a href="../profile/profile.html" class="icon-link">
               <i class="fa fa-user"></i>
               <span>Account</span>
             </a>
@@ -67,8 +78,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
         </div>
         <ul class="nav-links">
           <li><a href="#" class="active">HOME</a></li>
-          <li><a href="#">OUR STORE</a></li>
-          <li><a href="#">CONTACT</a></li>
+          <li><a href="../store.html">OUR STORE</a></li>
+          <li><a href="./contact.html">CONTACT</a></li>
         </ul>
       </nav>
     </header>
@@ -182,7 +193,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
         <div class="featured-products-container">
           <div class="featured-header">
             <h2>Featured Products</h2>
-            <button>See More</button>
+            <button><a href="../store.html">See More</a></button>
           </div>
           <div class="slider-container">
             <button class="slider-button prev-button">←</button>
@@ -245,9 +256,39 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
     <script src="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
     "></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="../assets/js/nav-bar.js"></script>
+    <script type="module" src="../assets/js/featured_products.js"></script>
+    <script>
+      let searchInput = document.getElementById("search-input");
+      let searchBtn = document.getElementById("search-btn");
+      let search_result = document.querySelector(".search_result");
+      searchBtn.onclick = () => {
+        console.log(searchInput.value);
+        fetch(
+          `http://localhost:3000/api/search/products?title=${searchInput.value}`
+        ).then(async (res) => {
+          let data = await res.json();
+          search_result.style.display = "flex";
+          data.forEach((product) => {
+            let { thumbnail, title, price, _id } = product;
+            let row = document.createElement("a");
+            row.href = `/product_details.html?id=${_id}`;
+            row.innerHTML = `<img src="${thumbnail}" alt="">
+                            <div class="title">${title}</div>
+                            <div class="price">$${price}</div>
+                          `;
 
-    <script src="../assets/js/store.js"></script>
-    <script src="../assets/js/featured_products.js"></script>
+            search_result.appendChild(row);
+          });
+          console.log(search_result);
+          console.log(data);
+        });
+      };
+    </script>
   </body>
-  <script src="temp.js"></script>
+  <!-- <script src="temp.js"></script> -->
 </html>

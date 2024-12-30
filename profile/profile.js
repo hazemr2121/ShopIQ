@@ -1,18 +1,20 @@
 const changeAccount = document.querySelector(".account");
-if (localStorage.getItem("userName")) {
-  changeAccount.innerHTML = `
-    <a href="../profile/profile.html" class="icon-link">
-      <i class="fa fa-user"></i>
-      <span>${localStorage.getItem("userName")}</span>
-    </a>
-  `;
+function changeUserName() {
+  if (localStorage.getItem("user")) {
+    changeAccount.innerHTML = `
+      <a href="#" class="icon-link">
+        <i class="fa fa-user"></i>
+        <span>${JSON.parse(localStorage.getItem("user")).userName}</span>
+      </a>
+    `;
+  }
 }
+
+changeUserName();
 
 const signOut = document.getElementById("signout-btn");
 
 signOut.addEventListener("click", () => {
-  // Attach this to your log-out button's click event
-
   Swal.fire({
     title: "Are you sure?",
     // text: "You will be logged out of your account.",
@@ -28,7 +30,7 @@ signOut.addEventListener("click", () => {
     buttonsStyling: false,
   }).then((result) => {
     if (result.isConfirmed) {
-      localStorage.clear();
+      localStorage.clear("user");
       location.href = "../login&register/login.html";
     }
   });
@@ -106,7 +108,7 @@ fetch("http://localhost:3000/api/users")
   .then((res) => res.json())
   .then((data) => {
     const user = data.find(
-      (user) => user._id === localStorage.getItem("userId")
+      (user) => user._id === JSON.parse(localStorage.getItem("user")).userId
     );
 
     password = user.password;
@@ -184,7 +186,9 @@ function updateInfoSection() {
       isOldPasswordValid
     ) {
       fetch(
-        `http://localhost:3000/api/users/${localStorage.getItem("userId")}`,
+        `http://localhost:3000/api/users/${
+          JSON.parse(localStorage.getItem("user")).userId
+        }`,
         {
           method: "PUT",
           headers: {
@@ -192,33 +196,37 @@ function updateInfoSection() {
           },
           body: JSON.stringify({
             username: userName.value,
-            email: localStorage.getItem("email"),
+            email: email.value,
             address: userAddress.value,
             phone: userPhone.value,
             password: newPassword.value ? newPassword.value : password,
           }),
         }
       )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
+        .then(async (response) => {
+          let data = await response.json();
           console.log(data);
-          localStorage.setItem("userId", data._id);
-          localStorage.setItem("userName", data.username);
-          localStorage.setItem("address", data.address);
-          localStorage.setItem("phone", data.phone);
-          localStorage.setItem("orders", JSON.stringify(data.orders));
-          localStorage.setItem("wishList", JSON.stringify(data.wishlist));
+
           const formatDateToReadable = (isoString) => {
             const options = { year: "numeric", month: "long", day: "numeric" };
             return new Date(isoString).toLocaleDateString(undefined, options);
           };
           const createdAt = formatDateToReadable(data.createdAt);
-          localStorage.setItem("createdAt", createdAt);
+          const userData = {
+            userId: data._id,
+            userName: data.username,
+            address: data.address,
+            phone: data.phone,
+            orders: data.orders,
+            role: data.role,
+            wishList: data.wishlist,
+            email: data.email,
+            cart: data.cart,
+            createdAt: createdAt,
+          };
+
+          localStorage.setItem("user", JSON.stringify(userData));
+          changeUserName();
 
           changeOldPassword.value = "";
           newPassword.value = "";
@@ -233,15 +241,22 @@ function updateInfoSection() {
   });
 }
 updateInfoSection();
-userName.setAttribute("value", localStorage.getItem("userName"));
-email.setAttribute("value", localStorage.getItem("email"));
+userName.setAttribute(
+  "value",
+  JSON.parse(localStorage.getItem("user")).userName
+);
+email.setAttribute("value", JSON.parse(localStorage.getItem("user")).email);
 userAddress.setAttribute(
   "value",
-  localStorage.getItem("address") ? localStorage.getItem("address") : ""
+  JSON.parse(localStorage.getItem("user")).address
+    ? JSON.parse(localStorage.getItem("user")).address
+    : ""
 );
 userPhone.setAttribute(
   "value",
-  localStorage.getItem("phone") ? localStorage.getItem("phone") : ""
+  JSON.parse(localStorage.getItem("user")).phone
+    ? JSON.parse(localStorage.getItem("user")).phone
+    : ""
 );
 
 function changePassword() {
@@ -298,7 +313,10 @@ photoInput.addEventListener("change", (event) => {
 }
 
 const createdAtElement = document.querySelector("#createdAt span");
-createdAtElement.textContent = `${localStorage.getItem("createdAt")}`;
+createdAtElement.textContent = `${
+  JSON.parse(localStorage.getItem("user")).createdAt
+}`;
 const orders = document.querySelector("#your-orders span");
-console.log(localStorage.getItem("orders")[0]);
-orders.textContent = `${localStorage.getItem("orders").length}`;
+orders.textContent = `${
+  JSON.parse(localStorage.getItem("user")).orders.length
+}`;

@@ -1,12 +1,13 @@
+import { addToCart, updateWishlist } from "../../utils/product.js";
 let currentIndex = 0;
-let products = [];
+let productsElements = [];
 const productsPerView = 4;
 
 async function fetchProducts() {
   try {
     const response = await fetch("http://localhost:3000/api/products");
-    const allProducts = await response.json();
-    products = allProducts.slice(10, 18); // Display only 8 products
+    const products = await response.json();
+    productsElements = products.data.slice(10, 18); // Display only 8 products
     renderProducts();
     setupSlider();
   } catch (error) {
@@ -18,7 +19,7 @@ function renderProducts() {
   const container = document.querySelector(".products-slider");
   container.innerHTML = "";
 
-  products.forEach((product) => {
+  productsElements.forEach((product) => {
     const productCard = document.createElement("div");
     productCard.className = "product-card";
 
@@ -30,8 +31,11 @@ function renderProducts() {
                     )}% OFF</span>`
                   : ""
               }
-              <span class="wish-icon">
-                  <i class="fa-regular fa-heart"></i>
+              <span class="wish-icon" data-wished="false" data-product_id="${
+                product._id
+              }">
+                  <i class="fa-solid fa-heart" style="color: #b80f0f;"></i>
+                  <i class="fa-regular fa-heart active"></i>
               </span>
               <img src="${product.thumbnail}" alt="${
       product.name
@@ -52,7 +56,9 @@ function renderProducts() {
                   <hr>
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                       <div class="price">$${product.price}</div>
-                      <button class="add-to-cart">
+                      <button class="add-to-cart" data-product_id="${
+                        product._id
+                      }">
                           <i class="fa-solid fa-cart-plus"></i> Add to Cart
                       </button>
                   </div>
@@ -60,6 +66,101 @@ function renderProducts() {
           `;
 
     container.appendChild(productCard);
+  });
+  var cartBtns = document.querySelectorAll(".add-to-cart");
+  cartBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      addToCart(
+        { product: btn.dataset.product_id },
+        JSON.parse(localStorage.getItem("user")).userId
+      ).then((res) => {
+        console.log(res);
+        fetch(
+          "http://localhost:3000/api/users/" +
+            JSON.parse(localStorage.getItem("user")).userId
+        ).then(async (res) => {
+          const data = await res.json();
+          console.log(data);
+          const userData = {
+            userId: data._id,
+            userName: data.username,
+            address: data.address,
+            phone: data.phone,
+            orders: data.orders,
+            role: data.role,
+            wishList: data.wishlist,
+            email: data.email,
+            cart: data.cart,
+          };
+
+          localStorage.setItem("user", JSON.stringify(userData));
+          // localStorage.setItem("user", JSON.stringify(data));
+        });
+        Toastify({
+          text: "Product added to Cart Successfully",
+          className: "info",
+        }).showToast();
+      });
+    });
+  });
+
+  var wishBtns = document.querySelectorAll(".wish-icon");
+  wishBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      var product_data;
+      var msg;
+
+      if (btn.dataset.wished == "false") {
+        btn.dataset.wished = "true";
+        btn.children[1].classList.toggle("active");
+        btn.children[0].classList.toggle("active");
+
+        product_data = {
+          action: "add",
+          id: btn.dataset.product_id,
+        };
+        msg = "Product added to Wishlist Successfully";
+      } else if (btn.dataset.wished == "true") {
+        btn.dataset.wished = "false";
+        btn.children[1].classList.toggle("active");
+        btn.children[0].classList.toggle("active");
+
+        product_data = {
+          action: "remove",
+          id: btn.dataset.product_id,
+        };
+        msg = "Product removed from Wishlist Successfully";
+      }
+
+      updateWishlist(
+        product_data,
+        JSON.parse(localStorage.getItem("user")).userId
+      ).then((data) => {
+        fetch(
+          "http://localhost:3000/api/users/" +
+            JSON.parse(localStorage.getItem("user")).userId
+        ).then(async (res) => {
+          const data = await res.json();
+          const userData = {
+            userId: data._id,
+            userName: data.username,
+            address: data.address,
+            phone: data.phone,
+            orders: data.orders,
+            role: data.role,
+            wishList: data.wishlist,
+            email: data.email,
+            cart: data.cart,
+          };
+          localStorage.setItem("user", JSON.stringify(userData));
+        });
+
+        Toastify({
+          text: msg,
+          className: "info",
+        }).showToast();
+      });
+    });
   });
 }
 
@@ -82,7 +183,7 @@ function setupSlider() {
   });
 
   nextButton.addEventListener("click", () => {
-    if (currentIndex < products.length - productsPerView) {
+    if (currentIndex < productsElements.length - productsPerView) {
       currentIndex++;
       updateSliderPosition();
     }
