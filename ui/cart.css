@@ -5,13 +5,6 @@
   font-family: "Roboto", Arial, sans-serif;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-}
-
 .container {
   width: 100%;
   margin: 20px;
@@ -40,7 +33,7 @@ h1 {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-label {
+.form-group label {
   font-size: 1.1rem;
   margin-bottom: 8px;
   display: block;
@@ -48,7 +41,7 @@ label {
   font-weight: bold;
 }
 
-input,
+.form-group input,
 textarea {
   width: 100%;
   padding: 12px;
@@ -60,19 +53,19 @@ textarea {
   transition: all 0.3s;
 }
 
-input:focus,
+.form-group input:focus,
 textarea:focus {
   outline: none;
   background-color: #ddd;
   box-shadow: 0 0 5px #ffa742;
 }
 
-textarea {
+.form-group textarea {
   height: 120px;
   resize: none;
 }
 
-button {
+.buttonimportant button {
   background: linear-gradient(135deg, #ffa742, #ff7422);
   color: #fff;
   font-size: 1.2rem;
@@ -86,7 +79,7 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.buttonimportant button:hover {
   background: linear-gradient(135deg, #ff7422, #ffa742);
 }
 
@@ -111,12 +104,12 @@ button:hover {
   color: #444;
 }
 
-ul {
+.nav-links ul {
   margin-top: 10px;
   padding-left: 20px;
 }
 
-ul li {
+.nav-links ul li {
   list-style: circle;
   color: #666;
 }

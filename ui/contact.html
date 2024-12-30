@@ -4,9 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="nav-bar.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="cart.css" />
   </head>
   <body>
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">
+          <a href="./home.html">
+            <h1>Shop IQ</h1>
+          </a>
+        </div>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Search Product Here"
+            id="search-input"
+          />
+          <button id="search-btn">
+            <i class="fa fa-search"></i>
+          </button>
+          <div class="search_result"></div>
+        </div>
+
+        <div class="header-actions">
+          <div class="wishlist">
+            <a href="./wishlish.html" class="icon-link">
+              <i class="fa fa-heart"></i>
+              <span class="badge">0</span>
+              <span>Wishlist</span>
+            </a>
+          </div>
+          <div class="account">
+            <a href="../profile/profile.html" class="icon-link">
+              <i class="fa fa-user"></i>
+              <span>Account</span>
+            </a>
+          </div>
+          <div class="cart">
+            <a href="./cart.html" class="icon-link">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <nav class="header-bottom">
+        <div class="categories-dropdown">
+          <button class="dropdown-btn" id="dropdown-btn">
+            Shop Categories
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="category-content" id="categoryDropdown"></div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="./home.html">HOME</a></li>
+          <li><a href="../store.html">OUR STORE</a></li>
+          <li><a href="#" class="active">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
     <div class="container">
       <div class="about-section">
         <h2>About Us</h2>
@@ -66,13 +131,120 @@
               placeholder="Enter Your Message"
             ></textarea>
           </div>
-          <button type="submit">Submit Your Message</button>
+          <button
+            style="
+              background: linear-gradient(135deg, #ffa742, #ff7422);
+              color: #fff;
+              font-size: 1.2rem;
+              font-weight: bold;
+              padding: 12px;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: background 0.3s;
+              width: 100%;
+              margin-top: 10px;
+            "
+            type="submit"
+          >
+            Submit Your Message
+          </button>
           <div id="successMessage" class="success-message">
             Message sent successfully!
           </div>
         </form>
       </div>
     </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Demo Store</p>
+          <p>NO. 12459 Freedom, New York, 1111</p>
+          <p>United States</p>
+          <p>tel: +201554138144</p>
+          <p>Email: kameladel339@gmail.com</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Terms of Services</a></li>
+            <li><a href="#">Blogs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Size Chart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Laptops</a></li>
+            <li><a href="#">Headphones</a></li>
+            <li><a href="#">Smart Watches</a></li>
+            <li><a href="#">Tablets</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024, Digitic Designed by adel-el3raky</p>
+      </div>
+    </footer>
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
+    "></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="../assets/js/nav-bar.js"></script>
+    <script type="module" src="../assets/js/featured_products.js"></script>
+    <script>
+      let searchInput = document.getElementById("search-input");
+      let searchBtn = document.getElementById("search-btn");
+      let search_result = document.querySelector(".search_result");
+      searchBtn.onclick = () => {
+        if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
+          return;
+        } else {
+          console.log(searchInput.value);
+          fetch(
+            `http://localhost:3000/api/search/products?title=${searchInput.value}`
+          ).then(async (res) => {
+            search_result.innerHTML = "";
+            let data = await res.json();
+            search_result.style.display = "flex";
+            data.forEach((product) => {
+              let { thumbnail, title, price, _id } = product;
+              let row = document.createElement("a");
+              row.href = `/product_details.html?id=${_id}`;
+              row.innerHTML = `<img src="${thumbnail}" alt="">
+                              <div class="title">${title}</div>
+                              <div class="price">$${price}</div>
+                            `;
+
+              search_result.appendChild(row);
+            });
+            console.log(search_result);
+            console.log(data);
+          });
+        }
+      };
+    </script>
 
     <script>
       document
