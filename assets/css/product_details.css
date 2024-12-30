@@ -80,10 +80,25 @@ body {
 }
 .product_page .description {
     padding: 20px;
+    border-bottom: 2px solid #8c7e7e;
 }
 .product_page .description h2 {
     margin-bottom: 10px;
 }
 .product_page .description p {
     padding: 10px;
+}
+.product_page .reviews {
+    padding: 20px;
+}
+.product_page .reviews .reviews_content {
+    padding: 20px;
+}
+.product_page .reviews .review_card .user_details {
+    display: flex;
+    align-items: center;
+}
+.product_page .reviews .review_card img {
+    width: 35px;
+    margin-right: 10px;
 }
