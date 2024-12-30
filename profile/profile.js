@@ -259,23 +259,6 @@ userPhone.setAttribute(
     : ""
 );
 
-function changePassword() {
-  const acc = document.getElementById("accordion");
-
-  acc.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // this.classList.toggle("active");
-    let panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-changePassword();
-
 const profileImage = document.getElementById("profileImage");
 const photoInput = document.getElementById("photoInput");
 const updatePhotoBtn = document.getElementById("updatePhotoBtn");
@@ -315,3 +298,65 @@ orders.textContent = `${
 //   );
 //   lastOrder.textContent = `${lastOrderDate.toLocaleDateString()} at ${lastOrderDate.toLocaleTimeString()}`;
 // }
+
+console.log(JSON.parse(localStorage.getItem("user")).orders);
+const orderStatus = document.getElementById("orders-section");
+const finishedOrders = JSON.parse(localStorage.getItem("user")).orders;
+
+finishedOrders.forEach((order, orderIndex) => {
+  const totalPrice = order.products
+    .reduce((sum, item) => {
+      return sum + item.product.price * item.quantity;
+    }, 0)
+    .toFixed(2);
+
+  // Display the order summary
+  orderStatus.innerHTML += `
+  <button class="accordion accordion-order">
+
+      <h3>Order #${orderIndex + 1}</h3>
+      <p><strong>Order ID:</strong> ${order._id}</p>
+      <p><strong>Total Price:</strong> $${totalPrice}</p>
+      <p><strong>Number of Products:</strong> ${order.products.length}</p>
+
+    </button>
+  `;
+
+  // Display each product in the order
+  order.products.forEach((item) => {
+    orderStatus.innerHTML += `
+    <div class="panel">
+      <div class="product-details">
+        <img src="${item.product.thumbnail}" alt="${item.product.title}" />
+        <div class="product-info">
+          <h4>${item.product.title}</h4>
+          <p><strong>Brand:</strong> ${item.product.brand}</p>
+          <p><strong>Category:</strong> ${item.product.category}</p>
+          <p><strong>Price:</strong> $${item.product.price}</p>
+          <p><strong>Quantity:</strong> ${item.quantity}</p>
+        </div>
+      </div>
+      </div>
+    `;
+  });
+});
+
+function changePassword() {
+  const acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // this.classList.toggle("active");
+      let panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+}
+changePassword();
