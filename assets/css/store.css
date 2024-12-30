@@ -98,7 +98,14 @@ body {
     max-height: 700px;
     padding: 10px 5px;
 }
-
+@media screen and (max-width: 992px) {
+    .store_page .container_content .sidebar-column {
+        display: none;
+    }
+    .store_page .container_content .products-list-column {
+        width: 100% !important;
+    }
+}
 /* end Sidebar */
 
 /* start Product List */
