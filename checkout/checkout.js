@@ -68,10 +68,10 @@ let ordersItems = JSON.parse(localStorage.getItem("user")).cart;
 
 ordersItems.forEach((item) => {
   orders.innerHTML += `
-    <p><strong>${item.product.title} x ${
+      <p><strong>${item.product.title} x ${
     item.quantity
   }</strong> <span>$${item.product.price.toFixed(2)}</span></p>
-  `;
+    `;
   orderPrice += item.product.price;
 });
 

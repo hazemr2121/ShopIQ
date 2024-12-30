@@ -54,8 +54,8 @@ emailInput.addEventListener("focus", (event) => {
     emailMassage.classList.add("user-massge");
   }
 });
-
-emailInput.addEventListener("input", (event) => {
+let isThere;
+emailInput.addEventListener("input", async (event) => {
   const email = event.target.value.trim();
   if (emailRegex.test(email)) {
     emailMassage.classList.add("success");
@@ -64,6 +64,39 @@ emailInput.addEventListener("input", (event) => {
     emailMassage.classList.remove("success");
     emailMassage.textContent =
       "Enter a valid email  Enter validat e-mail 'user@domain.io'";
+  }
+
+  try {
+    const emailExistsResponse = await fetch(
+      `http://localhost:3000/api/userByEmail/${email}`
+    );
+    console.log(emailExistsResponse.ok);
+    if (!emailExistsResponse.ok) {
+      throw new Error("Error checking email");
+    }
+
+    const emailData = await emailExistsResponse.json();
+    console.log(emailData);
+    console.log(emailData.message);
+
+    if (!emailData.message) {
+      // Email does not exist
+      isThere = true;
+      emailMassage.classList.remove("success");
+      emailMassage.classList.add("error");
+      emailMassage.textContent = "Email already exists. Please try another.";
+
+      console.log(isThere);
+    } else {
+      emailMassage.classList.add("success");
+      emailMassage.textContent = "Email is available";
+      // Email already exists
+      isThere = false;
+      console.log(isThere);
+    }
+    console.log(isThere);
+  } catch (error) {
+    console.error("Error checking email:", error);
   }
 });
 emailInput.addEventListener("blur", (event) => {
@@ -75,6 +108,7 @@ emailInput.addEventListener("blur", (event) => {
     emailMassage.classList.add("error");
   }
 });
+
 //***********password*********
 const passwordMassage = document.getElementById("passwordMassage");
 const passwordRegex =
@@ -153,14 +187,22 @@ confirmPassword.addEventListener("blur", (event) => {
     confirmPasswordMassage.classList.add("error");
   }
 });
+
+// check is email exists
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  // __________________________
   if (
     !usernameRegex.test(usernameInput.value.trim()) ||
     !passwordRegex.test(passwordInput.value) ||
     confirmPassword.value !== passwordInput.value ||
-    !emailRegex.test(emailInput.value.trim())
+    !emailRegex.test(emailInput.value.trim()) ||
+    isThere
   ) {
+    console.log(isThere);
+
     const inputs = document.querySelectorAll("input");
     inputs.forEach((input, index) => {
       if (!input.value) {
@@ -216,7 +258,7 @@ form.addEventListener("submit", (e) => {
         console.log(user);
 
         alert("User registered successfully!");
-        // location.href = "/ui/home.html";
+        location.href = "/ui/home.html";
       })
       .catch((error) => {
         console.error("Error adding user:", error);
