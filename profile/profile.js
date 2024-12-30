@@ -298,20 +298,6 @@ photoInput.addEventListener("change", (event) => {
 
 // status section
 
-{
-  /* <div class="status">
-  <h5 id="createdAt">
-    🟢 active since: <span></span>
-  </h5>
-  <h5 id="your-orders">
-    your orders : <span></span>
-  </h5>
-  <h5 id="last-order">
-    the last order : <span>not yet</span>
-  </h5>
-</div>; */
-}
-
 const createdAtElement = document.querySelector("#createdAt span");
 createdAtElement.textContent = `${
   JSON.parse(localStorage.getItem("user")).createdAt
@@ -320,3 +306,12 @@ const orders = document.querySelector("#your-orders span");
 orders.textContent = `${
   JSON.parse(localStorage.getItem("user")).orders.length
 }`;
+
+// const lastOrder = document.querySelector("#last-order span");
+
+// if (JSON.parse(localStorage.getItem("user")).orders.length > 0) {
+//   const lastOrderDate = new Date(
+//     JSON.parse(localStorage.getItem("user")).orders[0].createdAt
+//   );
+//   lastOrder.textContent = `${lastOrderDate.toLocaleDateString()} at ${lastOrderDate.toLocaleTimeString()}`;
+// }
