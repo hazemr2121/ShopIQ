@@ -138,9 +138,15 @@ export async function updateUser(id, updatedData) {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
 
       body: JSON.stringify(updatedData),
     });
+
+    // console.log(body);
 
     if (!response.ok) {
       throw new Error(`Update failed: ${response.status}`);
@@ -156,14 +162,14 @@ export async function updateUser(id, updatedData) {
 export async function getUserByEmail(email) {
   try {
     console.log(email);
-    const response = await fetch(`${BASE_URL}/${email}`, {
-      method: "GET",
-    });
+    const response = await fetch(
+      `http://localhost:3000/api/userByEmail/${email}`
+    );
 
     if (!response.ok) {
       throw new Error(`Fetching failed: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error("Fetching error:", error);

@@ -2,9 +2,9 @@
 
 
 orderedby:  user email,
-orderitems:{title,quantity,price}
+orderitems:[{title,quantity,price}]
 shippingaddress:{address,city,country},
-phoneNumbers:[];
+phoneNumber;
 shippingprice:,
 total price;
 paymentMethod: cash,Stripe,Paymob

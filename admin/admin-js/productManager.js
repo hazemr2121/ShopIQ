@@ -11,6 +11,7 @@ export async function getAllProducts() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.log("Error fetching products:", error);

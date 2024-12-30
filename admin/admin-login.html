@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #8c8991;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header h1 {
+        color: #6200ee;
+        font-size: 24px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #6200ee;
+        box-shadow: 0 0 0 2px rgba(98, 0, 238, 0.1);
+      }
+
+      .login-btn {
+        background: #6200ee;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        background: #5000d6;
+      }
+
+      .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .login-btn.loading {
+        background: #8e44ee;
+        cursor: not-allowed;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-header">
+        <h1>Admin Login</h1>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required />
+          <div class="error-message" id="emailError"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required />
+          <div class="error-message" id="passwordError"></div>
+        </div>
+        <button type="submit" class="login-btn" id="loginButton">Login</button>
+      </form>
+    </div>
+
+    <script>
+      async function getUserByEmail(email) {
+        try {
+          console.log(email);
+          const response = await fetch(
+            `http://localhost:3000/api/userByEmail/${email}`
+          );
+
+          if (!response.ok) {
+            throw new Error(`Fetching failed: ${response.status}`);
+          }
+
+          return await response.json();
+        } catch (error) {
+          console.error("Fetching error:", error);
+          throw error;
+        }
+      }
+
+      const loginForm = document.getElementById("loginForm");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+      const loginButton = document.getElementById("loginButton");
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Reset error messages
+        emailError.style.display = "none";
+        passwordError.style.display = "none";
+
+        // Set button to loading state
+        loginButton.classList.add("loading");
+        loginButton.textContent = "Logging in...";
+        loginButton.disabled = true;
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const userData = await getUserByEmail(email);
+
+          if (!userData) {
+            emailError.textContent = "User not found";
+            emailError.style.display = "block";
+            return;
+          }
+
+          if (userData.role !== "admin") {
+            emailError.textContent =
+              "Access denied. Admin privileges required.";
+            emailError.style.display = "block";
+            return;
+          }
+
+          if (userData.password === password) {
+            // Store user data in localStorage
+            localStorage.setItem(
+              "adminUser",
+              JSON.stringify({
+                id: userData.id,
+                email: userData.email,
+                name: userData.name,
+                role: userData.role,
+              })
+            );
+
+            // Redirect to admin dashboard
+            window.location.href = "admin-product.html";
+          } else {
+            passwordError.textContent = "Invalid password";
+            passwordError.style.display = "block";
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          emailError.textContent = "An error occurred during login";
+          emailError.style.display = "block";
+        } finally {
+          // Reset button state
+          loginButton.classList.remove("loading");
+          loginButton.textContent = "Login";
+          loginButton.disabled = false;
+        }
+      });
+
+      function checkAdminAuth() {
+        const adminUser = localStorage.getItem("adminUser");
+        if (adminUser) {
+          console.log(adminUser);
+          const user = JSON.parse(adminUser);
+          if (user.role === "admin") {
+            window.location.href = "admin-product.html";
+          } else {
+            localStorage.removeItem("adminUser");
+            window.location.href = "admin-login.html";
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", checkAdminAuth);
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>

@@ -12,61 +12,102 @@ const saveBtn = document.querySelector(".btn-save");
 const cancelBtn = document.querySelector(".btn-cancel");
 const addBtn = document.querySelector(".add-btn");
 const searchEmailInput = document.getElementById("user--search");
-
 const searchIcon = document.querySelector(".search-icon");
 
-// Event Listeners
-cancelBtn.addEventListener("click", () => {
-  closeModal();
-});
+// Validation function
+function validateUserData(userData, isNewUser = true) {
+  const errors = [];
 
-addBtn.addEventListener("click", () => {
-  openModal();
-});
-searchIcon.addEventListener("click", handleSearchEmail);
+  // Username validation
+  if (!userData.username || userData.username.trim().length < 3) {
+    errors.push("Username must be at least 3 characters long");
+  }
 
+  // Email validation (for new users)
+  if (isNewUser) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!userData.email || !emailRegex.test(userData.email)) {
+      errors.push("Please enter a valid email address");
+    }
+  }
+
+  // Phone validation (optional but if provided must be valid)
+  if (userData.phone) {
+    const phoneRegex = /^\+?[\d\s-]{8,}$/;
+    if (!phoneRegex.test(userData.phone)) {
+      errors.push("Please enter a valid phone number");
+    }
+  }
+
+  // Role validation
+  if (!userData.role || userData.role.trim() === "") {
+    errors.push("Please select a role");
+  }
+
+  // Password validation (only for new users)
+  if (isNewUser) {
+    if (!userData.password || userData.password.length < 6) {
+      errors.push("Password must be at least 6 characters long");
+    }
+  }
+
+  return errors;
+}
+
+// Handle email search
 async function handleSearchEmail() {
   const searchEmail = searchEmailInput.value.trim();
-  console.log(searchEmail);
+  if (!searchEmail) {
+    Swal.fire({
+      title: "Error!",
+      text: "Please enter an email to search",
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+    });
+    return;
+  }
+
   try {
     const user = await getUserByEmail(searchEmail);
-    console.log("user found :", user);
-
     tableBody.innerHTML = "";
     const createdAt = new Date(user.createdAt).toLocaleDateString();
 
     const row = document.createElement("tr");
     row.innerHTML = `
-            <td>${user.username}</td>
-            <td>${user.email}</td>
-            <td>${user.phone || "N/A"}</td>
-            <td>${user.role}</td>
-            <td>${createdAt}</td>
-            <td class="action-buttons">
-              <button class="edit" data-id="${user._id}">Edit</button>
-              <button class="delete" data-id="${user._id}">Delete</button>
-            </td>
-          `;
+      <td>${user.username}</td>
+      <td>${user.email}</td>
+      <td>${user.phone || "N/A"}</td>
+      <td>${user.role}</td>
+      <td>${createdAt}</td>
+      <td class="action-buttons">
+        <button class="edit" data-id="${user._id}">Edit</button>
+        <button class="delete" data-id="${user._id}">Delete</button>
+      </td>
+    `;
 
     tableBody.appendChild(row);
+    handleDelete();
+    handleUpdate();
   } catch (error) {
-    console.log("Error getting user:", error);
+    Swal.fire({
+      title: "Error!",
+      text: "User not found",
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+    });
   }
 }
 
+// Display all users
 function displayUsers() {
   getAllUsers()
     .then((data) => {
       if (data) {
-        // Clear existing table body
         tableBody.innerHTML = "";
-
-        // Populate table with user data
         data.forEach((user) => {
           const row = document.createElement("tr");
           const createdAt = new Date(user.createdAt).toLocaleDateString();
 
-          // Store the complete _id as a data attribute
           row.innerHTML = `
             <td>${user.username}</td>
             <td>${user.email}</td>
@@ -82,125 +123,121 @@ function displayUsers() {
           tableBody.appendChild(row);
         });
 
-        // Setup handlers for the new rows
         handleDelete();
         handleUpdate();
       } else {
-        console.log("No users found.");
+        Swal.fire({
+          title: "Info",
+          text: "No users found",
+          icon: "info",
+          confirmButtonColor: "#3085d6",
+        });
       }
     })
     .catch((error) => {
-      console.log("Error fetching users:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Error fetching users: " + error.message,
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+      });
     });
 }
 
-// Initial display
-displayUsers();
-
-// function addNewUser() {
-//   const form = document.querySelector(".add-customer-form");
-
-//   form.addEventListener("submit", async (event) => {
-//     event.preventDefault();
-
-//     const username = form.querySelector("input[name='username']").value;
-//     const email = form.querySelector("input[name='email']").value;
-//     const password = form.querySelector("input[name='password']").value;
-//     const confirmPassword = form.querySelector(
-//       "input[name='confirm-password']"
-//     ).value;
-//     const phone = form.querySelector("input[name='phone']").value;
-//     const role = form.querySelector("select[name='role']").value;
-
-//     // Basic validation
-//     if (password !== confirmPassword) {
-//       alert("Passwords do not match!");
-//       return;
-//     }
-
-//     const newUser = {
-//       username: username,
-//       email: email,
-//       password: password,
-//       phone: phone,
-//       role: role,
-//     };
-
-//     console.log(newUser);
-
-//     try {
-//       console.log("Sending user data:", newUser);
-
-//       const response = await addUser(newUser);
-//       console.log("User added:", response);
-//       closeModal();
-//       displayUsers();
-//     } catch (error) {
-//       console.log("Error adding user:", error);
-//     }
-//   });
-// }
-function addNewUser() {
+// Setup form handlers
+function setupFormHandlers() {
   const form = document.querySelector(".add-customer-form");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const username = form.querySelector("input[name='username']").value.trim();
-    const email = form.querySelector("input[name='email']").value.trim();
-    const password = form.querySelector("input[name='password']").value;
-    const confirmPassword = form.querySelector(
-      "input[name='confirm-password']"
-    ).value;
-    const phone = form.querySelector("input[name='phone']").value.trim();
-    const address = form.querySelector("input[name='address']").value.trim();
-    const role = form.querySelector("select[name='role']").value;
+    const isEdit = form.hasAttribute("data-user-id");
+    const currentEmail = isEdit
+      ? form
+          .querySelector("input[name='email']")
+          .getAttribute("data-original-email")
+      : null;
 
-    // Basic validation
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+    const formData = {
+      username: form.querySelector("input[name='username']").value.trim(),
+      phone: form.querySelector("input[name='phone']").value.trim(),
+      address: form.querySelector("input[name='address']").value.trim(),
+      role: form.querySelector("select[name='role']").value,
+    };
+
+    // Handle email field
+    const newEmail = form.querySelector("input[name='email']").value.trim();
+    if (!isEdit || (isEdit && newEmail !== currentEmail)) {
+      formData.email = newEmail;
+    }
+
+    // Add password for new users
+    if (!isEdit) {
+      const password = form.querySelector("input[name='password']").value;
+      const confirmPassword = form.querySelector(
+        "input[name='confirm-password']"
+      ).value;
+
+      if (password !== confirmPassword) {
+        Swal.fire({
+          title: "Error!",
+          text: "Passwords do not match!",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+        });
+        return;
+      }
+      formData.password = password;
+    }
+
+    // Validate form data
+    const validationErrors = validateUserData(formData, !isEdit);
+    if (validationErrors.length > 0) {
+      Swal.fire({
+        title: "Validation Error",
+        html: validationErrors.join("<br>"),
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+      });
       return;
     }
 
-    // Create user object
-    const newUser = {
-      username: username,
-      email: email,
-      password: password,
-      address: address,
-      phone: phone,
-      role: role,
-    };
-
-    // Debug log to see exact data being sent
-    console.log("Attempting to send user data:", {
-      ...newUser,
-      password: "***hidden***", // Hide password in logs for security
-    });
-
     try {
-      // Add loading state
       const saveButton = form.querySelector(".btn-save");
       saveButton.textContent = "Saving...";
       saveButton.disabled = true;
 
-      const response = await addUser(newUser);
-      console.log("Server response:", response);
+      if (isEdit) {
+        const userId = form.getAttribute("data-user-id");
+        await updateUser(userId, formData);
+
+        Swal.fire({
+          title: "Success!",
+          text: "Customer updated successfully",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+        });
+      } else {
+        await addUser(formData);
+
+        Swal.fire({
+          title: "Success!",
+          text: "Customer added successfully",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+        });
+      }
 
       closeModal();
       displayUsers();
     } catch (error) {
-      console.error("Full error details:", error);
-
-      if (error.response) {
-        alert(
-          `Failed to add user: ${error.response.data?.message || error.message}`
-        );
-      } else {
-        alert("Failed to add user. Please check the console for details.");
-      }
+      Swal.fire({
+        title: "Error!",
+        text: error.response?.data?.message || "Failed to save customer",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+      });
     } finally {
-      // Reset button state
       const saveButton = form.querySelector(".btn-save");
       saveButton.textContent = "Save Customer";
       saveButton.disabled = false;
@@ -208,8 +245,7 @@ function addNewUser() {
   });
 }
 
-addNewUser();
-
+// Handle delete
 function handleDelete() {
   const deleteButtons = document.querySelectorAll(".delete");
 
@@ -217,126 +253,63 @@ function handleDelete() {
     button.addEventListener("click", async (e) => {
       const userId = e.target.getAttribute("data-id");
 
-      // Confirm before deleting
-      const confirmDelete = confirm(
-        "Are you sure you want to delete this user?"
-      );
-      if (!confirmDelete) return;
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
 
-      try {
-        // Send the MongoDB _id string directly
-        const response = await deleteUser(userId); // MongoDB _id is already a string
-        console.log("User deleted:", response);
-        displayUsers();
-      } catch (error) {
-        if (error.message.includes("ObjectId")) {
-          console.error("Invalid MongoDB ObjectId format:", error);
-        } else {
-          console.error("Error deleting user:", error);
+      if (result.isConfirmed) {
+        try {
+          await deleteUser(userId);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Customer has been deleted.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+          });
+          displayUsers();
+        } catch (error) {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to delete customer: " + error.message,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+          });
         }
-        alert("Failed to delete user. Please try again.");
       }
     });
   });
 }
 
+// Handle update
 function handleUpdate() {
   document.querySelectorAll(".edit").forEach((button) => {
     button.addEventListener("click", async (e) => {
       const userId = e.target.getAttribute("data-id");
-
-      console.log(userId);
-
       try {
-        // Send the MongoDB _id string directly
-        const user = await getUserById(userId); // MongoDB _id is already a string
-
-        console.log(user);
+        const user = await getUserById(userId);
         if (!user) {
           throw new Error("User not found");
         }
         openEditModal(user);
       } catch (error) {
-        if (error.message.includes("ObjectId")) {
-          console.error("Invalid MongoDB ObjectId format:", error);
-        } else {
-          console.error("Error fetching user:", error);
-        }
-        alert("Failed to load user data. Please try again.");
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to load customer data: " + error.message,
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+        });
       }
     });
   });
 }
 
-function openEditModal(user) {
-  const modal = document.getElementById("customerModal");
-  const form = document.querySelector(".add-customer-form");
-
-  modal.style.display = "block";
-  // openModal();
-
-  // Store the MongoDB _id in a data attribute on the form
-  form.setAttribute("data-user-id", user._id);
-
-  // Update modal title
-  modal.querySelector(".modal-header h3").textContent = "Edit Customer";
-
-  // Update form fields
-  form.querySelector("input[name='username']").value = user.username;
-  form.querySelector("input[name='email']").value = user.email;
-  form.querySelector("input[name='phone']").value = user.phone || "";
-  form.querySelector("input[name='address']").value = user.address || "";
-  form.querySelector("select[name='role']").value = user.role;
-
-  // Get password field containers
-  const passwordGroup = form.querySelector(
-    "input[name='password']"
-  ).parentElement;
-  const confirmPasswordGroup = form.querySelector(
-    "input[name='confirm-password']"
-  ).parentElement;
-
-  // Remove required attribute and hide the fields
-  const passwordInput = form.querySelector("input[name='password']");
-  const confirmPasswordInput = form.querySelector(
-    "input[name='confirm-password']"
-  );
-
-  passwordInput.removeAttribute("required");
-  confirmPasswordInput.removeAttribute("required");
-
-  // Hide the entire form groups
-  passwordGroup.style.display = "none";
-  confirmPasswordGroup.style.display = "none";
-
-  form.onsubmit = async (e) => {
-    e.preventDefault();
-
-    const updatedUser = {
-      username: form.querySelector("input[name='username']").value,
-      email: form.querySelector("input[name='email']").value,
-      phone: form.querySelector("input[name='phone']").value,
-      address: form.querySelector("input[name='address']").value,
-      role: form.querySelector("select[name='role']").value,
-    };
-
-    try {
-      const userId = form.getAttribute("data-user-id");
-      if (!userId) {
-        throw new Error("User ID is missing");
-      }
-
-      const response = await updateUser(userId, updatedUser);
-      console.log("User updated:", response);
-      closeModal();
-      displayUsers();
-    } catch (error) {
-      console.error("Error updating user:", error);
-      alert("Failed to update user. Please try again.");
-    }
-  };
-}
-
+// Modal functions
 function openModal() {
   const modal = document.getElementById("customerModal");
   const form = document.querySelector(".add-customer-form");
@@ -344,29 +317,41 @@ function openModal() {
 
   modalTitle.textContent = "Add New Customer";
   form.reset();
-
   form.removeAttribute("data-user-id");
 
-  const passwordGroup = form.querySelector(
-    "input[name='password']"
-  ).parentElement;
-  const confirmPasswordGroup = form.querySelector(
-    "input[name='confirm-password']"
-  ).parentElement;
-  const passwordInput = form.querySelector("input[name='password']");
-  const confirmPasswordInput = form.querySelector(
-    "input[name='confirm-password']"
-  );
+  const passwordFields = form
+    .querySelectorAll("input[name='password'], input[name='confirm-password']")
+    .forEach((field) => {
+      field.parentElement.style.display = "block";
+      field.setAttribute("required", "");
+    });
 
-  passwordGroup.style.display = "block";
-  confirmPasswordGroup.style.display = "block";
-  passwordInput.setAttribute("required", "");
-  confirmPasswordInput.setAttribute("required", "");
+  modal.style.display = "block";
+}
 
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    addNewUser(e);
-  };
+function openEditModal(user) {
+  const modal = document.getElementById("customerModal");
+  const form = document.querySelector(".add-customer-form");
+
+  modal.querySelector(".modal-header h3").textContent = "Edit Customer";
+
+  form.setAttribute("data-user-id", user._id);
+  form.querySelector("input[name='username']").value = user.username;
+
+  const emailInput = form.querySelector("input[name='email']");
+  emailInput.value = user.email;
+  emailInput.setAttribute("data-original-email", user.email);
+
+  form.querySelector("input[name='phone']").value = user.phone || "";
+  form.querySelector("input[name='address']").value = user.address || "";
+  form.querySelector("select[name='role']").value = user.role;
+
+  const passwordFields = form
+    .querySelectorAll("input[name='password'], input[name='confirm-password']")
+    .forEach((field) => {
+      field.parentElement.style.display = "none";
+      field.removeAttribute("required");
+    });
 
   modal.style.display = "block";
 }
@@ -375,27 +360,30 @@ function closeModal() {
   const modal = document.getElementById("customerModal");
   const form = document.querySelector(".add-customer-form");
 
-  // Reset form and clear stored ID
   form.reset();
   form.removeAttribute("data-user-id");
 
-  // Restore password fields to their original state
-  const passwordGroup = form.querySelector(
-    "input[name='password']"
-  ).parentElement;
-  const confirmPasswordGroup = form.querySelector(
-    "input[name='confirm-password']"
-  ).parentElement;
-  const passwordInput = form.querySelector("input[name='password']");
-  const confirmPasswordInput = form.querySelector(
-    "input[name='confirm-password']"
-  );
-
-  // Show fields and restore required attribute
-  passwordGroup.style.display = "block";
-  confirmPasswordGroup.style.display = "block";
-  passwordInput.setAttribute("required", "");
-  confirmPasswordInput.setAttribute("required", "");
+  const passwordFields = form
+    .querySelectorAll("input[name='password'], input[name='confirm-password']")
+    .forEach((field) => {
+      field.parentElement.style.display = "block";
+      field.setAttribute("required", "");
+    });
 
   modal.style.display = "none";
 }
+
+// Event listeners
+cancelBtn.addEventListener("click", () => {
+  closeModal();
+});
+
+addBtn.addEventListener("click", () => {
+  openModal();
+});
+
+searchIcon.addEventListener("click", handleSearchEmail);
+
+// Initialize
+displayUsers();
+setupFormHandlers();
