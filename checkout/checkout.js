@@ -57,3 +57,25 @@ document.getElementById("place-order").addEventListener("click", function (e) {
     alert("Order placed successfully!");
   }
 });
+
+const orders = document.querySelector("#orders");
+const ordersPrice = document.querySelector("#orders-price");
+
+let orderPrice = 0;
+
+console.log(JSON.parse(localStorage.getItem("user")).cart);
+let ordersItems = JSON.parse(localStorage.getItem("user")).cart;
+
+ordersItems.forEach((item) => {
+  orders.innerHTML += `
+    <p><strong>${item.product.title} x ${
+    item.quantity
+  }</strong> <span>$${item.product.price.toFixed(2)}</span></p>
+  `;
+  orderPrice += item.product.price;
+});
+
+document.getElementById("subtotal").textContent = orderPrice.toFixed(2);
+document.getElementById("total-price").textContent = (orderPrice + 5.0).toFixed(
+  2
+);
