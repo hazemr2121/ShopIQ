@@ -4,150 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Roboto", Arial, sans-serif;
-      }
-
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-      }
-
-      .container {
-        width: 100%;
-        margin: 20px;
-        padding: 20px;
-        border-radius: 12px;
-        background-color: #ffffff22;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      h1 {
-        color: #ffa742;
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      .contact-form {
-        width: 50%;
-        background-color: #2b2b3d;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-      }
-
-      label {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-        display: block;
-        color: #ffa742;
-        font-weight: bold;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background-color: #eee;
-        font-size: 1rem;
-        margin-bottom: 15px;
-        transition: all 0.3s;
-      }
-
-      input:focus,
-      textarea:focus {
-        outline: none;
-        background-color: #ddd;
-        box-shadow: 0 0 5px #ffa742;
-      }
-
-      textarea {
-        height: 120px;
-        resize: none;
-      }
-
-      button {
-        background: linear-gradient(135deg, #ffa742, #ff7422);
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: bold;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s;
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      button:hover {
-        background: linear-gradient(135deg, #ff7422, #ffa742);
-      }
-
-      .about-section {
-        background-color: #ffffff;
-        color: #2b2b3d;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-        margin-bottom: 40px;
-      }
-
-      .about-section h2 {
-        color: #ffa742;
-        font-size: 2rem;
-        margin-bottom: 15px;
-      }
-
-      .about-content {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: #444;
-      }
-
-      ul {
-        margin-top: 10px;
-        padding-left: 20px;
-      }
-
-      ul li {
-        list-style: circle;
-        color: #666;
-      }
-
-      .success-message {
-        display: none;
-        background-color: #4caf50;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 10px;
-        text-align: center;
-      }
-
-      @media (max-width: 768px) {
-        h1 {
-          font-size: 2rem;
-        }
-
-        button {
-          font-size: 1rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="contact.css" />
   </head>
   <body>
     <div class="container">
@@ -161,9 +18,9 @@
           </p>
           <p>This project was created by a passionate team:</p>
           <ul>
+            <li>Ahmed Rashad</li>
             <li>Hazem Ahmed</li>
             <li>Adel El3raky</li>
-            <li>Ahmed Rashad</li>
             <li>Sarah Khaled</li>
           </ul>
           <p>Contact Information:</p>
@@ -177,43 +34,57 @@
           </p>
         </div>
       </div>
-      <div class="contact-form">
-        <h1>Contact Us</h1>
-        <form id="contactForm">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              required
-              placeholder="Enter Your Name"
-            />
+      <div class="contact-info">
+        <div class="contact-form">
+          <div class="map-background">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.935467673906!2d-122.08424948468116!3d37.4219998798254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fbb4e030c7d91%3A0x9b1f9b6d25a2cd74!2sGoogleplex!5e0!3m2!1sen!2sus!4v1696539293485!5m2!1sen!2sus"
+              width="600"
+              height="450"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="Enter Your Email"
-            />
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              placeholder="Enter Your Message"
-            ></textarea>
-          </div>
-          <button type="submit">Submit Your Message</button>
-          <div id="successMessage" class="success-message">
-            Message sent successfully!
-          </div>
-        </form>
+          <h1>Contact Us</h1>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                placeholder="Enter Your Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="Enter Your Email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                placeholder="Enter Your Message"
+              ></textarea>
+            </div>
+            <button type="submit">Submit Your Message</button>
+            <div id="successMessage" class="success-message">
+              Message sent successfully!
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
