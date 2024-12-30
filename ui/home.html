@@ -1,243 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
-" rel="stylesheet" />
+"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
 
-  <!-- Font Awesome CDN for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="./featured-products.css" />
-  <title>Header</title>
-</head>
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./featured-products.css" />
+    <title>Header</title>
+  </head>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<body>
-  <header class="header">
-    <div class="header-top">
-      <div class="logo">
-        <h1>Store</h1>
-      </div>
+  <body>
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">
+          <h1>Store</h1>
+        </div>
 
-      <div class="search-bar">
-        <input type="text" placeholder="Search Product Here" id="search-input" />
-        <button id="search-btn">
-          <i class="fa fa-search"></i>
-        </button>
-        <div class="search_result">
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Search Product Here"
+            id="search-input"
+          />
+          <button id="search-btn">
+            <i class="fa fa-search"></i>
+          </button>
+          <div class="search_result"></div>
+        </div>
 
+        <div class="header-actions">
+          <div class="wishlist">
+            <a href="./wishlish.html" class="icon-link">
+              <i class="fa fa-heart"></i>
+              <span class="badge">0</span>
+              <span>Wishlist</span>
+            </a>
+          </div>
+          <div class="account">
+            <a href="../profile/profile.html" class="icon-link">
+              <i class="fa fa-user"></i>
+              <span>Account</span>
+            </a>
+          </div>
+          <div class="cart">
+            <a href="#" class="icon-link">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge">0</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <div class="header-actions">
-        <div class="wishlist">
-          <a href="#" class="icon-link">
-            <i class="fa fa-heart"></i>
-            <span class="badge">0</span>
-            <span>Wishlist</span>
-          </a>
+      <nav class="header-bottom">
+        <div class="categories-dropdown">
+          <button class="dropdown-btn" id="dropdown-btn">
+            Shop Categories
+            <i class="fa fa-chevron-down"></i>
+          </button>
         </div>
-        <div class="account">
-          <a href="../profile/profile.html" class="icon-link">
-            <i class="fa fa-user"></i>
-            <span>Account</span>
-          </a>
-        </div>
-        <div class="cart">
-          <a href="#" class="icon-link">
-            <i class="fa fa-shopping-cart"></i>
-            <span class="badge">0</span>
-          </a>
-        </div>
-      </div>
-    </div>
+        <ul class="nav-links">
+          <li><a href="#" class="active">HOME</a></li>
+          <li><a href="../store.html">OUR STORE</a></li>
+          <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- HEADER -->
+    <section
+      class="ezy__header5 bg-[#FDF1DD] py-14 md:py-24 text-indigo-700 relative z-10 overflow-hidden"
+    >
+      <svg
+        class="absolute left-0 bottom-0 -z-10"
+        width="474"
+        height="624"
+        viewBox="0 0 474 624"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="307.203"
+          y="-77"
+          width="380"
+          height="1282.77"
+          rx="190"
+          transform="rotate(49.9815 307.203 -77)"
+          fill="rgba(255, 255, 255, .25)"
+        />
+      </svg>
+      <svg
+        class="absolute right-0 top-0 -z-10"
+        width="568"
+        height="579"
+        viewBox="0 0 568 579"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="521.617"
+          y="-138"
+          width="380"
+          height="782.419"
+          rx="190"
+          transform="rotate(49.9815 521.617 -138)"
+          fill="rgba(255, 255, 255, .25)"
+        />
+      </svg>
+      <div class="container px-4 mx-auto relative">
+        <div class="grid grid-cols-2 gap-6 items-center">
+          <div
+            class="col-span-2 lg:col-span-1 xl:pr-12 text-center lg:text-start"
+          >
+            <h2 class="text-3xl font-bold md:text-[70px] leading-none mb-6">
+              Don’t be slow! Our prices are low.
+            </h2>
+            <p class="text-[22px] leading-normal opacity-80">
+              Everything you need—on a budget.
+            </p>
 
-    <nav class="header-bottom">
-      <div class="categories-dropdown">
-        <button class="dropdown-btn" id="dropdown-btn">
-          Shop Categories
-          <i class="fa fa-chevron-down"></i>
-        </button>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#" class="active">HOME</a></li>
-        <li><a href="#">OUR STORE</a></li>
-        <li><a href="#">CONTACT</a></li>
-      </ul>
-    </nav>
-  </header>
-  <!-- HEADER -->
-  <section class="ezy__header5 bg-[#FDF1DD] py-14 md:py-24 text-indigo-700 relative z-10 overflow-hidden">
-    <svg class="absolute left-0 bottom-0 -z-10" width="474" height="624" viewBox="0 0 474 624" fill="none"
-      xmlns="http://www.w3.org/2000/svg">
-      <rect x="307.203" y="-77" width="380" height="1282.77" rx="190" transform="rotate(49.9815 307.203 -77)"
-        fill="rgba(255, 255, 255, .25)" />
-    </svg>
-    <svg class="absolute right-0 top-0 -z-10" width="568" height="579" viewBox="0 0 568 579" fill="none"
-      xmlns="http://www.w3.org/2000/svg">
-      <rect x="521.617" y="-138" width="380" height="782.419" rx="190" transform="rotate(49.9815 521.617 -138)"
-        fill="rgba(255, 255, 255, .25)" />
-    </svg>
-    <div class="container px-4 mx-auto relative">
-      <div class="grid grid-cols-2 gap-6 items-center">
-        <div class="col-span-2 lg:col-span-1 xl:pr-12 text-center lg:text-start">
-          <h2 class="text-3xl font-bold md:text-[70px] leading-none mb-6">
-            Don’t be slow! Our prices are low.
-          </h2>
-          <p class="text-[22px] leading-normal opacity-80">
-            Everything you need—on a budget.
-          </p>
-
-          <a href="" class="bg-white py-3 px-8 rounded-xl shadow text-xl inline-flex mt-6 md:mt-12">Try Now <span
-              class="fas fa-arrow-right ml-2"></span></a>
-        </div>
-        <div class="col-span-2 lg:col-span-1 text-center lg:text-start">
-          <img src="https://cdn.easyfrontend.com/pictures/hero/hero-5.png" alt=""
-            class="rounded max-w-full h-auto mx-auto mt-4" />
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- features -->
-  <div class="feature-banner">
-    <div class="feature-item">
-      <span class="feature-icon icon-shipping"></span>
-      <div class="feature-content">
-        <h3 class="feature-title">Free Shipping</h3>
-        <p class="feature-subtitle">from all orders over $100</p>
-      </div>
-    </div>
-
-    <div class="feature-item">
-      <span class="feature-icon icon-offer"></span>
-      <div class="feature-content">
-        <h3 class="feature-title">Daily Surprise Offers</h3>
-        <p class="feature-subtitle">save up to 25% off</p>
-      </div>
-    </div>
-
-    <div class="feature-item">
-      <span class="feature-icon icon-support"></span>
-      <div class="feature-content">
-        <h3 class="feature-title">Support 24/7</h3>
-        <p class="feature-subtitle">shop with an expert</p>
-      </div>
-    </div>
-
-    <div class="feature-item">
-      <span class="feature-icon icon-secure"></span>
-      <div class="feature-content">
-        <h3 class="feature-title">Secure Payments</h3>
-        <p class="feature-subtitle">100% protect payments</p>
-      </div>
-    </div>
-  </div>
-  <!-- Featured products -->
-
-  <!-- Main Content Section -->
-  <main class="main-content">
-    <section class="featured-products">
-      <div class="featured-products-container">
-        <div class="featured-header">
-          <h2>Featured Products</h2>
-          <button><a href="../store.html">See More</a></button>
-        </div>
-        <div class="slider-container">
-          <button class="slider-button prev-button">←</button>
-          <div class="products-slider"></div>
-          <button class="slider-button next-button">→</button>
+            <a
+              href=""
+              class="bg-white py-3 px-8 rounded-xl shadow text-xl inline-flex mt-6 md:mt-12"
+              >Try Now <span class="fas fa-arrow-right ml-2"></span
+            ></a>
+          </div>
+          <div class="col-span-2 lg:col-span-1 text-center lg:text-start">
+            <img
+              src="https://cdn.easyfrontend.com/pictures/hero/hero-5.png"
+              alt=""
+              class="rounded max-w-full h-auto mx-auto mt-4"
+            />
+          </div>
         </div>
       </div>
     </section>
-  </main>
-
-  <!-- Footer Section -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <p>Demo Store</p>
-        <p>NO. 12459 Freedom, New York, 1111</p>
-        <p>United States</p>
-        <p>tel: +201554138144</p>
-        <p>Email: kameladel339@gmail.com</p>
+    <!-- features -->
+    <div class="feature-banner">
+      <div class="feature-item">
+        <span class="feature-icon icon-shipping"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Free Shipping</h3>
+          <p class="feature-subtitle">from all orders over $100</p>
+        </div>
       </div>
 
-      <div class="footer-section">
-        <h3>Information</h3>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Refund Policy</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Terms of Services</a></li>
-          <li><a href="#">Blogs</a></li>
-        </ul>
+      <div class="feature-item">
+        <span class="feature-icon icon-offer"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Daily Surprise Offers</h3>
+          <p class="feature-subtitle">save up to 25% off</p>
+        </div>
       </div>
 
-      <div class="footer-section">
-        <h3>Account</h3>
-        <ul>
-          <li><a href="#">Search</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Size Chart</a></li>
-        </ul>
+      <div class="feature-item">
+        <span class="feature-icon icon-support"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Support 24/7</h3>
+          <p class="feature-subtitle">shop with an expert</p>
+        </div>
       </div>
 
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#">Accessories</a></li>
-          <li><a href="#">Laptops</a></li>
-          <li><a href="#">Headphones</a></li>
-          <li><a href="#">Smart Watches</a></li>
-          <li><a href="#">Tablets</a></li>
-        </ul>
+      <div class="feature-item">
+        <span class="feature-icon icon-secure"></span>
+        <div class="feature-content">
+          <h3 class="feature-title">Secure Payments</h3>
+          <p class="feature-subtitle">100% protect payments</p>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2024, Digitic Designed by adel-el3raky</p>
-    </div>
-  </footer>
-  <script src="
+    <!-- Featured products -->
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+      <section class="featured-products">
+        <div class="featured-products-container">
+          <div class="featured-header">
+            <h2>Featured Products</h2>
+            <button><a href="../store.html">See More</a></button>
+          </div>
+          <div class="slider-container">
+            <button class="slider-button prev-button">←</button>
+            <div class="products-slider"></div>
+            <button class="slider-button next-button">→</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Demo Store</p>
+          <p>NO. 12459 Freedom, New York, 1111</p>
+          <p>United States</p>
+          <p>tel: +201554138144</p>
+          <p>Email: kameladel339@gmail.com</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Terms of Services</a></li>
+            <li><a href="#">Blogs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Size Chart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Laptops</a></li>
+            <li><a href="#">Headphones</a></li>
+            <li><a href="#">Smart Watches</a></li>
+            <li><a href="#">Tablets</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024, Digitic Designed by adel-el3raky</p>
+      </div>
+    </footer>
+    <script src="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
     "></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="../assets/js/nav-bar.js"></script>
-  <script type="module" src="../assets/js/featured_products.js"></script>
-  <script>
-    let searchInput = document.getElementById("search-input");
-    let searchBtn = document.getElementById("search-btn");
-    let search_result = document.querySelector(".search_result");
-    searchBtn.onclick = () => {
-      console.log(searchInput.value)
-      fetch(`http://localhost:3000/api/search/products?title=${searchInput.value}`).then(async res => {
-        let data = await res.json();
-        search_result.style.display = "flex"
-        data.forEach(product => {
-          let { thumbnail, title, price, _id } = product
-          let row = document.createElement("a")
-          row.href = `/product_details.html?id=${_id}`
-          row.innerHTML = `<img src="${thumbnail}" alt="">
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="../assets/js/nav-bar.js"></script>
+    <script type="module" src="../assets/js/featured_products.js"></script>
+    <script>
+      let searchInput = document.getElementById("search-input");
+      let searchBtn = document.getElementById("search-btn");
+      let search_result = document.querySelector(".search_result");
+      searchBtn.onclick = () => {
+        console.log(searchInput.value);
+        fetch(
+          `http://localhost:3000/api/search/products?title=${searchInput.value}`
+        ).then(async (res) => {
+          let data = await res.json();
+          search_result.style.display = "flex";
+          data.forEach((product) => {
+            let { thumbnail, title, price, _id } = product;
+            let row = document.createElement("a");
+            row.href = `/product_details.html?id=${_id}`;
+            row.innerHTML = `<img src="${thumbnail}" alt="">
                             <div class="title">${title}</div>
                             <div class="price">$${price}</div>
-                          `
+                          `;
 
-          search_result.appendChild(row)
+            search_result.appendChild(row);
+          });
+          console.log(search_result);
+          console.log(data);
         });
-        console.log(search_result)
-        console.log(data)
-      })
-    }
-  </script>
-</body>
-<!-- <script src="temp.js"></script> -->
-
+      };
+    </script>
+  </body>
+  <!-- <script src="temp.js"></script> -->
 </html>

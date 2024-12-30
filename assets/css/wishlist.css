@@ -47,13 +47,11 @@ h1 {
   font-size: 0.85em;
 }
 
-.wishlist-icon {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: #999;
+.wish-icon i {
+  display: none;
+}
+.wish-icon i.active {
+  display: inline;
 }
 
 .product-image {
@@ -133,4 +131,141 @@ h1 {
   text-align: center;
   color: #e74c3c;
   padding: 20px;
+}
+
+.featured-products-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.products-slider {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  gap: 20px;
+}
+
+.product-card {
+  min-width: calc(25% - 15px);
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+  background: white;
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #db5807;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.wish-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.prev-button {
+  left: -5px;
+}
+
+.next-button {
+  right: -5px;
+}
+
+.product-content {
+  margin-top: 12px;
+}
+
+.product-category,
+.product-brand {
+  color: #db5807;
+  font-size: 14px;
+}
+
+.product-name {
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.rating {
+  color: #ffd43b;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.add-to-cart {
+  background: #db5807;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.featured-header button {
+  background: #db5807;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.featured-header h2 {
+  font-size: 24px;
+  font-weight: bolder;
 }
