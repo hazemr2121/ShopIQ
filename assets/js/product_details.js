@@ -73,7 +73,7 @@ getProductData()
         let form_btn = document.querySelector(".reviews_content .review_form button");
 
         console.log(review_form)
-        if(! localStorage.getItem("user")) {
+        if (!localStorage.getItem("user")) {
             review_form.style.display = "none";
             review_btn.style.display = "block";
             review_btn.onclick = () => {
@@ -86,8 +86,33 @@ getProductData()
 
         form_btn.addEventListener("click", (e) => {
             e.preventDefault();
-            if( localStorage.getItem("user")) {
-
+            if (localStorage.getItem("user")) {
+                let valid = true;
+                let comment = document.getElementById("review-comment")
+                if (!comment.value.trim().match(/[a-zA-Z]{6,}/)) {
+                    let commentError = document.createElement("p")
+                    commentError.style.color = "red";
+                    commentError.textContent = "Comment must be at least 6 characters long";
+                    comment.after(commentError);
+                    comment.style.border = "1px solid red";
+                    valid = false;
+                } else {
+                    document.getElementById("review-comment").nextElementSibling.remove();
+                    comment.style.border = "1px solid green";
+                }
+                let rating = document.getElementById("rating")
+                if (rating.value <= 0 || rating.value > 5) {
+                    let ratingError = document.createElement("p")
+                    ratingError.style.color = "red";
+                    ratingError.textContent = "rating must be greater than 0 and less than 5";
+                    rating.after(ratingError);
+                    rating.style.border = "1px solid red";
+                    valid = false;
+                } else {
+                    rating.style.border = "1px solid green";
+                    rating.nextElementSibling.remove();
+                }
+                if (!valid) return;
                 let user = JSON.parse(localStorage.getItem("user"));
                 const review = {
                     reviewerName: user.userName,
@@ -95,7 +120,7 @@ getProductData()
                     rating: +document.getElementById("rating").value
                 }
 
-                addReview( _id , review).then(res => {
+                addReview(_id, review).then(res => {
 
                     reviews_cards.innerHTML = "";
 
@@ -109,7 +134,7 @@ getProductData()
                 });
                 console.log(review)
             }
-            
+
         })
         const cartBtn = document.querySelector(".product_page .details_column .add-to-cart");
         cartBtn.addEventListener("click", () => {
@@ -178,7 +203,7 @@ getProductData()
 console.log(reviews_cards)
 function displayReview(review) {
 
-    
+
     let { comment, rating, reviewerName } = review
     console.log(reviewerName)
 

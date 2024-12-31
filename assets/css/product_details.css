@@ -170,6 +170,12 @@ form .rating {
     font-size: 18px;
     color: #555;
 }
+.rating input {
+    border: .5px solid;
+    border-radius: 5px;
+    width: 50px;
+    padding: 5px;
+}
 .rating label:hover,
 .rating input:checked + label {
     color: #ff9800;
