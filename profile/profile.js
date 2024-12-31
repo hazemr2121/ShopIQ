@@ -320,7 +320,6 @@ async function fetchOrders() {
 
     userOrders.forEach((order, index) => {
       console.log(order.status);
-      statusOrder.push(order.status);
       if (order.status === "pending") {
         color = "#b2b246";
       } else if (order.status === "accepted") {
@@ -328,6 +327,11 @@ async function fetchOrders() {
       } else {
         color = "#e63b3b";
       }
+      const statusObj = {
+        status: order.status,
+        color: color,
+      };
+      statusOrder.push(statusObj);
     });
     getOrderDetails();
   } catch (error) {
@@ -361,8 +365,8 @@ function getOrderDetails() {
       <p><strong>Order ID:</strong> ${order._id}</p>
       <p><strong>Total Price:</strong> $${totalPrice}</p>
       <p><strong>Number of Products:</strong> ${order.products.length}</p>
-      <p style="color:${color}"><strong> ${
-      statusOrder[orderIndex]
+      <p style="color:${statusOrder[orderIndex].color}"><strong> ${
+      statusOrder[orderIndex].status
     }</strong> </p>
 
     </button>
