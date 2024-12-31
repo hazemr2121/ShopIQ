@@ -275,6 +275,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
           `http://localhost:3000/api/search/products?title=${searchInput.value}`
         ).then(async (res) => {
           let data = await res.json();
+          search_result.innerHTML = ""
           search_result.style.display = "flex";
           data.forEach((product) => {
             let { thumbnail, title, price, _id } = product;
