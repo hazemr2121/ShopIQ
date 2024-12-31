@@ -11,13 +11,15 @@ body {
   transition: filter 0.3s ease;
 }
 
-body.login-page {
+body .login-page {
   background-color: #8c8991;
-  min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
+
+  width: 100vw;
+  height: 100vh;
 }
 
 .login-container {
