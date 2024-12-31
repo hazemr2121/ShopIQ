@@ -3,10 +3,13 @@
 let BASE_URL = "http://localhost:3000/api/products";
 
 //========get all products============================
-
-export async function getAllProducts() {
+export async function getAllProducts(category = "") {
   try {
-    const response = await fetch(BASE_URL);
+    const url = category
+      ? `${BASE_URL}?category=${encodeURIComponent(category)}`
+      : BASE_URL;
+
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

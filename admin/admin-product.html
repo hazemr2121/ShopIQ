@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Product Management Dashboard</title>
-    <style>
+    <!-- <style>
       * {
         margin: 0;
         padding: 0;
@@ -325,7 +325,8 @@
       .btn-save:hover {
         background: #5000d6;
       }
-    </style>
+    </style> -->
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
@@ -348,7 +349,7 @@
           <h2>Products</h2>
           <div class="header-actions">
             <div class="category-filter">
-              <select class="select--category">
+              <select id= "categoryFilter"class="select--category">
                 <option value="">Select a Category</option>
               </select>
             </div>

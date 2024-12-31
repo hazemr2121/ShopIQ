@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Orders Management Dashboard</title>
-    <style>
+    <!-- <style>
       * {
         margin: 0;
         padding: 0;
@@ -303,7 +303,9 @@
       .btn-close:hover {
         background: #e0e0e0;
       }
-    </style>
+    </style> -->
+
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
@@ -373,276 +375,16 @@
         </div>
         <div id="orderDetailsContent"></div>
         <div class="modal-footer">
-          <button class="btn btn-close" onclick="closeModal()">Close</button>
-          <button
-            class="btn btn-reject"
-            onclick="updateOrderStatus('rejected')"
-            id="rejectBtn"
-          >
-            Reject Order
-          </button>
-          <button
-            class="btn btn-accept"
-            onclick="updateOrderStatus('accepted')"
-            id="acceptBtn"
-          >
-            Accept Order
-          </button>
+          <button class="btn btn-close">Close</button>
+          <button class="btn btn-reject" id="rejectBtn">Reject Order</button>
+          <button class="btn btn-accept" id="acceptBtn">Accept Order</button>
         </div>
       </div>
     </div>
+    <script src="admin-js/orderHandler.js"></script>
 
-    <script>
-      // orders.js
-      // Sample orders data
-      const orders = [
-        {
-          id: "ORD67890",
-          orderedBy: "emma.wilson@example.com",
-          phoneNumber: "+1 (555) 234-5678",
-          shippingAddress: {
-            address: "789 Maple Avenue, Suite 12",
-            city: "San Francisco",
-            country: "USA",
-          },
-          orderItems: [
-            { title: "MacBook Pro M2", quantity: 1, price: 1499.99 },
-            { title: "Magic Keyboard", quantity: 1, price: 99.99 },
-            { title: "USB-C Hub", quantity: 1, price: 49.99 },
-          ],
-          shippingPrice: 20.0,
-          totalPrice: 1669.97,
-          paymentMethod: "Stripe",
-          orderStatus: "pending",
-          orderDate: "2024-12-28",
-        },
-        {
-          id: "ORD67891",
-          orderedBy: "michael.brown@example.com",
-          phoneNumber: "+1 (555) 345-6789",
-          shippingAddress: {
-            address: "456 Oak Street",
-            city: "Chicago",
-            country: "USA",
-          },
-          orderItems: [
-            { title: "iPhone 15 Pro", quantity: 1, price: 999.99 },
-            { title: "iPhone Case", quantity: 1, price: 29.99 },
-            { title: "Screen Protector", quantity: 2, price: 19.99 },
-          ],
-          shippingPrice: 15.0,
-          totalPrice: 1084.96,
-          paymentMethod: "PayMob",
-          orderStatus: "accepted",
-          orderDate: "2024-12-27",
-        },
-        {
-          id: "ORD67892",
-          orderedBy: "sophia.garcia@example.com",
-          phoneNumber: "+1 (555) 456-7890",
-          shippingAddress: {
-            address: "123 Pine Lane, Apt 4B",
-            city: "Miami",
-            country: "USA",
-          },
-          orderItems: [
-            { title: "iPad Air", quantity: 1, price: 599.99 },
-            { title: "Apple Pencil", quantity: 1, price: 129.99 },
-            { title: "iPad Smart Cover", quantity: 1, price: 49.99 },
-          ],
-          shippingPrice: 12.0,
-          totalPrice: 791.97,
-          paymentMethod: "Cash",
-          orderStatus: "rejected",
-          orderDate: "2024-12-26",
-        },
-      ];
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-      let currentOrderId = null;
-
-      function formatCurrency(amount) {
-        return new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
-      }
-
-      // Filter orders
-      function filterOrders() {
-        const statusFilter = document.getElementById("status-filter").value;
-        const paymentFilter = document.getElementById("payment-filter").value;
-        const searchTerm = document
-          .getElementById("search-input")
-          .value.toLowerCase();
-
-        let filteredOrders = orders.filter((order) => {
-          const matchesStatus =
-            statusFilter === "all" ||
-            order.orderStatus.toLowerCase() === statusFilter;
-          const matchesPayment =
-            paymentFilter === "all" ||
-            order.paymentMethod.toLowerCase() === paymentFilter;
-          const matchesSearch =
-            order.id.toLowerCase().includes(searchTerm) ||
-            order.orderedBy.toLowerCase().includes(searchTerm);
-
-          return matchesStatus && matchesPayment && matchesSearch;
-        });
-
-        renderOrders(filteredOrders);
-      }
-
-      function renderOrders(filteredOrders = orders) {
-        const tbody = document.getElementById("orders-table-body");
-        tbody.innerHTML = "";
-
-        filteredOrders.forEach((order) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>#${order.id}</td>
-            <td>${order.orderedBy}</td>
-            <td>${order.orderItems.length} items</td>
-            <td>${formatCurrency(order.totalPrice)}</td>
-            <td>${order.paymentMethod}</td>
-            <td><span class="status-badge status-${order.orderStatus.toLowerCase()}">${
-            order.orderStatus
-          }</span></td>
-            <td class="action-buttons">
-                <button class="btn-view" onclick="viewOrderDetails('${
-                  order.id
-                }')">View Details</button>
-                ${
-                  order.orderStatus === "pending"
-                    ? `
-                    <button class="btn-accept" onclick="updateOrderStatus('${order.id}', 'accepted')">Accept</button>
-                    <button class="btn-reject" onclick="updateOrderStatus('${order.id}', 'rejected')">Reject</button>
-                `
-                    : ""
-                }
-            </td>
-        `;
-          tbody.appendChild(row);
-        });
-      }
-
-      function viewOrderDetails(orderId) {
-        const order = orders.find((o) => o.id === orderId);
-        const modal = document.getElementById("orderModal");
-        const content = document.getElementById("orderDetailsContent");
-        currentOrderId = orderId;
-
-        const subtotal = order.orderItems.reduce(
-          (sum, item) => sum + item.price * item.quantity,
-          0
-        );
-
-        content.innerHTML = `
-        <div class="order-details">
-            <div class="detail-section">
-                <h4>Customer Information</h4>
-                <p>Email: ${order.orderedBy}</p>
-                <p>Phone: ${order.phoneNumber}</p>
-                <p>Order Date: ${order.orderDate}</p>
-            </div>
-            <div class="detail-section">
-                <h4>Shipping Address</h4>
-                <p>${order.shippingAddress.address}</p>
-                <p>${order.shippingAddress.city}, ${
-          order.shippingAddress.country
-        }</p>
-            </div>
-        </div>
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${order.orderItems
-                  .map(
-                    (item) => `
-                    <tr>
-                        <td>${item.title}</td>
-                        <td>${item.quantity}</td>
-                        <td>${formatCurrency(item.price)}</td>
-                        <td>${formatCurrency(item.price * item.quantity)}</td>
-                    </tr>
-                `
-                  )
-                  .join("")}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">Subtotal</td>
-                    <td>${formatCurrency(subtotal)}</td>
-                </tr>
-                <tr>
-                    <td colspan="3">Shipping</td>
-                    <td>${formatCurrency(order.shippingPrice)}</td>
-                </tr>
-                <tr>
-                    <td colspan="3"><strong>Total</strong></td>
-                    <td><strong>${formatCurrency(
-                      order.totalPrice
-                    )}</strong></td>
-                </tr>
-            </tfoot>
-        </table>
-    `;
-
-        const acceptBtn = document.getElementById("acceptBtn");
-        const rejectBtn = document.getElementById("rejectBtn");
-        if (order.orderStatus === "pending") {
-          acceptBtn.style.display = "block";
-          rejectBtn.style.display = "block";
-        } else {
-          acceptBtn.style.display = "none";
-          rejectBtn.style.display = "none";
-        }
-
-        modal.style.display = "block";
-      }
-
-      function updateOrderStatus(orderId, newStatus) {
-        const order = orders.find((o) => o.id === orderId);
-        if (order) {
-          order.orderStatus = newStatus;
-          closeModal();
-          renderOrders();
-        }
-      }
-
-      function closeModal() {
-        const modal = document.getElementById("orderModal");
-        modal.style.display = "none";
-        currentOrderId = null;
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        renderOrders();
-
-        document
-          .getElementById("status-filter")
-          .addEventListener("change", filterOrders);
-        document
-          .getElementById("payment-filter")
-          .addEventListener("change", filterOrders);
-        document
-          .getElementById("search-input")
-          .addEventListener("input", filterOrders);
-
-        window.onclick = function (event) {
-          const modal = document.getElementById("orderModal");
-          if (event.target === modal) {
-            closeModal();
-          }
-        };
-      });
-    </script>
     <script src="admin-js/admin-logOut.js"></script>
   </body>
 </html>

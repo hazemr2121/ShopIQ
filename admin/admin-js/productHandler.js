@@ -12,12 +12,12 @@ const saveBtn = document.querySelector(".btn-save");
 const cancelBtn = document.querySelector(".btn-cancel");
 const addBtn = document.querySelector(".add-btn");
 const categoryList = document.querySelectorAll(".select--category");
-
+const categoryFilter = document.getElementById("categoryFilter");
 // Validation function
 function validateProductData(productData) {
   const errors = [];
 
-  if (!productData.title || productData.title.trim().length < 3) {
+  if (!productData.title || productData.title.trim().length < 10) {
     errors.push("Title must be at least 3 characters long");
   }
 
@@ -51,8 +51,6 @@ function validateProductData(productData) {
 
   return errors;
 }
-
-// Load and display categories
 async function displayCategories() {
   try {
     const categories = await getAllCategories();
@@ -75,9 +73,59 @@ async function displayCategories() {
   }
 }
 
-// Display all products
-function displayProducts() {
-  getAllProducts()
+// // Display all products
+// function displayProducts() {
+//   getAllProducts()
+//     .then((data) => {
+//       if (data) {
+//         tableBody.innerHTML = "";
+//         data.data.forEach((product) => {
+//           const row = document.createElement("tr");
+//           row.innerHTML = `
+//            <td>
+//               <div style="display: flex; align-items: center; gap: 10px;">
+//                 <img src="${product.thumbnail}" alt="${product.title}"
+//                      style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+//                 ${product.title}
+//               </div>
+//             </td>
+//             <td>${product.price}</td>
+//             <td>${product.discountPercentage}</td>
+//             <td>${product.brand || "Unknown Brand"}</td>
+//             <td>${product.category}</td>
+//             <td>${product.stock}</td>
+//             <td>${product.rating}</td>
+//             <td class="action-buttons">
+//               <button class="edit" data-id=${product.id}>Edit</button>
+//               <button class="delete" data-id=${product.id}>Delete</button>
+//             </td>
+//           `;
+//           tableBody.appendChild(row);
+//         });
+
+//         handleDelete();
+//         handleUpdate();
+//       } else {
+//         Swal.fire({
+//           title: "Info",
+//           text: "No products found.",
+//           icon: "info",
+//           confirmButtonColor: "#3085d6",
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       Swal.fire({
+//         title: "Error!",
+//         text: "Error fetching products: " + error.message,
+//         icon: "error",
+//         confirmButtonColor: "#3085d6",
+//       });
+//     });
+// }
+
+function displayProducts(category = "") {
+  getAllProducts(category)
     .then((data) => {
       if (data) {
         tableBody.innerHTML = "";
@@ -224,6 +272,7 @@ function handleUpdate() {
   document.querySelectorAll(".edit").forEach((button) => {
     button.addEventListener("click", async (e) => {
       const productId = parseInt(e.target.getAttribute("data-id"));
+      console.log(productId);
       try {
         const product = await getProductById(productId);
         openEditModal(product);
@@ -333,6 +382,10 @@ addBtn.addEventListener("click", () => {
   openModal();
 });
 
+categoryFilter.addEventListener("change", () => {
+  const selectedCategory = categoryFilter.value;
+  displayProducts(selectedCategory);
+});
 // Initialize the application
 displayCategories();
 displayProducts();

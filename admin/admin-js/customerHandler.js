@@ -18,7 +18,7 @@ const searchIcon = document.querySelector(".search-icon");
 function validateUserData(userData, isNewUser = true) {
   const errors = [];
 
-  // Username validation
+  
   if (!userData.username || userData.username.trim().length < 3) {
     errors.push("Username must be at least 3 characters long");
   }
@@ -31,7 +31,7 @@ function validateUserData(userData, isNewUser = true) {
     }
   }
 
-  // Phone validation (optional but if provided must be valid)
+  
   if (userData.phone) {
     const phoneRegex = /^\+?[\d\s-]{8,}$/;
     if (!phoneRegex.test(userData.phone)) {
@@ -44,7 +44,7 @@ function validateUserData(userData, isNewUser = true) {
     errors.push("Please select a role");
   }
 
-  // Password validation (only for new users)
+
   if (isNewUser) {
     if (!userData.password || userData.password.length < 6) {
       errors.push("Password must be at least 6 characters long");
@@ -165,7 +165,7 @@ function setupFormHandlers() {
       role: form.querySelector("select[name='role']").value,
     };
 
-    // Handle email field
+   
     const newEmail = form.querySelector("input[name='email']").value.trim();
     if (!isEdit || (isEdit && newEmail !== currentEmail)) {
       formData.email = newEmail;
@@ -190,7 +190,7 @@ function setupFormHandlers() {
       formData.password = password;
     }
 
-    // Validate form data
+  
     const validationErrors = validateUserData(formData, !isEdit);
     if (validationErrors.length > 0) {
       Swal.fire({
