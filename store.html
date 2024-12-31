@@ -330,6 +330,12 @@
       let search_result = document.querySelector(".search_result");
       searchBtn.onclick = () => {
         if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
+          Toastify({
+            text: "Search must be at least 3 characters",
+            duration: 3000,
+            position: "left",
+            className: "info",
+          }).showToast();
           return;
         } else {
           console.log(searchInput.value);
