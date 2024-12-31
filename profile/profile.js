@@ -243,7 +243,7 @@ function updateInfoSection() {
 updateInfoSection();
 userName.setAttribute(
   "value",
-  JSON.parse(localStorage.getItem("user")).username
+  JSON.parse(localStorage.getItem("user")).userName
 );
 email.setAttribute("value", JSON.parse(localStorage.getItem("user")).email);
 userAddress.setAttribute(
