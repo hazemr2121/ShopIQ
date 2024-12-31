@@ -24,7 +24,7 @@ export async function getAllProducts(category = "") {
 
 export async function getProductById(id) {
   try {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/product/${id}`, {
       method: "GET",
     });
 
