@@ -133,3 +133,21 @@ export async function updateUserOrders(orderData, userId) {
   console.log(data);
   return data;
 }
+
+
+export async function addReview(productId, reviewData) {
+  const res = await fetch(
+    `http://localhost:3000/api/products/${productId}/reviews`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    }
+  );
+
+  const data = await res.json()
+
+  return data;
+}

@@ -138,15 +138,26 @@ async function getCategories() {
 }
 
 getCategories().then((data) => {
-  var categoryList = document.querySelector(
+  var categoryList = document.querySelectorAll(
     ".filters #category-accordion .categories"
   );
+
   data.forEach((category) => {
     var categoryItem = document.createElement("p");
     categoryItem.className = "category-item";
     categoryItem.innerHTML = `${category}`;
     categoryItem.dataset.category = `${category}`;
-    categoryList.appendChild(categoryItem);
+    categoryList[0].appendChild(categoryItem);
+    
+  });
+
+  data.forEach((category) => {
+    var categoryItem = document.createElement("p");
+    categoryItem.className = "category-item";
+    categoryItem.innerHTML = `${category}`;
+    categoryItem.dataset.category = `${category}`;
+    categoryList[1].appendChild(categoryItem);
+    
   });
 
   var category_items = document.querySelectorAll(".category-item");
@@ -188,10 +199,15 @@ getCategories().then((data) => {
   });
 });
 
-let category_accordion = document.querySelector(".filters #category-accordion");
-category_accordion.onclick = (e) => {
-  category_accordion.classList.toggle("active");
-};
+let category_accordion = document.querySelectorAll(".filters #category-accordion");
+
+category_accordion.forEach(accordion => {
+  console.log(accordion)
+  accordion.onclick = (e) => {
+    e.stopPropagation();
+    accordion.classList.toggle("active");
+  }
+})
 
 let ratingElements = document.querySelectorAll(".filters .ratings div");
 ratingElements.forEach((ele) => {
@@ -267,3 +283,10 @@ priceBtn.onclick = () => {
     });
   });
 };
+
+
+let small_filters_btn = document.querySelector(".small-filters button")
+let filters = document.querySelector(".small-filters .filters")
+small_filters_btn.onclick = () => {
+  filters.classList.toggle("active")
+}

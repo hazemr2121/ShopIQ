@@ -270,26 +270,33 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
       let searchBtn = document.getElementById("search-btn");
       let search_result = document.querySelector(".search_result");
       searchBtn.onclick = () => {
-        console.log(searchInput.value);
-        fetch(
-          `http://localhost:3000/api/search/products?title=${searchInput.value}`
-        ).then(async (res) => {
-          let data = await res.json();
-          search_result.style.display = "flex";
-          data.forEach((product) => {
-            let { thumbnail, title, price, _id } = product;
-            let row = document.createElement("a");
-            row.href = `/product_details.html?id=${_id}`;
-            row.innerHTML = `<img src="${thumbnail}" alt="">
+
+        if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
+          return;
+        } else {
+          console.log(searchInput.value);
+          fetch(
+            `http://localhost:3000/api/search/products?title=${searchInput.value}`
+          ).then(async (res) => {
+            search_result.innerHTML = "";
+            let data = await res.json();
+            search_result.style.display = "flex";
+            data.forEach((product) => {
+              let { thumbnail, title, price, _id } = product;
+              let row = document.createElement("a");
+              row.href = `/product_details.html?id=${_id}`;
+              row.innerHTML = `<img src="${thumbnail}" alt="">
+
                             <div class="title">${title}</div>
                             <div class="price">$${price}</div>
                           `;
 
-            search_result.appendChild(row);
+              search_result.appendChild(row);
+            });
+            console.log(search_result);
+            console.log(data);
           });
-          console.log(search_result);
-          console.log(data);
-        });
+        }
       };
       const text = "Don’t be slow! Our prices are low.";
       const textElement = document.querySelector(".container h2");

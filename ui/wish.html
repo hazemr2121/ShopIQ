@@ -4,36 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
+"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
       rel="stylesheet"
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="./ui/styles.css" />
 
     <!-- Font Awesome CDN for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="stylesheet" href="./assets/css/product_details.css" />
-    <link rel="stylesheet" href="./ui/nav-bar.css" />
-    <title>Product Details</title>
+    <link rel="stylesheet" href="./featured-products.css" />
+    <title>wish</title>
+    <link rel="stylesheet" href="nav-bar.css" />
+    <link rel="stylesheet" href="../assets/css/wishlist.css" />
   </head>
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <body>
     <header class="header">
       <div class="header-top">
         <div class="logo">
-          <h1>Shop IQ</h1>
+          <h1>Store</h1>
         </div>
 
         <div class="search-bar">
@@ -50,20 +50,20 @@
 
         <div class="header-actions">
           <div class="wishlist">
-            <a href="./ui/wishlish.html" class="icon-link">
+            <a href="./wishlish.html" class="icon-link">
               <i class="fa fa-heart"></i>
               <span class="badge">0</span>
               <span>Wishlist</span>
             </a>
           </div>
           <div class="account">
-            <a href="./profile/profile.html" class="icon-link">
+            <a href="../profile/profile.html" class="icon-link">
               <i class="fa fa-user"></i>
               <span>Account</span>
             </a>
           </div>
           <div class="cart">
-            <a href="./ui/cart.html" class="icon-link">
+            <a href="./cart.html" class="icon-link">
               <i class="fa fa-shopping-cart"></i>
               <span class="badge">0</span>
             </a>
@@ -80,87 +80,21 @@
           <div class="category-content" id="categoryDropdown"></div>
         </div>
         <ul class="nav-links">
-          <li><a href="./ui/home.html" class="active">HOME</a></li>
-          <li><a href="store.html">OUR STORE</a></li>
-          <li><a href="./ui/contact.html">CONTACT</a></li>
+          <li><a href="./home.html">HOME</a></li>
+          <li><a href="../store.html">OUR STORE</a></li>
+          <li><a href="./contact.html">CONTACT</a></li>
         </ul>
       </nav>
     </header>
 
     <!-- HEADER -->
 
-    <div class="product_page">
-      <div id="loading">
-        <i class="fa-solid fa-spinner fa-spin loading_icon"></i>
-      </div>
-      <div class="container_content">
-        <div class="content">
-          <div class="img_column">
-            <div class="thumbnail">
-              <img src="" alt="" />
-            </div>
-            <div class="images"></div>
-          </div>
-          <div class="details_column">
-            <h1 class="title"></h1>
-            <hr />
-            <div class="price">Price: $ <span></span></div>
-            <div class="discount">Discount: <span></span>% off</div>
-            <div class="rating">Rating: <span></span></div>
-            <hr />
-            <div class="brand">Brand : <span></span></div>
-            <div class="category">Category : <span></span></div>
-            <div class="in_stock"><span></span> item in stock</div>
-            <div class="order_qty">
-              Order Quantity :
-              <input
-                type="number"
-                name="order_qty"
-                id="quantity"
-                value="1"
-                min="1"
-              />
-            </div>
-            <div class="operations">
-              <button class="add-to-cart">
-                <i class="fa-solid fa-cart-plus"></i>Add to Cart
-              </button>
-              <button class="add-to-wishlist" data-wished="false">
-                <i class="fa-regular fa-heart"></i> Add to Wishlist
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="description">
-          <h2>Description:</h2>
-          <p></p>
-        </div>
-        <div class="reviews">
-          <h2>Reviews</h2>
-          <div class="reviews_content">
-            <button>Buy This Product to Leave a Review</button>
-            <div class="review_form">
-              <h3>Leave a Review</h3>
-              <form id="review-form">
-                <textarea
-                  name="comment"
-                  id="review-comment"
-                  cols="30"
-                  rows="10"
-                  placeholder="Write a review..."
-                ></textarea>
-                <div class="rating">
-                  <label for="rating">Rating</label>
-                  <input type="number" id="rating" />
-                </div>
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-            <div class="cards"></div>
-          </div>
-        </div>
-      </div>
+    <div class="container">
+      <h1>Your Wishlist</h1>
+      <div id="wishlist" class="wishlist-grid"></div>
     </div>
+
+    <!-- Footer Section -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
@@ -209,8 +143,14 @@
         <p>© 2024, Digitic Designed by adel-el3raky</p>
       </div>
     </footer>
-    <script src="assets/js/nav-bar.js"></script>
-
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
+    "></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="../assets/js/nav-bar.js"></script>
     <script>
       let searchInput = document.getElementById("search-input");
       let searchBtn = document.getElementById("search-btn");
@@ -231,10 +171,9 @@
               let row = document.createElement("a");
               row.href = `/product_details.html?id=${_id}`;
               row.innerHTML = `<img src="${thumbnail}" alt="">
-  
-                              <div class="title">${title}</div>
-                              <div class="price">$${price}</div>
-                            `;
+                            <div class="title">${title}</div>
+                            <div class="price">$${price}</div>
+                          `;
 
               search_result.appendChild(row);
             });
@@ -244,14 +183,7 @@
         }
       };
     </script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
-    ></script>
-    <script
-      src="https://kit.fontawesome.com/85c5dfec3f.js"
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="./assets/js/product_details.js"></script>
+    <script type="module" src="../assets/js/wishlist.js"></script>
   </body>
+  <!-- <script src="temp.js"></script> -->
 </html>
