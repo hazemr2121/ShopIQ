@@ -270,6 +270,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
       let searchBtn = document.getElementById("search-btn");
       let search_result = document.querySelector(".search_result");
       searchBtn.onclick = () => {
+
         if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
           return;
         } else {
@@ -285,6 +286,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
               let row = document.createElement("a");
               row.href = `/product_details.html?id=${_id}`;
               row.innerHTML = `<img src="${thumbnail}" alt="">
+
                             <div class="title">${title}</div>
                             <div class="price">$${price}</div>
                           `;

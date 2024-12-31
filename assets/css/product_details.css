@@ -31,29 +31,30 @@ body {
     box-shadow: 0 0 6px -1px gray;;
 }
 .product_page .container_content .content {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     padding-bottom: 50px;
     border-bottom: 2px solid #8c7e7e;
 }
-.product_page .container_content .content > div {
-    width: 45%;
+@media screen and (max-width: 992px) {
+    .product_page .container_content .content {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 .product_page .content .img_column {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
 }
 .product_page .content .thumbnail img{
     width: 100%;
 }
 .product_page .content .img_column .images {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     margin-top: 20px;
 }
 .product_page .content .img_column .images img {
-    width: 30%;
+    width: 120px;
     cursor: pointer;
 }
 .product_page .content .details_column {
@@ -106,8 +107,31 @@ body {
 .product_page .reviews {
     padding: 20px;
 }
+.product_page .reviews button {
+    width: 350px;
+    height: fit-content;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #febd69;
+}
 .product_page .reviews .reviews_content {
     padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+.product_page .review_card .user_details,
+.product_page .review_card .rating,
+.product_page .review_card .comment {
+    margin-bottom: 10px;
+}
+.product_page .reviews .review_card {
+    padding: 10px;
+    margin-bottom: 20px;
 }
 .product_page .reviews .review_card .user_details {
     display: flex;
@@ -117,3 +141,55 @@ body {
     width: 35px;
     margin-right: 10px;
 }
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#review-comment {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+}
+
+form .rating {
+    margin-bottom: 15px;
+}
+
+.rating label {
+    font-size: 18px;
+    color: #555;
+}
+.rating label:hover,
+.rating input:checked + label {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
