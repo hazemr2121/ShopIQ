@@ -25,6 +25,8 @@ var brandEle = document.querySelector(".product_page .details_column .brand span
 var categoryEle = document.querySelector(".product_page .details_column .category span");
 var stockEle = document.querySelector(".product_page .details_column .in_stock span");
 var descriptionEle = document.querySelector(".product_page .description p");
+var reviews_cards = document.querySelector(".reviews_content .cards");
+
 
 getProductData()
     .then((data) => {
@@ -94,7 +96,16 @@ getProductData()
                 }
 
                 addReview( _id , review).then(res => {
-                    console.log(res)
+
+                    reviews_cards.innerHTML = "";
+
+                    res.forEach(review => {
+                        displayReview(review)
+                    })
+                    Toastify({
+                        text: "Review Added Successfully",
+                        className: "info",
+                    }).showToast();
                 });
                 console.log(review)
             }
@@ -111,7 +122,7 @@ getProductData()
                     product: _id,
                     quantity
                 }
-                const response = addToCart(product_data, "676eba31317758c9864b3eee").then((data) => {
+                const response = addToCart(product_data, JSON.parse(localStorage.getItem("user")).userId).then((data) => {
                     Toastify({
                         text: "Product added to Cart Successfully",
                         className: "info",
@@ -149,7 +160,7 @@ getProductData()
                     msg = "Product removed from Wishlist Successfully";
                 }
 
-                updateWishlist(product_data, "676eba31317758c9864b3eee").then((data) => {
+                updateWishlist(product_data, JSON.parse(localStorage.getItem("user")).userId).then((data) => {
                     Toastify({
                         text: msg,
                         className: "info",
@@ -164,10 +175,10 @@ getProductData()
     })
 
 
-var reviews_cards = document.querySelector(".reviews_content .cards");
 console.log(reviews_cards)
 function displayReview(review) {
 
+    
     let { comment, rating, reviewerName } = review
     console.log(reviewerName)
 
