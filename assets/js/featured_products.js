@@ -45,7 +45,10 @@ function renderProducts() {
                       <div class="product-category">${product.category}</div>
                       <div class="product-brand">${product.brand}</div>
                   </div>
+                  <a href="../../product_details.html?id=${product._id}">
                   <h3 class="product-name">${product.title}</h3>
+                  
+                  </a>
                   <div class="description">${product.description.substring(
                     0,
                     60

@@ -27,14 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       itemElement.innerHTML = `
       <div class="w-full lg:max-w-[150px] rounded-xl mr-4 md:mr-6 mb-4 lg:mb-0">
-        <a href="#!">
+        <a href="../../product_details.html?id=${item._id}">
           <img src="${item.thumbnail}" alt="${item.title}" class="max-w-full h-auto rounded-xl mx-auto" />
         </a>
       </div>
       <div class="flex">
         <div>
           <div class="text-base md:text-lg hover:text-blue-600 mb-4">
-            <a href="#!">${item.title}</a>
+            <a href="../../product_details.html?id=${item._id}">${item.title}</a>
           </div>
           <div>
             <div class="flex h-11 w-24 mb-4">
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
         <div>
-          <button class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full delete-btn" data-index="${index}">
+          <button class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full delete-btn" data-index="${index}" data-productid="${item._id}">
             <i class="fas fa-times"></i>
           </button>
         </div>
@@ -66,10 +66,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add event listener for delete buttons
     document.querySelectorAll(".delete-btn").forEach((button) => {
-      button.addEventListener("click", (event) => {
+      button.addEventListener("click", async (event) => {
+        console.log(button.dataset.productid);
         const index = event.currentTarget.getAttribute("data-index");
-        cart.splice(index, 1); // Remove item from cart
-        renderItems(cart); // Re-render items
+        console.log(localStorage.getItem("user").cart);
+        // const productId = localStorage.getItem("user").cart.product.id;
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${user.userId}/deleteFromCart`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id: button.dataset.productid }),
+            }
+          );
+
+          const updatedUserResponse = await fetch(
+            `http://localhost:3000/api/users/${user.userId}`
+          );
+          if (updatedUserResponse.ok) {
+            const updatedUser = await updatedUserResponse.json();
+            const userData = {
+              userId: updatedUser._id,
+              userName: updatedUser.username,
+              address: updatedUser.address,
+              phone: updatedUser.phone,
+              orders: updatedUser.orders,
+              role: updatedUser.role,
+              wishList: updatedUser.wishlist,
+              email: updatedUser.email,
+              cart: updatedUser.cart,
+              createdAt: new Date(updatedUser.createdAt).toLocaleDateString(
+                undefined,
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              ),
+            };
+            localStorage.setItem("user", JSON.stringify(userData));
+            renderItems(updatedUser.cart);
+          } else {
+            console.error("Failed to fetch updated user data");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
       });
     });
   }
@@ -103,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="flex">
           <div>
             <div class="text-base md:text-lg hover:text-blue-600 mb-4">
-              <a href="#!">${item.title}</a>
+              <a href="../../product_details.html?id=${item._id}">${item.title}</a>
             </div>
             <div>
               <div class="flex h-11 w-24 mb-4">
@@ -121,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
           <div>
-            <button class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full delete-btn" data-index="${index}">
+            <button class="w-10 h-10 hover:bg-blue-200 inline-flex justify-center items-center rounded-full delete-btn" data-index="${index}" data-productid="${item._id}">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -132,12 +178,57 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
 
-      // Re-add event listeners for new delete buttons
       document.querySelectorAll(".delete-btn").forEach((button) => {
-        button.addEventListener("click", (event) => {
+        button.addEventListener("click", async (event) => {
+          console.log(button.dataset.productid);
           const index = event.currentTarget.getAttribute("data-index");
-          items.splice(index, 1); // Remove item from items
-          renderItems(items); // Re-render items
+          console.log(localStorage.getItem("user").cart);
+          // const productId = localStorage.getItem("user").cart.product.id;
+
+          try {
+            const response = await fetch(
+              `http://localhost:3000/api/users/${user.userId}/deleteFromCart`,
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id: button.dataset.productid }),
+              }
+            );
+
+            const updatedUserResponse = await fetch(
+              `http://localhost:3000/api/users/${user.userId}`
+            );
+            if (updatedUserResponse.ok) {
+              const updatedUser = await updatedUserResponse.json();
+              const userData = {
+                userId: updatedUser._id,
+                userName: updatedUser.username,
+                address: updatedUser.address,
+                phone: updatedUser.phone,
+                orders: updatedUser.orders,
+                role: updatedUser.role,
+                wishList: updatedUser.wishlist,
+                email: updatedUser.email,
+                cart: updatedUser.cart,
+                createdAt: new Date(updatedUser.createdAt).toLocaleDateString(
+                  undefined,
+                  {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }
+                ),
+              };
+              localStorage.setItem("user", JSON.stringify(userData));
+              renderItems(updatedUser.cart);
+            } else {
+              console.error("Failed to delete item from cart");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
         });
       });
     }

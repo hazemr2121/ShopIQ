@@ -23,8 +23,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="./featured-products.css" />
-    <title>Header</title>
+    <title>wish</title>
     <link rel="stylesheet" href="nav-bar.css" />
+    <link rel="stylesheet" href="../assets/css/wishlist.css" />
   </head>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -79,7 +80,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
           <div class="category-content" id="categoryDropdown"></div>
         </div>
         <ul class="nav-links">
-          <li><a href="#" class="active">HOME</a></li>
+          <li><a href="./home.html">HOME</a></li>
           <li><a href="../store.html">OUR STORE</a></li>
           <li><a href="./contact.html">CONTACT</a></li>
         </ul>
@@ -87,125 +88,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
     </header>
 
     <!-- HEADER -->
-    <section
-      class="ezy__header5 bg-[#FDF1DD] py-14 md:py-24 text-indigo-700 relative z-10 overflow-hidden"
-    >
-      <svg
-        class="absolute left-0 bottom-0 -z-10"
-        width="474"
-        height="624"
-        viewBox="0 0 474 624"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="307.203"
-          y="-77"
-          width="380"
-          height="1282.77"
-          rx="190"
-          transform="rotate(49.9815 307.203 -77)"
-          fill="rgba(255, 255, 255, .25)"
-        />
-      </svg>
-      <svg
-        class="absolute right-0 top-0 -z-10"
-        width="568"
-        height="579"
-        viewBox="0 0 568 579"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="521.617"
-          y="-138"
-          width="380"
-          height="782.419"
-          rx="190"
-          transform="rotate(49.9815 521.617 -138)"
-          fill="rgba(255, 255, 255, .25)"
-        />
-      </svg>
-      <div class="container px-4 mx-auto relative">
-        <div class="grid grid-cols-2 gap-6 items-center">
-          <div
-            class="col-span-2 lg:col-span-1 xl:pr-12 text-center lg:text-start"
-          >
-            <h2
-              class="text-3xl font-bold md:text-[70px] leading-none mb-6"
-            ></h2>
-            <p class="text-[22px] leading-normal opacity-80">
-              Everything you need—on a budget.
-            </p>
 
-            <a
-              href=""
-              class="bg-white py-3 px-8 rounded-xl shadow text-xl inline-flex mt-6 md:mt-12"
-              >Try Now <span class="fas fa-arrow-right ml-2"></span
-            ></a>
-          </div>
-          <div class="col-span-2 lg:col-span-1 text-center lg:text-start">
-            <img
-              src="https://cdn.easyfrontend.com/pictures/hero/hero-5.png"
-              alt=""
-              class="rounded max-w-full h-auto mx-auto mt-4"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- features -->
-    <div class="feature-banner">
-      <div class="feature-item">
-        <span class="feature-icon icon-shipping"></span>
-        <div class="feature-content">
-          <h3 class="feature-title">Free Shipping</h3>
-          <p class="feature-subtitle">from all orders over $100</p>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <span class="feature-icon icon-offer"></span>
-        <div class="feature-content">
-          <h3 class="feature-title">Daily Surprise Offers</h3>
-          <p class="feature-subtitle">save up to 25% off</p>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <span class="feature-icon icon-support"></span>
-        <div class="feature-content">
-          <h3 class="feature-title">Support 24/7</h3>
-          <p class="feature-subtitle">shop with an expert</p>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <span class="feature-icon icon-secure"></span>
-        <div class="feature-content">
-          <h3 class="feature-title">Secure Payments</h3>
-          <p class="feature-subtitle">100% protect payments</p>
-        </div>
-      </div>
+    <div class="container">
+      <h1>Your Wishlist</h1>
+      <div id="wishlist" class="wishlist-grid"></div>
     </div>
-    <!-- Featured products -->
-
-    <!-- Main Content Section -->
-    <main class="main-content">
-      <section class="featured-products">
-        <div class="featured-products-container">
-          <div class="featured-header">
-            <h2>Featured Products</h2>
-            <button><a href="../store.html">See More</a></button>
-          </div>
-          <div class="slider-container">
-            <button class="slider-button prev-button">←</button>
-            <div class="products-slider"></div>
-            <button class="slider-button next-button">→</button>
-          </div>
-        </div>
-      </section>
-    </main>
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -264,13 +151,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
       src="https://cdn.jsdelivr.net/npm/toastify-js"
     ></script>
     <script src="../assets/js/nav-bar.js"></script>
-    <script type="module" src="../assets/js/featured_products.js"></script>
     <script>
       let searchInput = document.getElementById("search-input");
       let searchBtn = document.getElementById("search-btn");
       let search_result = document.querySelector(".search_result");
       searchBtn.onclick = () => {
-
         if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
           return;
         } else {
@@ -286,7 +171,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
               let row = document.createElement("a");
               row.href = `/product_details.html?id=${_id}`;
               row.innerHTML = `<img src="${thumbnail}" alt="">
-
                             <div class="title">${title}</div>
                             <div class="price">$${price}</div>
                           `;
@@ -298,20 +182,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
           });
         }
       };
-      const text = "Don’t be slow! Our prices are low.";
-      const textElement = document.querySelector(".container h2");
-      let index = 0;
-
-      function typeLetterByLetter() {
-        if (index < text.length) {
-          textElement.textContent += text[index];
-          index++;
-          setTimeout(typeLetterByLetter, 60);
-        }
-      }
-
-      typeLetterByLetter();
     </script>
+    <script type="module" src="../assets/js/wishlist.js"></script>
   </body>
   <!-- <script src="temp.js"></script> -->
 </html>
