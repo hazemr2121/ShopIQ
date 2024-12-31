@@ -290,14 +290,52 @@ orders.textContent = `${
   JSON.parse(localStorage.getItem("user")).orders.length
 }`;
 
-// const lastOrder = document.querySelector("#last-order span");
+// get orders
+let statusOrder = [];
+let color;
+async function fetchOrders() {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.userId) {
+      throw new Error("User not found in localStorage.");
+    }
 
-// if (JSON.parse(localStorage.getItem("user")).orders.length > 0) {
-//   const lastOrderDate = new Date(
-//     JSON.parse(localStorage.getItem("user")).orders[0].createdAt
-//   );
-//   lastOrder.textContent = `${lastOrderDate.toLocaleDateString()} at ${lastOrderDate.toLocaleTimeString()}`;
-// }
+    const userId = user.userId;
+    console.log(userId);
+
+    const response = await fetch(`http://localhost:3000/api/orders`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    // Parse the JSON response
+    const orders = await response.json();
+    console.log(orders[0].user._id);
+    console.log(orders);
+    const userOrders = orders.filter((order) => {
+      if (order.user) {
+        return order.user._id == userId;
+      }
+    });
+
+    userOrders.forEach((order, index) => {
+      console.log(order.status);
+      statusOrder.push(order.status);
+      if (order.status === "pending") {
+        color = "#b2b246";
+      } else if (order.status === "accepted") {
+        color = "#008000a3";
+      } else {
+        color = "#e63b3b";
+      }
+    });
+    getOrderDetails();
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+  }
+}
+
+fetchOrders();
 
 console.log(JSON.parse(localStorage.getItem("user")).orders);
 const orderStatus = document.getElementById("orders-section");
@@ -306,31 +344,34 @@ const finishedOrders = JSON.parse(localStorage.getItem("user")).orders;
 if (!finishedOrders.length) {
   orderStatus.innerHTML = "<p>No orders found.</p>";
 }
+function getOrderDetails() {
+  finishedOrders.forEach((order, orderIndex) => {
+    const totalPrice = order.products
+      .reduce((sum, item) => {
+        return sum + item.product.price * item.quantity;
+      }, 0)
+      .toFixed(2);
+    console.log(order.products);
+    // Display the order summary
 
-finishedOrders.forEach((order, orderIndex) => {
-  const totalPrice = order.products
-    .reduce((sum, item) => {
-      return sum + item.product.price * item.quantity;
-    }, 0)
-    .toFixed(2);
-  console.log(order.products);
-  // Display the order summary
-
-  orderStatus.innerHTML += `
+    orderStatus.innerHTML += `
   <button class="accordion accordion-order">
 
       <h3>Order #${orderIndex + 1}</h3>
       <p><strong>Order ID:</strong> ${order._id}</p>
       <p><strong>Total Price:</strong> $${totalPrice}</p>
       <p><strong>Number of Products:</strong> ${order.products.length}</p>
+      <p style="color:${color}"><strong> ${
+      statusOrder[orderIndex]
+    }</strong> </p>
 
     </button>
     <div class="panel" id="panel-${orderIndex}"></div>
   `;
-
-  const panel = document.getElementById(`panel-${orderIndex}`);
-  order.products.forEach((item) => {
-    panel.innerHTML += `
+    // panding accepted rejected
+    const panel = document.getElementById(`panel-${orderIndex}`);
+    order.products.forEach((item) => {
+      panel.innerHTML += `
 
       <div class="product-details">
         <img src="${item.product.thumbnail}" alt="${item.product.title}" />
@@ -344,19 +385,41 @@ finishedOrders.forEach((order, orderIndex) => {
       </div>
 
     `;
+    });
   });
-});
+  showAccordionOrders();
+}
 
 function changePassword() {
-  const acc = document.getElementsByClassName("accordion");
-  var i;
+  const acc = document.getElementById("accordion");
+  console.log(acc);
 
-  for (i = 0; i < acc.length; i++) {
+  acc.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    let panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+changePassword();
+
+function showAccordionOrders() {
+  const acc = document.getElementsByClassName("accordion-order");
+
+  for (let i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function (e) {
       e.preventDefault();
 
-      // this.classList.toggle("active");
+      console.log("Toggling panel for:", acc[i]);
+
+      // Get the corresponding panel
       let panel = this.nextElementSibling;
+
+      // Toggle the display style
       if (panel.style.display === "block") {
         panel.style.display = "none";
       } else {
@@ -365,4 +428,3 @@ function changePassword() {
     });
   }
 }
-changePassword();
