@@ -17,6 +17,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
     />
     <link rel="stylesheet" href="profile.css" />
     <script src="../assets/js/auth.js"></script>
+    <link rel="stylesheet" href="../ui/nav-bar.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <header class="header">
@@ -26,28 +28,33 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
         </div>
 
         <div class="search-bar">
-          <input type="text" placeholder="Search Product Here" />
-          <button type="submit">
+          <input
+            type="text"
+            placeholder="Search Product Here"
+            id="search-input"
+          />
+          <button id="search-btn">
             <i class="fa fa-search"></i>
           </button>
+          <div class="search_result"></div>
         </div>
 
         <div class="header-actions">
           <div class="wishlist">
-            <a href="#" class="icon-link">
+            <a href="../ui/wishlish.html" class="icon-link">
               <i class="fa fa-heart"></i>
               <span class="badge">0</span>
               <span>Wishlist</span>
             </a>
           </div>
           <div class="account">
-            <a href="../login&register/login.html" class="icon-link">
+            <a href="#" class="icon-link active">
               <i class="fa fa-user"></i>
-              <span></span>
+              <span class="active">Account</span>
             </a>
           </div>
           <div class="cart">
-            <a href="#" class="icon-link">
+            <a href="../ui/cart.html" class="icon-link">
               <i class="fa fa-shopping-cart"></i>
               <span class="badge">0</span>
             </a>
@@ -57,18 +64,21 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
 
       <nav class="header-bottom">
         <div class="categories-dropdown">
-          <button class="dropdown-btn">
+          <button class="dropdown-btn" id="dropdown-btn">
             Shop Categories
             <i class="fa fa-chevron-down"></i>
           </button>
+          <div class="category-content" id="categoryDropdown"></div>
         </div>
         <ul class="nav-links">
-          <li><a href="../ui/home.html" class="active">HOME</a></li>
-          <li><a href="#">OUR STORE</a></li>
-          <li><a href="#">CONTACT</a></li>
+          <li><a href="../ui/home.html">HOME</a></li>
+          <li><a href="../store.html">OUR STORE</a></li>
+          <li><a href="../contact us/contact.html">CONTACT</a></li>
         </ul>
       </nav>
     </header>
+
+    <!-- HEADER -->
     <!-- Main Content Section -->
     <div class="main-section">
       <div class="sidebar">
@@ -235,4 +245,38 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
 https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.all.min.js
 "></script>
   <script src="profile.js"></script>
+  <script src="../assets/js/nav-bar.js"></script>
+  <script>
+    let searchInput = document.getElementById("search-input");
+    let searchBtn = document.getElementById("search-btn");
+    let search_result = document.querySelector(".search_result");
+    searchBtn.onclick = () => {
+      if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
+        return;
+      } else {
+        console.log(searchInput.value);
+        fetch(
+          `http://localhost:3000/api/search/products?title=${searchInput.value}`
+        ).then(async (res) => {
+          search_result.innerHTML = "";
+          let data = await res.json();
+          search_result.style.display = "flex";
+          data.forEach((product) => {
+            let { thumbnail, title, price, _id } = product;
+            let row = document.createElement("a");
+            row.href = `/product_details.html?id=${_id}`;
+            row.innerHTML = `<img src="${thumbnail}" alt="">
+
+                            <div class="title">${title}</div>
+                            <div class="price">$${price}</div>
+                          `;
+
+            search_result.appendChild(row);
+          });
+          console.log(search_result);
+          console.log(data);
+        });
+      }
+    };
+  </script>
 </html>
