@@ -303,14 +303,19 @@ console.log(JSON.parse(localStorage.getItem("user")).orders);
 const orderStatus = document.getElementById("orders-section");
 const finishedOrders = JSON.parse(localStorage.getItem("user")).orders;
 
+if (!finishedOrders.length) {
+  orderStatus.innerHTML = "<p>No orders found.</p>";
+}
+
 finishedOrders.forEach((order, orderIndex) => {
   const totalPrice = order.products
     .reduce((sum, item) => {
       return sum + item.product.price * item.quantity;
     }, 0)
     .toFixed(2);
-
+  console.log(order.products);
   // Display the order summary
+
   orderStatus.innerHTML += `
   <button class="accordion accordion-order">
 
@@ -320,12 +325,13 @@ finishedOrders.forEach((order, orderIndex) => {
       <p><strong>Number of Products:</strong> ${order.products.length}</p>
 
     </button>
+    <div class="panel" id="panel-${orderIndex}"></div>
   `;
 
-  // Display each product in the order
+  const panel = document.getElementById(`panel-${orderIndex}`);
   order.products.forEach((item) => {
-    orderStatus.innerHTML += `
-    <div class="panel">
+    panel.innerHTML += `
+
       <div class="product-details">
         <img src="${item.product.thumbnail}" alt="${item.product.title}" />
         <div class="product-info">
@@ -336,7 +342,7 @@ finishedOrders.forEach((order, orderIndex) => {
           <p><strong>Quantity:</strong> ${item.quantity}</p>
         </div>
       </div>
-      </div>
+
     `;
   });
 });

@@ -11,7 +11,11 @@ const fields = [
 ];
 
 const errorMessage = document.querySelectorAll(".hiden");
-const inputs = document.querySelectorAll("input");
+
+let inputs = Array.from(document.querySelectorAll("input"));
+inputs.shift();
+
+console.log(inputs);
 const terms = document.getElementById("terms");
 terms.addEventListener("change", () => {
   if (terms.checked) {
@@ -24,6 +28,7 @@ terms.addEventListener("change", () => {
 inputs.forEach((input, index) => {
   input.addEventListener("input", () => {
     const field = fields.find((f) => f.id === input.id);
+    console.log(field);
     if (field && field.regex.test(input.value.trim())) {
       errorMessage[index].classList.remove("active");
     } else {
