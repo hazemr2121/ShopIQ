@@ -8,6 +8,11 @@ import {
 } from "./../../utils/product.js";
 import Filters from "../../utils/filter.js";
 
+var categoryValue = "";
+var ratingFilterValue = "";
+var priceFromValue = "";
+var priceToValue = "";
+
 document.getElementById("loading").style.display = "block";
 var productsContainer = document.querySelector(".store_page .products-list");
 var productsLength = document.querySelector(".store_page .product-count span");
@@ -21,8 +26,10 @@ let endpoint = category
 var productsData = [];
 getProducts(endpoint)
   .then((res) => {
+    document.querySelector(".store_page .small-filters button").style.display = "block";
     document.querySelector(".store_page .container_content").style.display =
       "flex";
+      
     document.getElementById("loading").style.display = "none";
 
     // let category = new URLSearchParams(window.location.search).get("category");
@@ -174,8 +181,9 @@ async function getCategories() {
 
 getCategories().then((data) => {
   var categoryList = document.querySelectorAll(
-    ".filters #category-accordion .categories"
+    "#category-accordion .categories"
   );
+
 
   data.forEach((category) => {
     var categoryItem = document.createElement("p");
@@ -195,13 +203,14 @@ getCategories().then((data) => {
 
   });
 
+
   var category_items = document.querySelectorAll(".category-item");
   category_items.forEach((item) => {
     item.onclick = (e) => {
       e.stopPropagation();
-
+      categoryValue = item.dataset.category;
       getProducts(
-        `http://localhost:3000/api/products?category=${item.dataset.category}`
+        `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
       ).then((res) => {
         productsContainer.innerHTML = "";
         productsLength.innerHTML = res.length;
@@ -234,7 +243,7 @@ getCategories().then((data) => {
   });
 });
 
-let category_accordion = document.querySelectorAll(".filters #category-accordion");
+let category_accordion = document.querySelectorAll("#category-accordion");
 
 category_accordion.forEach(accordion => {
   console.log(accordion)
@@ -244,11 +253,13 @@ category_accordion.forEach(accordion => {
   }
 })
 
-let ratingElements = document.querySelectorAll(".filters .ratings div");
-ratingElements.forEach((ele) => {
+let ratingSmallFilterElements = document.querySelectorAll(".small-filters .filters .ratings div");
+ratingSmallFilterElements.forEach((ele) => {
   ele.onclick = () => {
+
+    ratingFilterValue = ele.dataset.rating;
     getProducts(
-      `http://localhost:3000/api/products?rating=${ele.dataset.rating}`
+      `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
     ).then((res) => {
       productsContainer.innerHTML = "";
       productsLength.innerHTML = res.length;
@@ -281,13 +292,93 @@ ratingElements.forEach((ele) => {
   };
 });
 
-let priceFrom = document.querySelector(".filters .price .price-from");
-let priceTo = document.querySelector(".filters .price .price-to");
-let priceBtn = document.querySelector(".filters .price button");
+let ratingElements = document.querySelectorAll(".main-filters .ratings div");
+ratingElements.forEach((ele) => {
+  ele.onclick = () => {
 
-priceBtn.onclick = () => {
+    ratingFilterValue = ele.dataset.rating;
+    getProducts(
+      `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
+    ).then((res) => {
+      productsContainer.innerHTML = "";
+      productsLength.innerHTML = res.length;
+      productsData = res.data;
+      createPaginationBtns(paginationParent, productsData.length);
+
+      productsData.slice(0, 9).forEach((product) => {
+        let productCard = createProductEle(product);
+        productsContainer.appendChild(productCard);
+      });
+
+      var pageBtns = document.querySelectorAll(".pagination button");
+      pageBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          console.log(btn.dataset.page);
+
+          productsData = paginate(res.data, btn.dataset.page);
+          console.log(productsData);
+          productsContainer.innerHTML = "";
+          productsLength.innerHTML = productsData.length;
+
+          productsData.forEach((product) => {
+            let productCard = createProductEle(product);
+            productsContainer.appendChild(productCard);
+          });
+          window.scrollTo(0, 0);
+        });
+      });
+    });
+  };
+})
+
+let priceFrom = document.querySelectorAll(".price .price-from");
+let priceTo = document.querySelectorAll(".price .price-to");
+let priceBtns = document.querySelectorAll(".price button");
+
+priceBtns[0].onclick = () => {
+  console.log(priceFrom[0].value, priceTo[0].value);
+
+  priceFromValue = priceFrom[0].value;
+  priceToValue = priceTo[0].value;
   getProducts(
-    `http://localhost:3000/api/products?priceFrom=${priceFrom.value}&priceTo=${priceTo.value}`
+    `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
+  ).then((res) => {
+    console.log(res);
+    productsContainer.innerHTML = "";
+    productsLength.innerHTML = res.length;
+    productsData = res.data;
+    createPaginationBtns(paginationParent, productsData.length);
+    productsData.slice(0, 9).forEach((product) => {
+      let productCard = createProductEle(product);
+      productsContainer.appendChild(productCard);
+    });
+
+    var pageBtns = document.querySelectorAll(".pagination button");
+    pageBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        console.log(btn.dataset.page);
+
+        productsData = paginate(res.data, btn.dataset.page);
+        console.log(productsData);
+        productsContainer.innerHTML = "";
+        productsLength.innerHTML = productsData.length;
+
+        productsData.forEach((product) => {
+          let productCard = createProductEle(product);
+          productsContainer.appendChild(productCard);
+        });
+        window.scrollTo(0, 0);
+      });
+    });
+  });
+}
+priceBtns[1].onclick = () => {
+  console.log(priceFrom[1].value, priceTo[1].value);
+
+  priceFromValue = priceFrom[1].value;
+  priceToValue = priceTo[1].value;
+  getProducts(
+    `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
   ).then((res) => {
     console.log(res);
     productsContainer.innerHTML = "";

@@ -37,6 +37,7 @@ body {
     margin: 30px 50px 0;
 }
 .store_page .small-filters button {
+    display: none;
     font-size: 18px;
     font-weight: bold;
     padding: 10px 25px;
@@ -69,24 +70,27 @@ body {
     margin-bottom: 15px;
 }
 
-.store_page .sidebar-column .filters .price,
-.store_page .sidebar-column .filters .rating,
-.store_page .sidebar-column .filters .category,
-.store_page .small-filters .filters .category,
-.store_page .small-filters .filters .price,
-.store_page .small-filters .filters .rating {
+.store_page .sidebar-column .price,
+.store_page .sidebar-column .rating,
+.store_page .sidebar-column .category,
+.store_page .small-filters .category,
+.store_page .small-filters .price,
+.store_page .small-filters .rating {
     padding: 15px 0;
     border-top: 3px solid #d2caca;
     margin-left: 10px;
 }
-.store_page .small-filters .filters .category {
+.store_page .small-filters .category {
     border-top: none;
 }
-.store_page .filters .price h3 {
+.store_page .price h3 {
     margin-bottom: 10px;
 }
-
-.store_page .filters .price input {
+.store_page h3 {
+    font-weight: bold;
+    font: 16px;
+}
+.store_page .price input {
     padding: 10px;
     border-radius: 5px;
     border: .5px solid #d2caca;
@@ -94,7 +98,7 @@ body {
     margin-bottom: 10px;
 }
 
-.store_page .filters .price button {
+.store_page .price button {
     width: 100%;
     padding: 10px;
     outline: none;
@@ -105,27 +109,27 @@ body {
     font-weight: bold;
 }
 
-.store_page .filters .rating div {
+.store_page .rating div {
     margin: 15px 0;
 }
 
-.store_page .filters .categories .category-item {
+.store_page .categories .category-item {
     padding: 5px;
     cursor: pointer;
 }
 
-.store_page .filters .category-item:hover {
+.store_page .category-item:hover {
     background-color: #febd69;
     border-radius: 5px;
 }
 
-.store_page .filters .categories {
+.store_page .categories {
     max-height: 0;
     overflow: hidden;
     transition: max-height 1.5s ease;
 }
 
-.store_page .filters #category-accordion.active .categories {
+.store_page #category-accordion.active .categories {
     max-height: 700px;
     padding: 10px 5px;
 }
