@@ -174,8 +174,9 @@ async function getCategories() {
 
 getCategories().then((data) => {
   var categoryList = document.querySelectorAll(
-    ".filters #category-accordion .categories"
+    "#category-accordion .categories"
   );
+
 
   data.forEach((category) => {
     var categoryItem = document.createElement("p");
@@ -234,7 +235,7 @@ getCategories().then((data) => {
   });
 });
 
-let category_accordion = document.querySelectorAll(".filters #category-accordion");
+let category_accordion = document.querySelectorAll("#category-accordion");
 
 category_accordion.forEach(accordion => {
   console.log(accordion)
@@ -244,8 +245,8 @@ category_accordion.forEach(accordion => {
   }
 })
 
-let ratingElements = document.querySelectorAll(".filters .ratings div");
-ratingElements.forEach((ele) => {
+let ratingSmallFilterElements = document.querySelectorAll(".small-filters .filters .ratings div");
+ratingSmallFilterElements.forEach((ele) => {
   ele.onclick = () => {
     getProducts(
       `http://localhost:3000/api/products?rating=${ele.dataset.rating}`
@@ -281,13 +282,85 @@ ratingElements.forEach((ele) => {
   };
 });
 
-let priceFrom = document.querySelector(".filters .price .price-from");
-let priceTo = document.querySelector(".filters .price .price-to");
-let priceBtn = document.querySelector(".filters .price button");
+let ratingElements = document.querySelectorAll(".main-filters .ratings div");
+ratingElements.forEach((ele) => {
+  ele.onclick = () => {
+    getProducts(
+      `http://localhost:3000/api/products?rating=${ele.dataset.rating}`
+    ).then((res) => {
+      productsContainer.innerHTML = "";
+      productsLength.innerHTML = res.length;
+      productsData = res.data;
+      createPaginationBtns(paginationParent, productsData.length);
 
-priceBtn.onclick = () => {
+      productsData.slice(0, 9).forEach((product) => {
+        let productCard = createProductEle(product);
+        productsContainer.appendChild(productCard);
+      });
+
+      var pageBtns = document.querySelectorAll(".pagination button");
+      pageBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          console.log(btn.dataset.page);
+
+          productsData = paginate(res.data, btn.dataset.page);
+          console.log(productsData);
+          productsContainer.innerHTML = "";
+          productsLength.innerHTML = productsData.length;
+
+          productsData.forEach((product) => {
+            let productCard = createProductEle(product);
+            productsContainer.appendChild(productCard);
+          });
+          window.scrollTo(0, 0);
+        });
+      });
+    });
+  };
+})
+
+let priceFrom = document.querySelectorAll(".price .price-from");
+let priceTo = document.querySelectorAll(".price .price-to");
+let priceBtns = document.querySelectorAll(".price button");
+
+priceBtns[0].onclick = () => {
+  console.log(priceFrom[0].value, priceTo[0].value);
   getProducts(
-    `http://localhost:3000/api/products?priceFrom=${priceFrom.value}&priceTo=${priceTo.value}`
+    `http://localhost:3000/api/products?priceFrom=${priceFrom[0].value}&priceTo=${priceTo[0].value}`
+  ).then((res) => {
+    console.log(res);
+    productsContainer.innerHTML = "";
+    productsLength.innerHTML = res.length;
+    productsData = res.data;
+    createPaginationBtns(paginationParent, productsData.length);
+    productsData.slice(0, 9).forEach((product) => {
+      let productCard = createProductEle(product);
+      productsContainer.appendChild(productCard);
+    });
+
+    var pageBtns = document.querySelectorAll(".pagination button");
+    pageBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        console.log(btn.dataset.page);
+
+        productsData = paginate(res.data, btn.dataset.page);
+        console.log(productsData);
+        productsContainer.innerHTML = "";
+        productsLength.innerHTML = productsData.length;
+
+        productsData.forEach((product) => {
+          let productCard = createProductEle(product);
+          productsContainer.appendChild(productCard);
+        });
+        window.scrollTo(0, 0);
+      });
+    });
+  });
+}
+priceBtns[1].onclick = () => {
+  console.log(priceFrom[1].value, priceTo[1].value);
+  getProducts(
+    `http://localhost:3000/api/products?priceFrom=${priceFrom[1].value}&priceTo=${priceTo[1].value}`
   ).then((res) => {
     console.log(res);
     productsContainer.innerHTML = "";
