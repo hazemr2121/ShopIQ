@@ -37,6 +37,7 @@ body {
     margin: 30px 50px 0;
 }
 .store_page .small-filters button {
+    display: none;
     font-size: 18px;
     font-weight: bold;
     padding: 10px 25px;

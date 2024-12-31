@@ -8,6 +8,11 @@ import {
 } from "./../../utils/product.js";
 import Filters from "../../utils/filter.js";
 
+var categoryValue = "";
+var ratingFilterValue = "";
+var priceFromValue = "";
+var priceToValue = "";
+
 document.getElementById("loading").style.display = "block";
 var productsContainer = document.querySelector(".store_page .products-list");
 var productsLength = document.querySelector(".store_page .product-count span");
@@ -21,8 +26,10 @@ let endpoint = category
 var productsData = [];
 getProducts(endpoint)
   .then((res) => {
+    document.querySelector(".store_page .small-filters button").style.display = "block";
     document.querySelector(".store_page .container_content").style.display =
       "flex";
+      
     document.getElementById("loading").style.display = "none";
 
     // let category = new URLSearchParams(window.location.search).get("category");
@@ -196,13 +203,14 @@ getCategories().then((data) => {
 
   });
 
+
   var category_items = document.querySelectorAll(".category-item");
   category_items.forEach((item) => {
     item.onclick = (e) => {
       e.stopPropagation();
-
+      categoryValue = item.dataset.category;
       getProducts(
-        `http://localhost:3000/api/products?category=${item.dataset.category}`
+        `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
       ).then((res) => {
         productsContainer.innerHTML = "";
         productsLength.innerHTML = res.length;
@@ -248,8 +256,10 @@ category_accordion.forEach(accordion => {
 let ratingSmallFilterElements = document.querySelectorAll(".small-filters .filters .ratings div");
 ratingSmallFilterElements.forEach((ele) => {
   ele.onclick = () => {
+
+    ratingFilterValue = ele.dataset.rating;
     getProducts(
-      `http://localhost:3000/api/products?rating=${ele.dataset.rating}`
+      `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
     ).then((res) => {
       productsContainer.innerHTML = "";
       productsLength.innerHTML = res.length;
@@ -285,8 +295,10 @@ ratingSmallFilterElements.forEach((ele) => {
 let ratingElements = document.querySelectorAll(".main-filters .ratings div");
 ratingElements.forEach((ele) => {
   ele.onclick = () => {
+
+    ratingFilterValue = ele.dataset.rating;
     getProducts(
-      `http://localhost:3000/api/products?rating=${ele.dataset.rating}`
+      `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
     ).then((res) => {
       productsContainer.innerHTML = "";
       productsLength.innerHTML = res.length;
@@ -325,8 +337,11 @@ let priceBtns = document.querySelectorAll(".price button");
 
 priceBtns[0].onclick = () => {
   console.log(priceFrom[0].value, priceTo[0].value);
+
+  priceFromValue = priceFrom[0].value;
+  priceToValue = priceTo[0].value;
   getProducts(
-    `http://localhost:3000/api/products?priceFrom=${priceFrom[0].value}&priceTo=${priceTo[0].value}`
+    `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
   ).then((res) => {
     console.log(res);
     productsContainer.innerHTML = "";
@@ -359,8 +374,11 @@ priceBtns[0].onclick = () => {
 }
 priceBtns[1].onclick = () => {
   console.log(priceFrom[1].value, priceTo[1].value);
+
+  priceFromValue = priceFrom[1].value;
+  priceToValue = priceTo[1].value;
   getProducts(
-    `http://localhost:3000/api/products?priceFrom=${priceFrom[1].value}&priceTo=${priceTo[1].value}`
+    `http://localhost:3000/api/products?category=${categoryValue}&rating=${ratingFilterValue}&priceFrom=${priceFromValue}&priceTo=${priceToValue}`
   ).then((res) => {
     console.log(res);
     productsContainer.innerHTML = "";
