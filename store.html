@@ -1,153 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link rel="stylesheet" href="./ui/styles.css" />
+    <link rel="stylesheet" href="./assets/css/store.css" />
+    <link rel="stylesheet" href="./assets/css/product.css" />
+    <link rel="stylesheet" href="./ui/nav-bar.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Store</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
-  <link rel="stylesheet" href="./ui/styles.css" />
-  <link rel="stylesheet" href="./assets/css/store.css" />
-  <link rel="stylesheet" href="./assets/css/product.css" />
-  <title>Store</title>
-</head>
-
-<body>
-  <header class="header">
-    <div class="header-top">
-      <div class="logo">
-        <h1>Store</h1>
-      </div>
-
-      <div class="search-bar">
-        <input type="text" placeholder="Search Product Here" />
-        <button type="submit">
-          <i class="fa fa-search"></i>
-        </button>
-      </div>
-
-      <div class="header-actions">
-        <div class="wishlist">
-          <a href="./ui/wishlish.html" class="icon-link">
-            <i class="fa fa-heart"></i>
-            <span class="header_badge">0</span>
-            <span>Wishlist</span>
-          </a>
+  <body>
+    <header class="header">
+      <div class="header-top">
+        <div class="logo">
+          <h1>Store</h1>
         </div>
-        <div class="account">
-          <a href="./login&register/login.html" class="icon-link">
-            <i class="fa fa-user"></i>
-            <span>Account</span>
-          </a>
-        </div>
-        <div class="cart">
-          <a href="./ui/cart.html" class="icon-link">
-            <i class="fa fa-shopping-cart"></i>
-            <span class="header_badge">0</span>
-          </a>
-        </div>
-      </div>
-    </div>
 
-    <nav class="header-bottom">
-      <div class="categories-dropdown">
-        <button class="dropdown-btn">
-          Shop Categories
-          <i class="fa fa-chevron-down"></i>
-        </button>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Search Product Here"
+            id="search-input"
+          />
+          <button id="search-btn">
+            <i class="fa fa-search"></i>
+          </button>
+          <div class="search_result"></div>
+        </div>
+
+        <div class="header-actions">
+          <div class="wishlist">
+            <a href="./ui/wishlish.html" class="icon-link">
+              <i class="fa fa-heart"></i>
+              <span class="badge">0</span>
+              <span>Wishlist</span>
+            </a>
+          </div>
+          <div class="account">
+            <a href="./profile/profile.html" class="icon-link">
+              <i class="fa fa-user"></i>
+              <span>Account</span>
+            </a>
+          </div>
+          <div class="cart">
+            <a href="./ui/cart.html" class="icon-link">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge">0</span>
+            </a>
+          </div>
+        </div>
       </div>
-      <ul class="nav-links">
-        <li><a href="#" class="active">HOME</a></li>
-        <li><a href="#">OUR STORE</a></li>
-        <li><a href="#">CONTACT</a></li>
-      </ul>
-    </nav>
-  </header>
-  <!-- HEADER -->
-  <div class="store_page">
-    <div id="loading">
-      <i class="fa-solid fa-spinner fa-spin loading_icon"></i>
-    </div>
-    <div class="small-filters">
-      <button>Filters</button>
-      <div class="filters">
-        <div class="category" id="category-accordion">
-          <div style="
+
+      <nav class="header-bottom">
+        <div class="categories-dropdown">
+          <button class="dropdown-btn" id="dropdown-btn">
+            Shop Categories
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="category-content" id="categoryDropdown"></div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="./ui/home.html">HOME</a></li>
+          <li><a href="#" class="active">OUR STORE</a></li>
+          <li><a href="./contact us/contact.html">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- HEADER -->
+    <div class="store_page">
+      <div id="loading">
+        <i class="fa-solid fa-spinner fa-spin loading_icon"></i>
+      </div>
+      <div class="small-filters">
+        <button>Filters</button>
+        <div class="filters">
+          <div class="category" id="category-accordion">
+            <div
+              style="
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-              ">
-            <h3>Categories</h3>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path d="M3 3L21 21L39 3" stroke="black" stroke-width="4" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div class="categories"></div>
-        </div>
-        <div class="price">
-          <h3>Price</h3>
-          <div class="inputs">
-            <input type="number" class="price-from" name="priceFrom" placeholder="From" />
-            <input type="number" class="price-to" name="priceTo" placeholder="To" />
-          </div>
-          <button>Apply</button>
-        </div>
-        <div class="rating">
-          <h3>Rating</h3>
-          <div class="ratings">
-            <div class="one_star" data-rating="1">
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-            </div>
-            <div class="two_star" data-rating="2">
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-            </div>
-            <div class="three_star" data-rating="3">
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-            </div>
-            <div class="four_star" data-rating="4">
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #646e82"></i>
-            </div>
-            <div class="five_star" data-rating="5">
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-              <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container_content">
-      
-
-      <div class="sidebar-column">
-        <h2>Filter By</h2>
-        <div class="filters">
-          <div class="category" id="category-accordion">
-            <div style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                ">
+              "
+            >
               <h3>Categories</h3>
               <svg width="15" height="10" viewBox="0 0 42 25">
-                <path d="M3 3L21 21L39 3" stroke="black" stroke-width="4" stroke-linecap="round" />
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="black"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                />
               </svg>
             </div>
             <div class="categories"></div>
@@ -155,8 +104,18 @@
           <div class="price">
             <h3>Price</h3>
             <div class="inputs">
-              <input type="number" class="price-from" name="priceFrom" placeholder="From" />
-              <input type="number" class="price-to" name="priceTo" placeholder="To" />
+              <input
+                type="number"
+                class="price-from"
+                name="priceFrom"
+                placeholder="From"
+              />
+              <input
+                type="number"
+                class="price-to"
+                name="priceTo"
+                placeholder="To"
+              />
             </div>
             <button>Apply</button>
           </div>
@@ -202,79 +161,203 @@
           </div>
         </div>
       </div>
-      <div class="products-list-column">
-        <div class="">
-          <div class="heading">
-            <h3 style="margin-right: 5px">Sort By:</h3>
-            <select class="form-select">
-              <option>Open this select menu</option>
-              <option value="1">Alphabetically, A-Z</option>
-              <option value="1">Alphabetically, Z-A</option>
-              <option value="2">Price, high to low</option>
-              <option value="2">Price, low to high</option>
-              <option value="3">Created, old to new</option>
-              <option value="3">Created, new to old</option>
-            </select>
-            <p class="product-count"><span>20</span> product</p>
+      <div class="container_content">
+        <div class="sidebar-column">
+          <h2>Filter By</h2>
+          <div class="filters">
+            <div class="category" id="category-accordion">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <h3>Categories</h3>
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                  <path
+                    d="M3 3L21 21L39 3"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="categories"></div>
+            </div>
+            <div class="price">
+              <h3>Price</h3>
+              <div class="inputs">
+                <input
+                  type="number"
+                  class="price-from"
+                  name="priceFrom"
+                  placeholder="From"
+                />
+                <input
+                  type="number"
+                  class="price-to"
+                  name="priceTo"
+                  placeholder="To"
+                />
+              </div>
+              <button>Apply</button>
+            </div>
+            <div class="rating">
+              <h3>Rating</h3>
+              <div class="ratings">
+                <div class="one_star" data-rating="1">
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                </div>
+                <div class="two_star" data-rating="2">
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                </div>
+                <div class="three_star" data-rating="3">
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                </div>
+                <div class="four_star" data-rating="4">
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #646e82"></i>
+                </div>
+                <div class="five_star" data-rating="5">
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                  <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="products-list"></div>
-          <div class="pagination"></div>
+        </div>
+        <div class="products-list-column">
+          <div class="">
+            <div class="heading">
+              <h3 style="margin-right: 5px">Sort By:</h3>
+              <select class="form-select">
+                <option>Open this select menu</option>
+                <option value="1">Alphabetically, A-Z</option>
+                <option value="1">Alphabetically, Z-A</option>
+                <option value="2">Price, high to low</option>
+                <option value="2">Price, low to high</option>
+                <option value="3">Created, old to new</option>
+                <option value="3">Created, new to old</option>
+              </select>
+              <p class="product-count"><span>20</span> product</p>
+            </div>
+            <div class="products-list"></div>
+            <div class="pagination"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Footer Section -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <p>Demo Store</p>
-        <p>NO. 12459 Freedom, New York, 1111</p>
-        <p>United States</p>
-        <p>tel: +201554138144</p>
-        <p>Email: kameladel339@gmail.com</p>
-      </div>
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Demo Store</p>
+          <p>NO. 12459 Freedom, New York, 1111</p>
+          <p>United States</p>
+          <p>tel: +201554138144</p>
+          <p>Email: kameladel339@gmail.com</p>
+        </div>
 
-      <div class="footer-section">
-        <h3>Information</h3>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Refund Policy</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Terms of Services</a></li>
-          <li><a href="#">Blogs</a></li>
-        </ul>
-      </div>
+        <div class="footer-section">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Terms of Services</a></li>
+            <li><a href="#">Blogs</a></li>
+          </ul>
+        </div>
 
-      <div class="footer-section">
-        <h3>Account</h3>
-        <ul>
-          <li><a href="#">Search</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Size Chart</a></li>
-        </ul>
-      </div>
+        <div class="footer-section">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Size Chart</a></li>
+          </ul>
+        </div>
 
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#">Accessories</a></li>
-          <li><a href="#">Laptops</a></li>
-          <li><a href="#">Headphones</a></li>
-          <li><a href="#">Smart Watches</a></li>
-          <li><a href="#">Tablets</a></li>
-        </ul>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Laptops</a></li>
+            <li><a href="#">Headphones</a></li>
+            <li><a href="#">Smart Watches</a></li>
+            <li><a href="#">Tablets</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2024, Digitic Designed by adel-el3raky</p>
-    </div>
-  </footer>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="https://kit.fontawesome.com/85c5dfec3f.js" crossorigin="anonymous"></script>
-  <script type="module" src="./assets/js/store.js"></script>
-</body>
+      <div class="footer-bottom">
+        <p>© 2024, Digitic Designed by adel-el3raky</p>
+      </div>
+    </footer>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/85c5dfec3f.js"
+      crossorigin="anonymous"
+    ></script>
 
+    <script>
+      let searchInput = document.getElementById("search-input");
+      let searchBtn = document.getElementById("search-btn");
+      let search_result = document.querySelector(".search_result");
+      searchBtn.onclick = () => {
+        if (!searchInput.value.match(/[a-zA-Z]{3,}/)) {
+          return;
+        } else {
+          console.log(searchInput.value);
+          fetch(
+            `http://localhost:3000/api/search/products?title=${searchInput.value}`
+          ).then(async (res) => {
+            search_result.innerHTML = "";
+            let data = await res.json();
+            search_result.style.display = "flex";
+            data.forEach((product) => {
+              let { thumbnail, title, price, _id } = product;
+              let row = document.createElement("a");
+              row.href = `/product_details.html?id=${_id}`;
+              row.innerHTML = `<img src="${thumbnail}" alt="">
+
+                            <div class="title">${title}</div>
+                            <div class="price">$${price}</div>
+                          `;
+
+              search_result.appendChild(row);
+            });
+            console.log(search_result);
+            console.log(data);
+          });
+        }
+      };
+    </script>
+    <script type="module" src="./assets/js/store.js"></script>
+    <script src="./assets/js/nav-bar.js"></script>
+  </body>
 </html>
