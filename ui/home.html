@@ -131,9 +131,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
           <div
             class="col-span-2 lg:col-span-1 xl:pr-12 text-center lg:text-start"
           >
-            <h2 class="text-3xl font-bold md:text-[70px] leading-none mb-6">
-              Don’t be slow! Our prices are low.
-            </h2>
+            <h2
+              class="text-3xl font-bold md:text-[70px] leading-none mb-6"
+            ></h2>
             <p class="text-[22px] leading-normal opacity-80">
               Everything you need—on a budget.
             </p>
@@ -296,6 +296,19 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.15.3/dist/sweetalert2.min.css
           });
         }
       };
+      const text = "Don’t be slow! Our prices are low.";
+      const textElement = document.querySelector(".container h2");
+      let index = 0;
+
+      function typeLetterByLetter() {
+        if (index < text.length) {
+          textElement.textContent += text[index];
+          index++;
+          setTimeout(typeLetterByLetter, 60);
+        }
+      }
+
+      typeLetterByLetter();
     </script>
   </body>
   <!-- <script src="temp.js"></script> -->
